@@ -17,7 +17,7 @@ def reverseTurn():
 def main(speed):
     while True:
         pi2go.forward(speed)
-        print(f"Moving forward at speed: {speed}")
+        print("Moving forward at speed: %s" (speed))
         sleep(3)
         if pi2go.irAll():
             print("Detected a wall! moving back and turning.")
