@@ -7,6 +7,7 @@
 import pi2go
 from time import sleep
 
+
 def reverseTurn(speed):
     pi2go.reverse(10)
     sleep(2)
@@ -26,6 +27,7 @@ def main():
 
 
 if __name__ == '__main__':
+    pi2go.init()
     try:
         main()
     except:
