@@ -8,17 +8,19 @@ import pi2go
 from time import sleep
 
 
-def reverseTurn(speed):
+def reverseTurn():
     pi2go.reverse(10)
     sleep(2)
     pi2go.go(50,-50)
     sleep(5)
 
-def main():
+def main(speed):
     while True:
-        pi2go.forward(50)
+        pi2go.forward(speed)
+        print(f"Moving forward at speed: {speed}")
         sleep(3)
         if pi2go.irAll():
+            print("Detected a wall! moving back and turning.")
             pi2go.go(0)
             reverseTurn()
         else:
@@ -29,6 +31,6 @@ def main():
 if __name__ == '__main__':
     pi2go.init()
     try:
-        main()
+        main(50)
     except:
         pi2go.cleanup()
