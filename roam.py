@@ -19,7 +19,15 @@ def main(speed):
         pi2go.forward(speed)
         print("Moving forward at speed: %s" (speed))
         sleep(3)
-        if pi2go.irAll():
+        if pi2go.irCentre():
+            print("Detected a wall! moving back and turning.")
+            pi2go.go(0)
+            reverseTurn()
+        elif pi2go.irLeft():
+            print("Detected a wall! moving back and turning.")
+            pi2go.go(0)
+            reverseTurn()
+        elif pi2go.irRight():
             print("Detected a wall! moving back and turning.")
             pi2go.go(0)
             reverseTurn()
