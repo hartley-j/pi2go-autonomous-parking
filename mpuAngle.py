@@ -51,7 +51,7 @@ try:
 
         gyroscope_xout = read_word_2c(0x43)
         gyroscope_yout = read_word_2c(0x45)
-        gyroscope_zout = read_word_2c(0x48)
+        gyroscope_zout = read_word_2c(0x47)
 
         # print("gyroscope_xout: ", ("%5d" % gyroscope_xout), " scaled: ", (gyroscope_xout / 131))
         # print("gyroscope_yout: ", ("%5d" % gyroscope_yout), " scaled: ", (gyroscope_yout / 131))
