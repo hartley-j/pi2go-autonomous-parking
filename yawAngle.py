@@ -41,5 +41,6 @@ if __name__ == '__main__':
         while True:
             sleep(1)
             angle += read_word_2c(0x47)
+            print(angle)
     except KeyboardInterrupt:
         print("shutting down")
