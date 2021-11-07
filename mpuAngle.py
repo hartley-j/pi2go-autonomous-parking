@@ -45,6 +45,11 @@ def get_x_rotation(x, y, z):
     return math.degrees(radians)
 
 
+def get_z_rotation(x, y):
+    radians = math.atan2(x, y)
+    return math.degrees(radians)
+
+
 bus = smbus.SMBus(1)
 address = 0x68  # via i2cdetect
 
@@ -58,9 +63,9 @@ gyroscope_xout = read_word_2c(0x43)
 gyroscope_yout = read_word_2c(0x45)
 gyroscope_zout = read_word_2c(0x47)
 
-print("gyroscope_xout: ", ("%5d" % gyroscope_xout), " skaliert: ", (gyroscope_xout / 131))
-print("gyroscope_yout: ", ("%5d" % gyroscope_yout), " skaliert: ", (gyroscope_yout / 131))
-print("gyroscope_zout: ", ("%5d" % gyroscope_zout), " skaliert: ", (gyroscope_zout / 131))
+print("gyroscope_xout: ", ("%5d" % gyroscope_xout), " scaled: ", (gyroscope_xout / 131))
+print("gyroscope_yout: ", ("%5d" % gyroscope_yout), " scaled: ", (gyroscope_yout / 131))
+print("gyroscope_zout: ", ("%5d" % gyroscope_zout), " scaled: ", (gyroscope_zout / 131))
 
 print("Accelerometer")
 print("---------------------")
@@ -79,3 +84,4 @@ print("acceleration_zout: ", ("%6d" % accelerometer_zout), " scaled: ", accelero
 
 print("X Rotation: ", get_x_rotation(accelerometer_xout_scaled, accelerometer_yout_scaled, accelerometer_zout_scaled))
 print("Y Rotation: ", get_y_rotation(accelerometer_xout_scaled, accelerometer_yout_scaled, accelerometer_zout_scaled))
+print("Z Rotation: ", get_y_rotation(accelerometer_xout_scaled, accelerometer_yout_scaled))
