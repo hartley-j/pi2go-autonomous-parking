@@ -32,20 +32,6 @@ def read_word_2c(reg):
         return val
 
 
-def dist(a, b):
-    return math.sqrt((a * a) + (b * b))
-
-
-def get_y_rotation(x, y, z):
-    radians = math.atan2(x, dist(y, z))
-    return -math.degrees(radians)
-
-
-def get_x_rotation(x, y, z):
-    radians = math.atan2(y, dist(x, z))
-    return math.degrees(radians)
-
-
 def get_z_rotation(x, y):
     radians = math.atan2(y, x)
     return math.degrees(radians)
@@ -69,7 +55,7 @@ try:
 
         # print("gyroscope_xout: ", ("%5d" % gyroscope_xout), " scaled: ", (gyroscope_xout / 131))
         # print("gyroscope_yout: ", ("%5d" % gyroscope_yout), " scaled: ", (gyroscope_yout / 131))
-        # print("gyroscope_zout: ", ("%5d" % gyroscope_zout), " scaled: ", (gyroscope_zout / 131))
+        print("gyroscope_zout: ", ("%5d" % gyroscope_zout), " scaled: ", (gyroscope_zout / 131))
 
         # print("Accelerometer")
         # print("---------------------")
