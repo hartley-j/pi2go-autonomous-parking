@@ -40,7 +40,8 @@ if __name__ == '__main__':
     try:
         while True:
             sleep(1)
-            angle += read_word_2c(0x47)
-            print(angle)
+            dz = read_word_2c(0x47) / 131
+            angle += dz
+            print("change of angle: ", ("%5d" % dz), "angle: ", angle)
     except KeyboardInterrupt:
         print("shutting down")
