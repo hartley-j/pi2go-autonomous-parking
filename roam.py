@@ -21,15 +21,15 @@ def main(speed):
         sleep(3)
         if pi2go.irCentre():
             print("Detected a wall! moving back and turning.")
-            pi2go.go(0)
+            pi2go.go(0,0)
             reverseTurn()
         elif pi2go.irLeft():
             print("Detected a wall! moving back and turning.")
-            pi2go.go(0)
+            pi2go.go(0,0)
             reverseTurn()
         elif pi2go.irRight():
             print("Detected a wall! moving back and turning.")
-            pi2go.go(0)
+            pi2go.go(0,0)
             reverseTurn()
         else:
             pass
