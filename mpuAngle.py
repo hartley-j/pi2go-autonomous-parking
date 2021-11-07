@@ -47,7 +47,7 @@ def get_x_rotation(x, y, z):
 
 
 def get_z_rotation(x, y):
-    radians = math.atan2(x, y)
+    radians = math.atan2(y, x)
     return math.degrees(radians)
 
 
