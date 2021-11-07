@@ -90,7 +90,7 @@ try:
         #       get_x_rotation(accelerometer_xout_scaled, accelerometer_yout_scaled, accelerometer_zout_scaled))
         # print("Y Rotation: ",
         #       get_y_rotation(accelerometer_xout_scaled, accelerometer_yout_scaled, accelerometer_zout_scaled))
-        print("Z Rotation: ", get_z_rotation(accelerometer_xout_scaled, accelerometer_yout_scaled))
+        print("Z Rotation: ", accelerometer_zout_scaled)
 
         sleep(1)
 except KeyboardInterrupt:
