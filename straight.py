@@ -8,6 +8,7 @@ import pi2go
 from icm20948 import ICM20948
 import math
 from simple_pid import PID
+from time import sleep
 
 
 class Heading:
@@ -17,10 +18,10 @@ class Heading:
         self.imu = ICM20948()
         self.axes = 1, 2
 
-        pi2go.go(-50, 50)
-
+        pi2go.spinRight(50)
         self.amin = list(self.imu.read_magnetometer_data())
         self.amax = list(self.imu.read_magnetometer_data())
+        pi2go.go(0, 0)
 
     def getMag(self):
 
@@ -62,7 +63,7 @@ class RobotForward:
         self.heading = Heading()
         self.initHeading = self.heading.heading()
 
-    def update(self, val, speed=30):
+    def update(self, val, speed=50):
         if val != 0:
             pi2go.go(speed, (speed + val))
 
