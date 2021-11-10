@@ -64,7 +64,11 @@ class Heading:
 class RobotForward:
 
     def __init__(self):
-        pi2go.init()
+
+        try:
+            pi2go.init()
+        except RuntimeError:
+            pass
 
         self.heading = Heading()
         self.initHeading = self.heading.heading()
