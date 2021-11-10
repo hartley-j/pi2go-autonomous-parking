@@ -73,8 +73,8 @@ class RobotForward:
 
 def reverseTurn():
     pi2go.reverse(30)
-    pi2go.spinRight(40)
-    sleep(1)
+    sleep(0.5)
+    pi2go.spinRight(30)
     pi2go.go(0, 0)
 
 
@@ -89,9 +89,18 @@ def main():
         while True:
 
             currentHeading = head.heading()
-            sensorVals = [pi2go.irCentre(), pi2go.irLeft(), pi2go.irRight()]
 
-            if True in sensorVals:
+            if pi2go.irCentre():
+                print("Detected a wall! moving back and turning.")
+                pi2go.go(0, 0)
+                reverseTurn()
+                pid.setpoint = head.heading()
+            elif pi2go.irLeft():
+                print("Detected a wall! moving back and turning.")
+                pi2go.go(0, 0)
+                reverseTurn()
+                pid.setpoint = head.heading()
+            elif pi2go.irRight():
                 print("Detected a wall! moving back and turning.")
                 pi2go.go(0, 0)
                 reverseTurn()
