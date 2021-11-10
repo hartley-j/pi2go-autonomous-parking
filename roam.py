@@ -74,7 +74,7 @@ class RobotForward:
 def reverseTurn():
     pi2go.reverse(30)
     pi2go.spinRight(40)
-    sleep(randrange(0, 2, 0.1))
+    sleep(1)
     pi2go.go(0, 0)
 
 
