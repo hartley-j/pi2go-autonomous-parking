@@ -17,8 +17,11 @@ class Heading:
 
         self.imu = ICM20948()
         self.axes = 1, 2
+
+        pi2go.spinRight(50)
         self.amin = list(self.imu.read_magnetometer_data())
         self.amax = list(self.imu.read_magnetometer_data())
+        pi2go.go(0, 0)
 
     def getMag(self):
 
@@ -57,20 +60,18 @@ class Heading:
 class RobotForward:
 
     def __init__(self):
-        pi2go.init()
-
         self.heading = Heading()
         self.initHeading = self.heading.heading()
 
-    def update(self, val, speed=20):
+    def update(self, val, speed=50):
         if val != 0:
-            pi2go.go(speed, speed + val)
+            pi2go.go(speed, (speed + val))
 
         return self.heading.heading()
 
 
 def reverseTurn():
-    pi2go.reverse(10)
+    pi2go.reverse(30)
     sleep(2)
     pi2go.go(50, -50)
     sleep(5)
