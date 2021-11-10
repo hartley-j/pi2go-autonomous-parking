@@ -17,13 +17,8 @@ class Heading:
         self.imu = ICM20948()
         self.axes = 1, 2
 
-        try:
-            pi2go.init()
-        except ImportError or RuntimeError:
-            pass
-        finally:
-            pi2go.go(-50, 50)
-            pi2go.cleanup()
+        pi2go.go(-50, 50)
+        pi2go.cleanup()
 
         self.amin = list(self.imu.read_magnetometer_data())
         self.amax = list(self.imu.read_magnetometer_data())
@@ -65,12 +60,6 @@ class Heading:
 class RobotForward:
 
     def __init__(self):
-
-        try:
-            pi2go.init()
-        except RuntimeError:
-            pass
-
         self.heading = Heading()
         self.initHeading = self.heading.heading()
 
@@ -101,4 +90,5 @@ def main():
 
 
 if __name__ == '__main__':
+    pi2go.init()
     main()
