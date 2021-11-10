@@ -9,6 +9,7 @@ from time import sleep
 from icm20948 import ICM20948
 import math
 from simple_pid import PID
+from random import randrange
 
 
 class Heading:
@@ -74,7 +75,8 @@ def reverseTurn():
     pi2go.reverse(30)
     sleep(2)
     pi2go.go(50, -50)
-    sleep(5)
+    sleep(randrange(0, 2, 0.1))
+    pi2go.go(0, 0)
 
 
 def main():
@@ -90,16 +92,19 @@ def main():
             currentHeading = head.heading()
 
             if pi2go.irCentre():
+                sleep(2)
                 print("Detected a wall! moving back and turning.")
                 pi2go.go(0, 0)
                 reverseTurn()
                 pid.setpoint = head.heading()
             elif pi2go.irLeft():
+                sleep(2)
                 print("Detected a wall! moving back and turning.")
                 pi2go.go(0, 0)
                 reverseTurn()
                 pid.setpoint = head.heading()
             elif pi2go.irRight():
+                sleep(2)
                 print("Detected a wall! moving back and turning.")
                 pi2go.go(0, 0)
                 reverseTurn()
