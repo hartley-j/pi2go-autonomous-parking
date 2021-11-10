@@ -5,7 +5,6 @@
 # ****************************************************
 
 import pi2go
-from time import sleep
 from icm20948 import ICM20948
 import math
 from simple_pid import PID
@@ -27,8 +26,6 @@ class Heading:
 
         self.amin = list(self.imu.read_magnetometer_data())
         self.amax = list(self.imu.read_magnetometer_data())
-
-
 
     def getMag(self):
 
@@ -80,10 +77,8 @@ class RobotForward:
 
 
 def main():
-
     head = Heading()
     rob = RobotForward()
-
 
     pid = PID(1, 0.1, 0, setpoint=rob.initHeading)
     pid.output_limits = (-50, 50)
@@ -94,7 +89,7 @@ def main():
 
             correction = pid(currentHeading)
             rob.update(val=correction)
-    except:
+    except KeyboardInterrupt:
         pass
     finally:
         pi2go.cleanup()
