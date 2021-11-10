@@ -63,9 +63,9 @@ class RobotForward:
         self.heading = Heading()
         self.initHeading = self.heading.heading()
 
-    def update(self, val, speed=20):
+    def update(self, val, speed=30):
         if val != 0:
-            pi2go.go(speed, speed + val)
+            pi2go.go(speed, (speed + val))
 
         return self.heading.heading()
 
