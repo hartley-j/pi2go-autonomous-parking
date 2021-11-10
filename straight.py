@@ -18,7 +18,6 @@ class Heading:
         self.axes = 1, 2
 
         pi2go.go(-50, 50)
-        pi2go.cleanup()
 
         self.amin = list(self.imu.read_magnetometer_data())
         self.amax = list(self.imu.read_magnetometer_data())
