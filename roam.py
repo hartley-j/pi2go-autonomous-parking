@@ -89,6 +89,7 @@ def main():
         while True:
 
             currentHeading = head.heading()
+            print("heading = ", currentHeading)
 
             if pi2go.irCentre():
                 print("Detected a wall! moving back and turning.")
@@ -107,6 +108,7 @@ def main():
                 pid.setpoint = head.heading()
             else:
                 correction = pid(currentHeading)
+                print("making correction of: ", correction)
                 rob.update(val=correction)
     except:
         pass
