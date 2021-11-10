@@ -21,7 +21,7 @@ class Heading:
             pi2go.init()
             pi2go.go(-50, 50)
             pi2go.cleanup()
-        except ModuleNotFoundError or RuntimeError:
+        except ImportError or RuntimeError:
             pass
 
         self.amin = list(self.imu.read_magnetometer_data())
