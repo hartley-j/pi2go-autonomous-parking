@@ -84,7 +84,6 @@ def main():
 
     pid = PID(1, 0.1, 0, setpoint=rob.initHeading)
     pid.output_limits = (-50, 50)
-    pid.sample_time = 0.1
 
     try:
         while True:
