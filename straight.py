@@ -10,14 +10,25 @@ from icm20948 import ICM20948
 import math
 from simple_pid import PID
 
+
 class Heading:
 
     def __init__(self):
 
         self.imu = ICM20948()
         self.axes = 1, 2
+
+        try:
+            pi2go.init()
+            pi2go.go(-50, 50)
+            pi2go.cleanup()
+        except ModuleNotFoundError:
+            pass
+
         self.amin = list(self.imu.read_magnetometer_data())
         self.amax = list(self.imu.read_magnetometer_data())
+
+
 
     def getMag(self):
 
@@ -67,9 +78,12 @@ class RobotForward:
 
         return self.heading.heading()
 
+
 def main():
-    rob = RobotForward()
+
     head = Heading()
+    rob = RobotForward()
+
 
     pid = PID(1, 0.1, 0, setpoint=rob.initHeading)
     pid.output_limits = (-50, 50)
