@@ -10,6 +10,7 @@ from icm20948 import ICM20948
 import math
 from simple_pid import PID
 import ast
+import random
 
 
 class Heading:
@@ -92,7 +93,7 @@ def reverseTurn():
     pi2go.reverse(50)
     sleep(0.5)
     pi2go.spinRight(30)
-    sleep(1)
+    sleep(random.randrange(1, 4))
     pi2go.go(0, 0)
 
 
