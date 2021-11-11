@@ -92,7 +92,7 @@ def main():
 
             currentHeading = head.heading()
 
-            if pi2go.irCentre():
+            if pi2go.getDistance() < 3 and pi2go.irCentre():
                 print("Detected a wall! moving back and turning.")
                 sleep(0.3)
                 pi2go.go(0, 0)
