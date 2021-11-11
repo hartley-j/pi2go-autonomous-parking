@@ -16,6 +16,7 @@ class Heading:
 
     def __init__(self):
 
+        global FileNotFoundError
         self.imu = ICM20948()
         self.axes = 1, 2
 
