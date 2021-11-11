@@ -24,7 +24,6 @@ class Heading:
         self.amax = list(self.imu.read_magnetometer_data())
         pi2go.go(0, 0)
 
-
     def getMag(self):
 
         mag = list(self.imu.read_magnetometer_data())
