@@ -24,6 +24,7 @@ class Heading:
         self.amax = list(self.imu.read_magnetometer_data())
         pi2go.go(0, 0)
 
+
     def getMag(self):
 
         mag = list(self.imu.read_magnetometer_data())
@@ -60,8 +61,8 @@ class Heading:
 
 class RobotForward:
 
-    def __init__(self):
-        self.heading = Heading()
+    def __init__(self, heading: object):
+        self.heading = heading
         self.initHeading = self.heading.heading()
 
     def update(self, val, speed=50):
@@ -72,15 +73,17 @@ class RobotForward:
 
 
 def reverseTurn():
-    pi2go.reverse(30)
+    sleep(1)
+    pi2go.reverse(50)
     sleep(0.5)
     pi2go.spinRight(30)
+    sleep(1)
     pi2go.go(0, 0)
 
 
 def main():
-    rob = RobotForward()
     head = Heading()
+    rob = RobotForward(head)
 
     pid = PID(1, 0.1, 0, setpoint=rob.initHeading)
     pid.output_limits = (-50, 50)
@@ -89,7 +92,6 @@ def main():
         while True:
 
             currentHeading = head.heading()
-            print("heading = ", currentHeading)
 
             if pi2go.irCentre():
                 print("Detected a wall! moving back and turning.")
@@ -108,7 +110,6 @@ def main():
                 pid.setpoint = head.heading()
             else:
                 correction = pid(currentHeading)
-                print("making correction of: ", correction)
                 rob.update(val=correction)
     except:
         pass
