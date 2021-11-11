@@ -32,8 +32,8 @@ class Heading:
 
                 read = ast.literal_eval(read)
 
-                self.amax = float(read[0][len(read[0] - 1)])
-                self.amin = float(read[1][len(read[1] - 1)])
+                self.amax = float(read[0][len(read[0]) - 1])
+                self.amin = float(read[1][len(read[1]) - 1])
         except FileNotFoundError:
             self.amax = self.imu.read_magnetometer_data()
             self.amin = self.imu.read_magnetometer_data()
