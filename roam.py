@@ -73,7 +73,6 @@ class RobotForward:
 
 
 def reverseTurn():
-    sleep(1)
     pi2go.reverse(50)
     sleep(0.5)
     pi2go.spinRight(30)
@@ -95,6 +94,7 @@ def main():
 
             if pi2go.irCentre():
                 print("Detected a wall! moving back and turning.")
+                sleep(2)
                 pi2go.go(0, 0)
                 reverseTurn()
                 pid.setpoint = head.heading()
