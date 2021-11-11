@@ -32,7 +32,7 @@ class Heading:
 
                 read = ast.literal_eval(read)
                 for i in range(len(read)):
-                    for l in range(len(i)):
+                    for l in range(len(read[i])):
                         read[i][l] = float(read[i][l])
 
                 self.amax = read[0]
