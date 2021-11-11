@@ -61,7 +61,7 @@ class Heading:
 
 class RobotForward:
 
-    def __init__(self, heading: object):
+    def __init__(self, heading):
         self.heading = heading
         self.initHeading = self.heading.heading()
 
