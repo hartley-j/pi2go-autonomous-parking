@@ -19,10 +19,21 @@ class Heading:
         self.imu = ICM20948()
         self.axes = 1, 2
 
-        pi2go.spinRight(50)
-        self.amin = list(self.imu.read_magnetometer_data())
-        self.amax = list(self.imu.read_magnetometer_data())
-        pi2go.go(0, 0)
+        try:
+            FileNotFoundError
+        except NameError:
+            FileNotFoundError = IOError
+
+        try:
+            with open("calibrate.txt", "r") as f:
+                read = f.readline()
+                read.split(',')
+
+                self.amax = read[0]
+                self.amin = read[1]
+        except FileNotFoundError:
+            self.amax = self.imu.read_magnetometer_data()
+            self.amin = self.imu.read_magnetometer_data()
 
     def getMag(self):
 
