@@ -94,17 +94,19 @@ def main():
 
             if pi2go.irCentre():
                 print("Detected a wall! moving back and turning.")
-                sleep(2)
+                sleep(1)
                 pi2go.go(0, 0)
                 reverseTurn()
                 pid.setpoint = head.heading()
             elif pi2go.irLeft():
                 print("Detected a wall! moving back and turning.")
+                sleep(1)
                 pi2go.go(0, 0)
                 reverseTurn()
                 pid.setpoint = head.heading()
             elif pi2go.irRight():
                 print("Detected a wall! moving back and turning.")
+                sleep(1)
                 pi2go.go(0, 0)
                 reverseTurn()
                 pid.setpoint = head.heading()
