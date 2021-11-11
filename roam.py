@@ -31,7 +31,6 @@ class Heading:
                 read.split(',')
 
                 read = ast.literal_eval(read)
-                read = [n.strip() for n in read]
 
                 self.amax = float(read[0][len(read[0] - 1)])
                 self.amin = float(read[1][len(read[1] - 1)])
