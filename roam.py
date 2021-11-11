@@ -9,7 +9,7 @@ from time import sleep
 from icm20948 import ICM20948
 import math
 from simple_pid import PID
-from random import randrange
+import ast
 
 
 class Heading:
@@ -30,8 +30,11 @@ class Heading:
                 read = f.readline()
                 read.split(',')
 
-                self.amax = float(read[0])
-                self.amin = float(read[1])
+                read = ast.literal_eval(read)
+                read = [n.strip() for n in read]
+
+                self.amax = float(read[0][len(read[0] - 1)])
+                self.amin = float(read[1][len(read[1] - 1)])
         except FileNotFoundError:
             self.amax = self.imu.read_magnetometer_data()
             self.amin = self.imu.read_magnetometer_data()
