@@ -72,4 +72,4 @@ def main(file):
 
 
 if __name__ == '__main__':
-    main("calibrate.txt")
+    main("../calibrate.txt")
