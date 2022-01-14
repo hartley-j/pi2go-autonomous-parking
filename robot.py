@@ -5,7 +5,7 @@
 # ****************************************************
 
 import pi2go
-from heading import compassHeading
+from packages.heading import compassHeading
 from time import sleep
 
 

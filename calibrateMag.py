@@ -6,9 +6,10 @@
 
 from icm20948 import ICM20948
 import math
-from ... import pi2go
 from time import sleep
-from ... import heading
+
+import pi2go
+from packages.heading import compassHeading
 
 
 def main(file):
@@ -28,4 +29,4 @@ def main(file):
 
 
 if __name__ == '__main__':
-    main("../calibrate.txt")
+    main("calibrate.txt")

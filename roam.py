@@ -11,7 +11,7 @@ import math
 from simple_pid import PID
 import ast
 import random
-from heading import compassHeading
+from packages.heading import compassHeading
 from robot import Robot
 
 
