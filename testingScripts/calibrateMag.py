@@ -6,9 +6,9 @@
 
 from icm20948 import ICM20948
 import math
-import pi2go
+from ... import pi2go
 from time import sleep
-from heading import compassHeading
+from ... import heading
 
 
 def main(file):
