@@ -9,7 +9,7 @@ import math
 from icm20948 import ICM20948
 import ast
 
-class compassHeading:
+class CompassHeading:
 
     def __init__(self):
 
@@ -74,7 +74,7 @@ class compassHeading:
 
 if __name__ == '__main__':
     try:
-        heading = compassHeading()
+        heading = CompassHeading()
         while True:
             print("Current heading: %s" %(heading.getHeading()))
 

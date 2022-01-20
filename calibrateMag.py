@@ -4,17 +4,15 @@
 # Description: Calibrates mag sensor
 # ****************************************************
 
-from icm20948 import ICM20948
-import math
 from time import sleep
 
 import pi2go
-from packages.heading import compassHeading
+from heading import CompassHeading
 
 
 def main(file):
     pi2go.init()
-    head = compassHeading()
+    head = CompassHeading()
 
     for i in range(50):
         pi2go.spinRight(50)

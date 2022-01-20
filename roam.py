@@ -6,12 +6,9 @@
 
 import pi2go
 from time import sleep
-from icm20948 import ICM20948
-import math
 from simple_pid import PID
-import ast
 import random
-from packages.heading import compassHeading
+from heading import CompassHeading
 from robot import Robot
 
 
@@ -27,7 +24,7 @@ def reverseTurn():
 
 
 def main():
-    head = compassHeading()
+    head = CompassHeading()
     rob = Robot()
 
     pid = PID(1, 0.1, 0, setpoint=rob.initHeading)
