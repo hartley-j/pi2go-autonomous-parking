@@ -17,6 +17,9 @@ class Robot:
         self.heading = CompassHeading()
         self.initHeading = self.heading.getHeading()
 
+    def __del__(self):
+        pi2go.cleanup()
+
     def forward(self, speed):
         heading = self.heading.getHeading()
 

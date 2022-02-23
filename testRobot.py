@@ -7,7 +7,6 @@
 import robot
 from time import sleep
 
-@robot.handleExceptions
 def main():
     rob = robot.Robot()
 
@@ -16,6 +15,8 @@ def main():
         sleep(2)
         rob.stop()
         rob.spin(90)
+
+    del rob
 
 if __name__ == '__main__':
     main()
