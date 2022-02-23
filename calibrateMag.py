@@ -17,7 +17,7 @@ def main(file):
     for i in range(50):
         pi2go.spinRight(50)
         sleep(1)
-        print(head.heading())
+        print(head.getHeading())
 
     amax = head.amax
     amin = head.amin

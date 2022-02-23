@@ -3,6 +3,7 @@
 # Creater: Joe
 # Description: uses icm20948 sensor to find the heading that board is currently facing.
 #              Requres calibrate.txt to calibrate sensor readings
+#              NOTE: THIS FILE CONTAINS SOURCE CODE FROM AN ONLINE RESOURCE TO DEAL WITH THE DATA
 # ****************************************************
 
 import math
