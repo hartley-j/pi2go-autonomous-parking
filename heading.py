@@ -24,7 +24,7 @@ class CompassHeading:
             FileNotFoundError = IOError
 
         try:
-            with open("../calibrate.txt", "r") as f:
+            with open("calibrate.txt", "r") as f:
                 read = f.readline()
                 read.split(',')
 
