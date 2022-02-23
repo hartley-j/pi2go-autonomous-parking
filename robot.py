@@ -94,6 +94,7 @@ def handleExceptions(func):
         except Exception as e:
             print('Unable to run due to following exception:')
             print(e)
+            exit()
         finally:
             pi2go.cleanup()
     return wrapper
