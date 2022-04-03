@@ -1,0 +1,6 @@
+pi2go.py
+motorTest.py
+pca9685.py
+sgh_PCF8591P.py
+**/__pycache__/
+**/servod
