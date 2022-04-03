@@ -74,6 +74,7 @@ class Robot:
     def rotateAngle(self,deg,currenthead,speed=20):
 
         head = currenthead + deg
+        print("head=", head)
 
         if head > 360:
             head -= 360
@@ -85,6 +86,7 @@ class Robot:
         while currenthead != head:
             sleep(0.001)
             currenthead = self.heading.getHeading()
+            print("current heading is:", currenthead)
 
         pi2go.go(0,0)
 
