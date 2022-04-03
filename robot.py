@@ -80,8 +80,9 @@ class Robot:
         elif head < 0:
             head += 360
 
+        pi2go.spinRight(speed)
+
         while currenthead != head:
-            pi2go.spinRight(speed)
             sleep(0.001)
             currenthead = self.heading.getHeading()
 
