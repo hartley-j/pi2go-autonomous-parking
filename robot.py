@@ -78,12 +78,12 @@ class Robot:
         if head > currenthead:
             while currenthead != head:
                 pi2go.spinLeft(speed)
-                sleep(0.2)
+                sleep(0.01)
                 currenthead = self.heading.getHeading()
         elif head < currenthead:
             while currenthead != head:
                 pi2go.spinRight(speed)
-                sleep(0.2)
+                sleep(0.01)
                 currenthead = self.heading.getHeading()
         else:
             pi2go.go(0,0)
