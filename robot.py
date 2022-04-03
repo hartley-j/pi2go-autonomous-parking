@@ -71,22 +71,21 @@ class Robot:
             degreestoturn = deg - (nspin * 360)
             self.rotateAngle(degreestoturn, currenthead)
 
-    def rotateAngle(self,deg,currenthead,speed=50):
+    def rotateAngle(self,deg,currenthead,speed=20):
 
         head = currenthead + deg
 
-        if head > currenthead:
-            while currenthead != head:
-                pi2go.spinLeft(speed)
-                sleep(0.01)
-                currenthead = self.heading.getHeading()
-        elif head < currenthead:
-            while currenthead != head:
-                pi2go.spinRight(speed)
-                sleep(0.01)
-                currenthead = self.heading.getHeading()
-        else:
-            pi2go.go(0,0)
+        if head > 360:
+            head -= 360
+        elif head < 0:
+            head += 360
+
+        while currenthead != head:
+            pi2go.spinRight(speed)
+            sleep(0.001)
+            currenthead = self.heading.getHeading()
+
+        pi2go.go(0,0)
 
     def stop(self):
         pi2go.go(0,0)
