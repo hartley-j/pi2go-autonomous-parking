@@ -14,22 +14,23 @@ import functools
 class Robot:
 
     def __init__(self):
-        self.heading = CompassHeading()
-        self.initHeading = self.heading.getHeading()
-
         pi2go.init()
+
+        self.heading = CompassHeading()
+        self.initHeading = self.heading.averageHeading(10)
+
 
     def __del__(self):
         pi2go.cleanup()
 
     def forward(self, speed):
-        heading = self.heading.getHeading()
+        heading = self.heading.averageHeading(10)
 
         pid = PID(1, 0.1, 0, setpoint=heading)
         pid.output_limits = (-100, 100)
 
         while True:
-            currentHeading = self.heading.getHeading()
+            currentHeading = self.heading.averageHeading(5)
 
             correction = pid(currentHeading)
             self.forwardUpdate(val=correction, speed=speed)
@@ -40,7 +41,7 @@ class Robot:
 
         sleep(1)
 
-        return self.heading.getHeading()
+        return self.heading.averageHeading(5)
 
     def spin(self, deg, speed=50):
         currenthead = self.heading.getHeading()
@@ -71,7 +72,8 @@ class Robot:
             degreestoturn = deg - (nspin * 360)
             self.rotateAngle(degreestoturn, currenthead)
 
-    def rotateAngle(self,deg,currenthead,speed=20):
+    def rotateAngle(self,deg,speed=20):
+        currenthead = self.heading.averageHeading(10)
 
         head = currenthead + deg
         print("head=", head)
@@ -85,7 +87,7 @@ class Robot:
 
         while currenthead != head:
             sleep(0.001)
-            currenthead = self.heading.getHeading()
+            currenthead = self.heading.averageHeading(5)
             print("current heading is:", currenthead)
 
         pi2go.go(0,0)

@@ -37,7 +37,7 @@ class CompassHeading:
                     self.amax = read[0]
                     self.amin = read[1]
                 else:
-                    IOError
+                    FileNotFoundError
         except FileNotFoundError:
             self.amax = list(self.imu.read_magnetometer_data())
             self.amin = list(self.imu.read_magnetometer_data())
@@ -75,6 +75,9 @@ class CompassHeading:
 
         return math.degrees(heading)
 
+    def averageHeading(self, n):
+        values = [self.getHeading() for i in range(n)]
+        return round(sum(values)/len(values), -1)
 
 if __name__ == '__main__':
     try:
