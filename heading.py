@@ -37,7 +37,8 @@ class CompassHeading:
                     self.amax = read[0]
                     self.amin = read[1]
                 else:
-                    FileNotFoundError
+                    self.amax = self.imu.read_magnetometer_data()
+                    self.amin = self.imu.read_magnetometer_data()
         except FileNotFoundError:
             self.amax = self.imu.read_magnetometer_data()
             self.amin = self.imu.read_magnetometer_data()
