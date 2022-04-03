@@ -37,13 +37,13 @@ class CompassHeading:
                     self.amax = read[0]
                     self.amin = read[1]
                 else:
-                    self.amax = self.imu.read_magnetometer_data()
+                    self.amax = list(self.imu.read_magnetometer_data())
                     print(self.imu.read_magnetometer_data())
-                    self.amin = self.imu.read_magnetometer_data()
+                    self.amin = list(self.imu.read_magnetometer_data())
         except FileNotFoundError:
-            self.amax = self.imu.read_magnetometer_data()
+            self.amax = list(self.imu.read_magnetometer_data())
             print(self.imu.read_magnetometer_data())
-            self.amin = self.imu.read_magnetometer_data()
+            self.amin = list(self.imu.read_magnetometer_data())
 
     def getMag(self):
 
