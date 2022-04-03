@@ -12,7 +12,7 @@ def main():
     rob = robot.Robot()
     head = heading.CompassHeading()
 
-    rob.rotateAngle(90, head.getHeading())
+    rob.rotateAngle(90)
     del rob
 
 if __name__ == '__main__':
