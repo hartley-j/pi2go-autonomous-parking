@@ -40,9 +40,7 @@ class CompassHeading:
                     IOError
         except FileNotFoundError:
             self.amax = list(self.imu.read_magnetometer_data())
-            print(self.amax)
             self.amin = list(self.imu.read_magnetometer_data())
-            print(self.amin)
 
     def getMag(self):
 
@@ -50,7 +48,6 @@ class CompassHeading:
 
         for i in range(3):
             v = mag[i]
-            print(mag)
 
             if v < self.amin[i]:
                 self.amin[i] = v
