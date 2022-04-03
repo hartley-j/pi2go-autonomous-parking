@@ -28,13 +28,16 @@ class CompassHeading:
                 read = f.readline()
                 read.split(',')
 
-                read = ast.literal_eval(read)
-                for i in range(len(read)):
-                    for l in range(len(read[i])):
-                        read[i][l] = float(read[i][l])
+                if read != "":
+                    read = ast.literal_eval(read)
+                    for i in range(len(read)):
+                        for l in range(len(read[i])):
+                            read[i][l] = float(read[i][l])
 
-                self.amax = read[0]
-                self.amin = read[1]
+                    self.amax = read[0]
+                    self.amin = read[1]
+                else:
+                    FileNotFoundError
         except FileNotFoundError:
             self.amax = self.imu.read_magnetometer_data()
             self.amin = self.imu.read_magnetometer_data()
