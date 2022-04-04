@@ -126,7 +126,7 @@ if __name__ == '__main__':
     try:
         heading = CompassHeading()
         while True:
-            print("Current heading: %s" %(heading.getHeading()))
+            print("Current heading: %s" %(heading.getData()))
 
     except KeyboardInterrupt:
         del heading
