@@ -78,6 +78,7 @@ class CompassHeading:
 
     def averageHeading(self, n):
         values = [self.getHeading() for i in range(n)]
+        print(values)
         return roundNearest(sum(values)/len(values))
 
 def roundNearest(n, base=5):
