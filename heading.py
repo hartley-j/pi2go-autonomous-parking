@@ -95,7 +95,6 @@ class CompassHeading:
         if headcalc < 0:
             headcalc += 2 * math.pi
 
-        print("current heading is:", math.degrees(headcalc))
         return math.degrees(headcalc)
 
     def averageHeading(self, n):
@@ -113,7 +112,7 @@ class CompassHeading:
                              -mx*math.cos(pitch) + -my*math.sin(pitch)*math.sin(roll) + mz*math.sin(pitch)*math.cos(roll))
 
         print("Roll:%s Pitch:%s Heading:%s" %(roll, pitch, heading))
-        return heading
+        return math.degrees(heading)
 
 def roundNearest(n, base=5):
     return base * round(n/base)
@@ -130,7 +129,7 @@ if __name__ == '__main__':
     try:
         heading = CompassHeading()
         while True:
-            print("Current heading: %s" %(heading.getData()))
+            heading.getData()
 
     except KeyboardInterrupt:
         del heading
