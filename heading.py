@@ -111,7 +111,7 @@ class CompassHeading:
         heading = math.atan2(my*math.cos(roll) + mz*math.sin(roll),
                              -mx*math.cos(pitch) + -my*math.sin(pitch)*math.sin(roll) + mz*math.sin(pitch)*math.cos(roll))
 
-        print("Roll:%s Pitch:%s Heading:%s" %(roll, pitch, heading))
+        #print("Roll:%s Pitch:%s Heading:%s" %(roll, pitch, heading))
         return math.degrees(heading)
 
 def roundNearest(n, base=5):
@@ -129,7 +129,8 @@ if __name__ == '__main__':
     try:
         heading = CompassHeading()
         while True:
-            heading.getData()
+            print(heading.getData())
+            sleep(0.25)
 
     except KeyboardInterrupt:
         del heading
