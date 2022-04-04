@@ -10,6 +10,8 @@
 import math
 from icm20948 import ICM20948
 import ast
+import pi2go
+from time import sleep
 
 class CompassHeading:
     """ALWAYS DEL BEFORE SHUTTING DOWN"""
@@ -43,6 +45,14 @@ class CompassHeading:
         except FileNotFoundError:
             self.amax = list(self.imu.read_magnetometer_data())
             self.amin = list(self.imu.read_magnetometer_data())
+
+        pi2go.init()
+        pi2go.spinRight(50)
+        for i in range(10):
+            sleep(1)
+            print(self.getHeading())
+        pi2go.go(0,0)
+        pi2go.cleanup()
 
     def __del__(self):
         print("Shutting down magnetometer")
@@ -82,6 +92,7 @@ class CompassHeading:
         if headcalc < 0:
             headcalc += 2 * math.pi
 
+        print("current heading is:", math.degrees(headcalc))
         return math.degrees(headcalc)
 
     def averageHeading(self, n):
