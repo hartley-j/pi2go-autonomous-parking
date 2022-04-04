@@ -58,7 +58,6 @@ class CompassHeading:
         finally:
             for i in range(10):
                 sleep(1)
-                print(self.getHeading())
             pi2go.go(0,0)
 
     def __del__(self):
