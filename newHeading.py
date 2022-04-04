@@ -21,6 +21,7 @@ class CompassHeading:
         global FileNotFoundError
         self.imu = ICM20948()
         self.x, self.y, self.z = 0, 1, 2
+        self.declination = 0.01076
 
         try:
             FileNotFoundError
@@ -85,7 +86,7 @@ class CompassHeading:
             except ZeroDivisionError:
                 pass
 
-            mag[i] -= 0.5
+            mag[i] -= (self.magMax[i] + self.magMin[i]) / 2
 
         return mag
 
@@ -101,13 +102,13 @@ class CompassHeading:
             elif v > self.accMax[i]:
                 self.accMax[i] = v
 
+            acc[i] -= (self.accMax[i] + self.accMin[i]) / 2
+
             acc[i] -= self.accMin[i]
             try:
                 acc[i] /= self.accMax[i] - self.accMin[i]
             except ZeroDivisionError:
                 pass
-
-            acc[i] -= 0.5
 
         return acc
 
@@ -124,8 +125,14 @@ class CompassHeading:
                 + mag[self.y]*math.cos(math.asin(acc[self.y]/math.cos(pitch)))\
                 - mag[self.z]*math.sin(math.asin(acc[self.y]/math.cos(pitch)))*math.cos(math.asin(acc[self.x]))
 
-        calcheading = math.atan2(yComp,xComp)
-        return math.degrees(calcheading)
+        calcheading = math.degrees(math.atan2(yComp, xComp))
+        calcheading -= math.degrees(self.declination)
+        if calcheading > 360:
+            calcheading -= 360
+        elif calcheading < 0:
+            calcheading += 360
+
+        return calcheading
 
 if __name__ == "__main__":
     try:
