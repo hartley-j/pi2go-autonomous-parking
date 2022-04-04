@@ -5,6 +5,8 @@
 # ****************************************************
 
 import pi2go
+
+import heading
 from heading import CompassHeading
 from time import sleep
 from simple_pid import PID
@@ -73,19 +75,20 @@ class Robot:
             self.rotateAngle(degreestoturn, currenthead)
 
     def rotateAngle(self,deg,speed=20):
+        """Deg must be between -180 and 180"""
         currenthead = self.heading.averageHeading(10)
+        print("Current heading=", currenthead)
 
+        deg = heading.normaliseDeg(deg)
         head = currenthead + deg
-        print("head=", head)
-
-        if head > 360:
-            head -= 360
-        elif head < 0:
-            head += 360
+        print("Pointing towards:", head)
 
         pi2go.spinRight(speed)
 
-        while not(head - 5 <= currenthead <= head + 5):
+        lowerBound = heading.normaliseDeg(head - 5)
+        upperBound = heading.normaliseDeg(head + 5)
+
+        while not(lowerBound <= currenthead <= upperBound):
             sleep(0.001)
             currenthead = self.heading.averageHeading(5)
             print("current heading is:", currenthead)

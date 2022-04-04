@@ -83,6 +83,9 @@ class CompassHeading:
 def roundNearest(n, base=5):
     return base * round(n/base)
 
+def normaliseDeg(deg):
+    return (deg + 360) % 360
+
 if __name__ == '__main__':
     try:
         heading = CompassHeading()
