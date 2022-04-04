@@ -10,25 +10,22 @@ import pi2go
 from heading import CompassHeading
 
 
-def main(file, head):
-    pi2go.init()
+def main(head):
 
-    for i in range(100):
-        pi2go.spinRight(30)
-        sleep(1)
+    pi2go.spinRight(30)
+
+    while True:
+        sleep(0.001)
         print(head.getHeading())
-
-    amax = head.amax
-    amin = head.amin
-
-    with open(file, "w") as f:
-        f.write(str(amax) + "," + str(amin))
 
 
 if __name__ == '__main__':
     head = CompassHeading()
+    pi2go.init()
 
     try:
-        main("calibrate.txt", head)
+        main(head)
     except KeyboardInterrupt:
+        pi2go.go(0,0)
+        pi2go.cleanup()
         del head
