@@ -87,9 +87,9 @@ class Robot:
 
         while not(lowerBound <= currenthead <= upperBound):
             if currenthead > upperBound:
-                pi2go.spinLeft(speed)
-            if currenthead < lowerBound:
                 pi2go.spinRight(speed)
+            if currenthead < lowerBound:
+                pi2go.spinLeft(speed)
 
             sleep(0.001)
             currenthead = self.heading.averageHeading(5)
