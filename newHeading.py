@@ -79,6 +79,7 @@ class CompassHeading:
             elif v > self.magMax[i]:
                 self.magMax[i] = v
 
+        for i in range(3):
             mag[i] -= self.magMin[i]
 
             try:
@@ -102,8 +103,7 @@ class CompassHeading:
             elif v > self.accMax[i]:
                 self.accMax[i] = v
 
-
-
+        for i in range(3):
             acc[i] -= self.accMin[i]
             try:
                 acc[i] /= self.accMax[i] - self.accMin[i]
