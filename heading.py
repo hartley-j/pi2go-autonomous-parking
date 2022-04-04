@@ -69,12 +69,13 @@ class CompassHeading:
     def getHeading(self):
 
         mag = self.getMag()
-        heading = math.atan2(mag[self.axes[0]], mag[self.axes[1]])
+        headcalc = math.atan2(mag[self.axes[0]],
+                              mag[self.axes[1]])
 
-        if heading < 0:
-            heading += 2 * math.pi
+        if headcalc < 0:
+            headcalc += 2 * math.pi
 
-        return math.degrees(heading)
+        return math.degrees(headcalc)
 
     def averageHeading(self, n):
         values = [self.getHeading() for i in range(n)]
