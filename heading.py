@@ -106,5 +106,5 @@ if __name__ == '__main__':
             print("Current heading: %s" %(heading.getHeading()))
 
     except KeyboardInterrupt:
-        pass
+        del heading
 
