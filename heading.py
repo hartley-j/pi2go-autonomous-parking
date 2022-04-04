@@ -43,6 +43,12 @@ class CompassHeading:
             self.amax = list(self.imu.read_magnetometer_data())
             self.amin = list(self.imu.read_magnetometer_data())
 
+    def __del__(self):
+        print("Shutting down magnetometer")
+
+        with open("calibrate.txt", "w") as f:
+            f.write(str(self.amax) + ',' + str(self.amin))
+
     def getMag(self):
 
         mag = list(self.imu.read_magnetometer_data())
