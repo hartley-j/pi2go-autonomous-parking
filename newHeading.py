@@ -125,7 +125,7 @@ class CompassHeading:
                 - mag[self.z]*math.sin(math.asin(acc[self.y]/math.cos(pitch)))*math.cos(math.asin(acc[self.x]))
 
         calcheading = math.atan2(yComp,xComp)
-        return calcheading
+        return math.degrees(calcheading)
 
 if __name__ == "__main__":
     try:
