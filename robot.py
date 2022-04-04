@@ -24,7 +24,7 @@ class Robot:
 
     def __del__(self):
         pi2go.cleanup()
-        del heading
+        del self.heading
 
     def forward(self, speed):
         head = self.heading.averageHeading(10)
