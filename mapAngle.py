@@ -11,24 +11,23 @@ import time
 pi2go.init()
 head = heading.CompassHeading()
 
-mag = {}
-angles = {}
-n = 0
+mag = []
+angles = []
 
 try:
     pi2go.spinRight(25)
-    angles[n] = head.getHeading()
+    angles.append(head.getHeading())
+    mag.append(head.getMag())
     while True:
-        n += 1
-        angles.update({n: head.getHeading()})
-        mag.update({n: head.getMag()})
+        angles.append(head.getHeading())
+        mag.append(head.getMag())
         time.sleep(0.1)
 
 except KeyboardInterrupt:
     pi2go.go(0,0)
 
     with open('test.csv','w') as f:
-        for key in angles.keys():
-            f.write("%s, %s, %s\n" % (key, angles[key], mag[key]))
+        for i in range(len(angles)):
+            f.write("%s, %s, %s\n" % (i, angles[i], mag[i]))
 
     del head
