@@ -99,6 +99,18 @@ class CompassHeading:
         print(values)
         return roundNearest(sum(values)/len(values))
 
+    def getData(self):
+        ax, ay, az, gx, gy, gz = self.imu.read_accelerometer_gyro_data()
+        mx, my, mz = self.imu.read_magnetometer_data()
+
+        roll = math.atan2(-ay, az)
+        pitch = math.atan2(-ax, math.sqrt(ay * ay + az * az))
+        heading = math.atan2(my*math.cos(roll) + mz*math.sin(roll),
+                             -mx*math.cos(pitch) + -my*math.sin(pitch)*math.sin(roll) + mz*math.sin(pitch)*math.cos(roll))
+
+        print("Roll:%s Pitch:%s Heading:%s" %(roll, pitch, heading))
+        return heading
+
 def roundNearest(n, base=5):
     return base * round(n/base)
 
