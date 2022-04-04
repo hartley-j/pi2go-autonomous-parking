@@ -82,12 +82,15 @@ class Robot:
 
         print("Pointing towards:", head)
 
-        pi2go.spinRight(speed)
-
         lowerBound = heading.normaliseDeg(head - 5)
         upperBound = heading.normaliseDeg(head + 5)
 
         while not(lowerBound <= currenthead <= upperBound):
+            if currenthead > upperBound:
+                pi2go.spinLeft(speed)
+            if currenthead < lowerBound:
+                pi2go.spinRight(speed)
+
             sleep(0.001)
             currenthead = self.heading.averageHeading(5)
             print("current heading is:", currenthead)
