@@ -46,12 +46,16 @@ class CompassHeading:
             self.amax = list(self.imu.read_magnetometer_data())
             self.amin = list(self.imu.read_magnetometer_data())
 
-
-        pi2go.spinRight(50)
-        for i in range(10):
-            sleep(1)
-            print(self.getHeading())
-        pi2go.go(0,0)
+        try:
+            pi2go.spinRight(50)
+        except Exception:
+            pi2go.init()
+            pi2go.spinRight(50)
+        finally:
+            for i in range(10):
+                sleep(1)
+                print(self.getHeading())
+            pi2go.go(0,0)
 
     def __del__(self):
         print("Shutting down magnetometer")
