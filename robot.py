@@ -90,7 +90,7 @@ class Robot:
 
         while not(lowerBound <= currenthead <= upperBound):
             sleep(0.001)
-            currenthead = self.heading.averageHeading(5)
+            currenthead = heading.normaliseDeg(self.heading.averageHeading(5))
             print("current heading is:", currenthead)
 
         pi2go.go(0,0)
