@@ -85,7 +85,7 @@ class Robot:
 
         pi2go.spinRight(speed)
 
-        while not(head - 5 >= currenthead <= head + 5):
+        while not(head - 5 <= currenthead <= head + 5):
             sleep(0.001)
             currenthead = self.heading.averageHeading(5)
             print("current heading is:", currenthead)

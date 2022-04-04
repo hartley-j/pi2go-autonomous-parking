@@ -4,6 +4,7 @@
 # Description: uses icm20948 sensor to find the heading that board is currently facing.
 #              Requres calibrate.txt to calibrate sensor readings
 #              NOTE: THIS FILE CONTAINS SOURCE CODE FROM AN ONLINE RESOURCE TO DEAL WITH THE DATA
+#              MORE INFO IN WRITE UP
 # ****************************************************
 
 import math
@@ -77,7 +78,10 @@ class CompassHeading:
 
     def averageHeading(self, n):
         values = [self.getHeading() for i in range(n)]
-        return round(sum(values)/len(values), -1)
+        return roundNearest(sum(values)/len(values))
+
+def roundNearest(n, base=5):
+    return base * round(n/base)
 
 if __name__ == '__main__':
     try:
