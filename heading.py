@@ -12,6 +12,7 @@ from icm20948 import ICM20948
 import ast
 
 class CompassHeading:
+    """ALWAYS DEL BEFORE SHUTTING DOWN"""
 
     def __init__(self):
 
