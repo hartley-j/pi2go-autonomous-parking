@@ -102,13 +102,15 @@ class CompassHeading:
             elif v > self.accMax[i]:
                 self.accMax[i] = v
 
-            acc[i] -= (self.accMax[i] + self.accMin[i]) / 2
+
 
             acc[i] -= self.accMin[i]
             try:
                 acc[i] /= self.accMax[i] - self.accMin[i]
             except ZeroDivisionError:
                 pass
+
+            acc[i] -= (self.accMax[i] + self.accMin[i]) / 2
 
         return acc
 
@@ -121,9 +123,9 @@ class CompassHeading:
         roll = -math.asin(acc[self.y]/math.cos(pitch))
 
         xComp = mag[self.x]*math.cos(math.asin(acc[self.x])) + mag[self.z]*math.sin(pitch)
-        yComp = mag[self.x]*math.sin(math.asin(acc[self.y]/math.cos(pitch))) * math.sin(math.asin(acc[self.x])) \
-                + mag[self.y]*math.cos(math.asin(acc[self.y]/math.cos(pitch)))\
-                - mag[self.z]*math.sin(math.asin(acc[self.y]/math.cos(pitch)))*math.cos(math.asin(acc[self.x]))
+        yComp = mag[self.x]*math.sin(roll) * math.sin(math.asin(acc[self.x])) \
+                + mag[self.y]*math.cos(roll)\
+                - mag[self.z]*math.sin(roll)*math.cos(pitch)
 
         calcheading = math.degrees(math.atan2(yComp, xComp))
         calcheading -= math.degrees(self.declination)
