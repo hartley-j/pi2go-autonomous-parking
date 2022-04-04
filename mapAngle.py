@@ -28,6 +28,6 @@ except KeyboardInterrupt:
 
     with open('test.csv','w') as f:
         for i in range(len(angles)):
-            f.write("%s, %s, %s\n" % (i, angles[i], mag[i]))
+            f.write("%s, %s, %s, %s\n" % (i, angles[i], mag[i][0], mag[i][1]))
 
     del head
