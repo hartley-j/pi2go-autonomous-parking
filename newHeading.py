@@ -40,8 +40,8 @@ class CompassHeading:
 
                     self.magMax = read[0]
                     self.magMin = read[1]
-                    self.accMax = list(self.imu.read_accelerometer_gyro_data())[:3]
-                    self.accMin = list(self.imu.read_accelerometer_gyro_data())[:3]
+                    self.accMax = read[2]
+                    self.accMin = read[3]
                 else:
                     FileNotFoundError
         except FileNotFoundError:
