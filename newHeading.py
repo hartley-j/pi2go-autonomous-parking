@@ -10,7 +10,6 @@
 import math
 from icm20948 import ICM20948
 import ast
-import pi2go
 from time import sleep
 
 class CompassHeading:
@@ -51,15 +50,6 @@ class CompassHeading:
             self.accMax = list(self.imu.read_accelerometer_gyro_data())[:3]
             self.accMin = list(self.imu.read_accelerometer_gyro_data())[:3]
 
-        try:
-            pi2go.spinRight(50)
-        except Exception:
-            pi2go.init()
-            pi2go.spinRight(50)
-        finally:
-            for i in range(10):
-                sleep(1)
-            pi2go.go(0,0)
 
     def __del__(self):
         print("Shutting down magnetometer")
