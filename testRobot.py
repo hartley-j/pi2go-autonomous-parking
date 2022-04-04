@@ -12,4 +12,7 @@ def main():
     rob.rotateAngle(90)
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        del robot
