@@ -113,8 +113,8 @@ class CompassHeading:
 
 
     def getHeading(self):
-        acc = self.getAcc()
         mag = self.getMag()
+        acc = self.getAcc()
 
         pitch = math.asin(acc[self.x])
         roll = -math.asin(acc[self.y]/math.cos(pitch))
