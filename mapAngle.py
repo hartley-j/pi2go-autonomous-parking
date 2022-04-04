@@ -8,8 +8,8 @@ import pi2go
 import heading
 import time
 
-head = heading.CompassHeading()
 pi2go.init()
+head = heading.CompassHeading()
 
 mag = []
 angles = []
