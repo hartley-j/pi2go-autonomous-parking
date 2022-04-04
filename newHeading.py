@@ -40,8 +40,8 @@ class CompassHeading:
 
                     self.magMax = read[0]
                     self.magMin = read[1]
-                    self.accMax = read
-                    self.accMin = list(self.imu.read_accelerometer_gyro_data())[:3]
+                    self.accMax = read[2]
+                    self.accMin = read[3]
                 else:
                     FileNotFoundError
         except FileNotFoundError:
@@ -125,7 +125,7 @@ class CompassHeading:
                 - mag[self.z]*math.sin(math.asin(acc[self.y]/math.cos(pitch)))*math.cos(math.asin(acc[self.x]))
 
         calcheading = math.atan2(yComp,xComp)
-        return math.degrees(calcheading)
+        return calcheading
 
 if __name__ == "__main__":
     try:
