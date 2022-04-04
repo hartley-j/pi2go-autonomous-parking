@@ -20,7 +20,7 @@ class CompassHeading:
 
         global FileNotFoundError
         self.imu = ICM20948()
-        self.axes = 1, 2
+        self.x, self.y, self.z = 0, 1, 2
 
         try:
             FileNotFoundError
@@ -38,13 +38,17 @@ class CompassHeading:
                         for l in range(len(read[i])):
                             read[i][l] = float(read[i][l])
 
-                    self.amax = read[0]
-                    self.amin = read[1]
+                    self.magMax = read[0]
+                    self.magMin = read[1]
+                    self.accMax = read[2]
+                    self.accMin = read[3]
                 else:
                     FileNotFoundError
         except FileNotFoundError:
-            self.amax = list(self.imu.read_magnetometer_data())
-            self.amin = list(self.imu.read_magnetometer_data())
+            self.magMax = list(self.imu.read_magnetometer_data())
+            self.magMin = list(self.imu.read_magnetometer_data())
+            self.accMax = list(self.imu.read_accelerometer_gyro_data())[:3]
+            self.accMin = list(self.imu.read_accelerometer_gyro_data())[:3]
 
         try:
             pi2go.spinRight(50)
@@ -61,21 +65,68 @@ class CompassHeading:
         print("Shutting down magnetometer")
 
         with open("calibrate.txt", "w") as f:
-            f.write(str(self.amax) + ',' + str(self.amin))
+            f.write(str(self.magMax) + ',' + str(self.magMin) + ',' + str(self.accMax) + ',' + str(self.accMin))
+
+    def getMag(self):
+
+        mag = list(self.imu.read_magnetometer_data())
+
+        for i in range(3):
+            v = mag[i]
+
+            if v < self.magMin[i]:
+                self.magMin[i] = v
+            elif v > self.magMax[i]:
+                self.magMax[i] = v
+
+            mag[i] -= self.magMin[i]
+
+            try:
+                mag[i] /= self.magMax[i] - self.magMin[i]
+            except ZeroDivisionError:
+                pass
+
+            mag[i] -= 0.5
+
+        return mag
+
+    def getAcc(self):
+
+        acc = list(self.imu.read_accelerometer_gyro_data())[:3]
+
+        for i in range(3):
+            v = acc[i]
+
+            if v < self.accMin[i]:
+                self.accMin[i] = v
+            elif v > self.accMax[i]:
+                self.accMax[i] = v
+
+            acc[i] -= self.accMin[i]
+            try:
+                acc[i] /= self.accMax[i] - self.accMin[i]
+            except ZeroDivisionError:
+                pass
+
+            acc[i] -= 0.5
+
+        return acc
+
 
     def getHeading(self):
-        ax, ay, az, gx, gy, gz = self.imu.read_accelerometer_gyro_data()
-        mx, my, mz = self.imu.read_magnetometer_data()
+        acc = self.getAcc()
+        mag = self.getMag()
 
-        pitch = math.asin(ax)
-        roll = -math.asin(ay/math.cos(pitch))
+        pitch = math.asin(acc[self.x])
+        roll = -math.asin(acc[self.y]/math.cos(pitch))
 
-        magXcomp = (mx * math.cos(pitch)) + ((mx + 2) * math.sin(pitch))
-        magYcomp = (my * math.sin(roll) * math.sin(pitch)) + (my + 1) * math.cos(roll) - (my + 2) * math.sin(roll) * math.cos(pitch)
+        xComp = mag[self.x]*math.cos(math.asin(acc[self.x])) + mag[self.z]*math.sin(pitch)
+        yComp = mag[self.x]*math.sin(math.asin(acc[self.y]/math.cos(pitch))) * math.sin(math.asin(acc[self.x])) \
+                + mag[self.y]*math.cos(math.asin(acc[self.y]/math.cos(pitch)))\
+                - mag[self.z]*math.sin(math.asin(acc[self.y]/math.cos(pitch)))*math.cos(math.asin(acc[self.x]))
 
-        heading = math.degrees(math.atan2(magYcomp, magXcomp))
-
-        return heading
+        calcheading = math.atan2(yComp,xComp)
+        return calcheading
 
 if __name__ == "__main__":
     try:
