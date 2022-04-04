@@ -84,7 +84,12 @@ def roundNearest(n, base=5):
     return base * round(n/base)
 
 def normaliseDeg(deg):
-    return (deg + 360) % 360
+    if deg > 360:
+        return deg - 360
+    elif deg < 0:
+        return deg + 360
+    else:
+        return deg
 
 if __name__ == '__main__':
     try:

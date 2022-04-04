@@ -26,9 +26,9 @@ class Robot:
         pi2go.cleanup()
 
     def forward(self, speed):
-        heading = self.heading.averageHeading(10)
+        head = self.heading.averageHeading(10)
 
-        pid = PID(1, 0.1, 0, setpoint=heading)
+        pid = PID(1, 0.1, 0, setpoint=head)
         pid.output_limits = (-100, 100)
 
         while True:
@@ -75,12 +75,11 @@ class Robot:
             self.rotateAngle(degreestoturn, currenthead)
 
     def rotateAngle(self,deg,speed=20):
-        """Deg must be between -180 and 180"""
         currenthead = self.heading.averageHeading(10)
         print("Current heading=", currenthead)
 
-        deg = heading.normaliseDeg(deg)
-        head = currenthead + deg
+        head = heading.normaliseDeg(currenthead + deg)
+
         print("Pointing towards:", head)
 
         pi2go.spinRight(speed)
@@ -90,7 +89,7 @@ class Robot:
 
         while not(lowerBound <= currenthead <= upperBound):
             sleep(0.001)
-            currenthead = heading.normaliseDeg(self.heading.averageHeading(5))
+            currenthead = self.heading.averageHeading(5)
             print("current heading is:", currenthead)
 
         pi2go.go(0,0)
