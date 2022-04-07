@@ -33,7 +33,7 @@ void writeMagReg(u_int8_t reg, u_int8_t value) {
     }
 }
 
-void accAccReg(u_int8_t reg, u_int8_t value) {
+void writeAccReg(u_int8_t reg, u_int8_t value) {
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
         printf("Failed to write to i2c acc");
@@ -66,19 +66,15 @@ void readAcc(int *a) {
 }
 
 void enableAcc() {
-    writeAccReg(CTRL_REG1_XM, 0b01100111);
-    /* tells accelerometer to enable all axis, set it to continous update mode and a data rate of 100 Hz */
-    writeAccReg(CTRL_REG2_XM, 0b00100000);
-    /* will set the accelerometer to +- gauss full scale */
+    writeAccReg(LSM6DSL_CTRL1_XL,0b10011111);
+	writeAccReg(LSM6DSL_CTRL8_XL,0b11001000);
+	writeAccReg(LSM6DSL_CTRL3_C,0b01000100);
 }
 
 void enableMag() {
-    writeMagReg( CTRL_REG5_XM, 0b11110000);
-    /* enable internal temp sensor, set mag to high resolution and set data rate of 50 Hz */
-    writeMagReg( CTRL_REG6_XM, 0b01100000);
-    /* set full scale selection to +- gauss */
-    writeMagReg( CTRL_REG7_XM, 0b00000000);
-    /* set the mag to continuous-conversion mode */
+    writeMagReg(LIS3MDL_CTRL_REG1, 0b11011100);
+	writeMagReg(LIS3MDL_CTRL_REG2, 0b00100000);
+	writeMagReg(LIS3MDL_CTRL_REG3, 0b00000000);
 }
 
 
