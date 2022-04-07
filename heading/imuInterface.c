@@ -62,20 +62,20 @@ void readMag(int *m) {
 
 void enableAcc() {
     writeAccReg(LSM6DSL_CTRL1_XL, 0b10011111);
-    printf("ODR 3.33 kHz, +/- 8g , BW = 400hz");
+    printf("ODR 3.33 kHz, +/- 8g , BW = 400hz\n");
 	writeAccReg(LSM6DSL_CTRL8_XL, 0b11001000);
-	printf("Low pass filter enabled, BW9, composite filter");
+	printf("Low pass filter enabled, BW9, composite filter\n");
 	writeAccReg(LSM6DSL_CTRL3_C, 0b01000100);
-	printf("Enable Block Data update, increment during multi byte read");
+	printf("Enable Block Data update, increment during multi byte read\n");
 }
 
 void enableMag() {
     writeMagReg(LIS3MDL_CTRL_REG1, 0b11011100);
-    printf("Temp sesnor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Selft test disabled.");
+    printf("Temp sesnor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Selft test disabled.\n");
 	writeMagReg(LIS3MDL_CTRL_REG2, 0b00100000);
-	printf("+/- 8 gauss");
+	printf("+/- 8 gauss\n");
 	writeMagReg(LIS3MDL_CTRL_REG3, 0b00000000);
-	printf("Continuous-conversion mode");
+	printf("Continuous-conversion mode\n");
 }
 
 void main() {
