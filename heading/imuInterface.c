@@ -15,7 +15,7 @@ void openBus() {
     sprintf(filename, "/dev/i2c-%d", 1);
     file = open(filename, O_RDWR);
     if (file<0) {
-        printf("Unable to open I2C bus!");
+        printf("Unable to open I2C bus!\n");
         exit(1);
     }
 }
@@ -23,7 +23,7 @@ void openBus() {
 void writeMagReg(u_int8_t reg, u_int8_t value) {
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
-        printf("Failed to write to i2c mag");
+        printf("Failed to write to i2c mag\n");
         exit(1);
     }
 }
@@ -31,7 +31,7 @@ void writeMagReg(u_int8_t reg, u_int8_t value) {
 void writeAccReg(u_int8_t reg, u_int8_t value) {
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
-        printf("Failed to write to i2c acc");
+        printf("Failed to write to i2c acc\n");
         exit(1);
     }
 }
@@ -39,7 +39,7 @@ void writeAccReg(u_int8_t reg, u_int8_t value) {
 void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
     int result = i2c_smbus_read_i2c_block_data(file, command, size, data);
     if (result != size) {
-       printf("Failed to read block from I2C.");
+       printf("Failed to read block from I2C.\n");
         exit(1);
     }
 }
@@ -61,15 +61,21 @@ void readMag(int *m) {
 }
 
 void enableAcc() {
-    writeAccReg(LSM6DSL_CTRL1_XL,0b0011);
-	writeAccReg(LSM6DSL_CTRL8_XL,0b11001000);
-	writeAccReg(LSM6DSL_CTRL3_C,0b01000100);
+    writeAccReg(LSM6DSL_CTRL1_XL, 0b10011111);
+    printf("ODR 3.33 kHz, +/- 8g , BW = 400hz");
+	writeAccReg(LSM6DSL_CTRL8_XL, 0b11001000);
+	printf("Low pass filter enabled, BW9, composite filter");
+	writeAccReg(LSM6DSL_CTRL3_C, 0b01000100);
+	printf("Enable Block Data update, increment during multi byte read");
 }
 
 void enableMag() {
     writeMagReg(LIS3MDL_CTRL_REG1, 0b11011100);
+    printf("Temp sesnor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Selft test disabled.");
 	writeMagReg(LIS3MDL_CTRL_REG2, 0b00100000);
+	printf("+/- 8 gauss");
 	writeMagReg(LIS3MDL_CTRL_REG3, 0b00000000);
+	printf("Continuous-conversion mode");
 }
 
 void main() {
