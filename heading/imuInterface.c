@@ -104,7 +104,7 @@ void enableMag() {
 }
 
 float calcHeading(int mRaw[3], int aRaw[3]) {
-    float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
+    double axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
     axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
     ayNorm = aRaw[1]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
@@ -132,7 +132,7 @@ void main() {
 
     int magRaw[3];
     int accRaw[3];
-    float heading;
+    double heading;
     int scaledMag[3];
     while(1)
     {
@@ -143,9 +143,9 @@ void main() {
         magRaw[1] -= (myMin + myMax) /2 ;
         magRaw[2] -= (mzMin + mzMax) /2 ;
 
-        scaledMag[0]  = (float)(magRaw[0] - mxMin) / (mxMax - mxMin) * 2 - 1;
-        scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
-        scaledMag[2]  = (float)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
+        scaledMag[0]  = (double)(magRaw[0] - mxMin) / (mxMax - mxMin) * 2 - 1;
+        scaledMag[1]  = (double)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
+        scaledMag[2]  = (double)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
 
         heading = calcHeading(scaledMag, accRaw);
 
