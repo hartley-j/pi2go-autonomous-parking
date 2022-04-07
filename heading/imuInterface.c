@@ -72,15 +72,17 @@ void enableMag() {
 	writeMagReg(LIS3MDL_CTRL_REG3, 0b00000000);
 }
 
-openBus();
+void main() {
+    openBus();
 
-enableAcc();
-enableMag();
+    enableAcc();
+    enableMag();
 
-int magRaw[3];
-while(1)
-{
-    readMag(magRaw);
-    printf("magRaw X %i \tmagRaw Y %i \tmagRaw Z %i \n", magRaw[0],magRaw[1],magRaw[2]);
-    usleep(25000);
+    int magRaw[3];
+    while(1)
+    {
+        readMag(magRaw);
+        printf("magRaw X %i \tmagRaw Y %i \tmagRaw Z %i \n", magRaw[0],magRaw[1],magRaw[2]);
+        usleep(25000);
+    }
 }
