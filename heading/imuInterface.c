@@ -9,11 +9,6 @@
 
 int file;
 
-void selectDevice(int file, int addr) {
-	if (ioctl(file, I2C_SLAVE, addr) < 0) {
-		 printf("Failed to select I2C device.");
-	}
-}
 
 void openBus() {
     char filename[20];
@@ -50,7 +45,7 @@ void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
 
 void readMag(int *m) {
     u_int8_t block[6];
-    readBlock(0x80 | OUT_X_L_M, sizeof(block), block);
+    readBlock(0x80 | LSM6DSL_OUT_X_L, sizeof(block), block);
     *m = (u_int8_t)(block[0] | block[1] << 8);
     *(m+1) = (int16_t)(block[2] | block[3] << 8);
     *(m+2) = (int16_t)(block[4] | block[5] << 8);
@@ -58,8 +53,7 @@ void readMag(int *m) {
 
 void readAcc(int *a) {
     u_int8_t block[6];
-    selectDevice(file,ACC_ADDRESS);
-    readBlock(0x80 | OUT_X_L_A, sizeof(block), block);
+    readBlock(0x80 | LIS3MDL_OUT_X_L, sizeof(block), block);
     *a = (int16_t)(block[0] | block[1] << 8);
     *(a+1) = (int16_t)(block[2] | block[3] << 8);
     *(a+2) = (int16_t)(block[4] | block[5] << 8);
@@ -77,12 +71,14 @@ void enableMag() {
 	writeMagReg(LIS3MDL_CTRL_REG3, 0b00000000);
 }
 
+openBus();
 
 enableAcc();
 enableMag();
 
 int magRaw[3];
-while(1) {
+while(1)
+{
     readMag(magRaw);
     printf("magRaw X %i \tmagRaw Y %i \tmagRaw Z %i \n", magRaw[0],magRaw[1],magRaw[2]);
     usleep(25000);
