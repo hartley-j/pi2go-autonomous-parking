@@ -4,7 +4,26 @@
 #include <stdlib.h>
 #include <math.h>
 #include "i2c-dev.h"
+#include "LIS3MDL.h"
+#include "LSM6DSL.h"
 
+int file;
+
+void selectDevice(int file, int addr) {
+	if (ioctl(file, I2C_SLAVE, addr) < 0) {
+		 printf("Failed to select I2C device.");
+	}
+}
+
+void openBus() {
+    char filename[20];
+    sprintf(filename, "/dev/i2c-%d", 1);
+    file = open(filename, O_RDWR);
+    if (file<0) {
+        printf("Unable to open I2C bus!");
+        exit(1);
+    }
+}
 
 void writeMagReg(u_int8_t reg, u_int8_t value) {
     int result = i2c_smbus_write_byte_data(file, reg, value);
@@ -14,7 +33,7 @@ void writeMagReg(u_int8_t reg, u_int8_t value) {
     }
 }
 
-void accMagReg(u_int8_t reg, u_int8_t value) {
+void accAccReg(u_int8_t reg, u_int8_t value) {
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
         printf("Failed to write to i2c acc");
@@ -30,15 +49,15 @@ void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
 }
 
 void readMag(int *m) {
-    uint8_t block[6];
+    u_int8_t block[6];
     readBlock(0x80 | OUT_X_L_M, sizeof(block), block);
-    *m = (uint8_t)(block[0] | block[1] << 8);
+    *m = (u_int8_t)(block[0] | block[1] << 8);
     *(m+1) = (int16_t)(block[2] | block[3] << 8);
     *(m+2) = (int16_t)(block[4] | block[5] << 8);
 }
 
 void readAcc(int *a) {
-    uint8_t block[6];
+    u_int8_t block[6];
     selectDevice(file,ACC_ADDRESS);
     readBlock(0x80 | OUT_X_L_A, sizeof(block), block);
     *a = (int16_t)(block[0] | block[1] << 8);
