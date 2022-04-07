@@ -20,7 +20,15 @@ void openBus() {
     }
 }
 
+void selectDevice(int file, int addr)
+{
+	if (ioctl(file, I2C_SLAVE, addr) < 0) {
+		 printf("Failed to select I2C device.\n");
+	}
+}
+
 void writeMagReg(u_int8_t reg, u_int8_t value) {
+    selectDevice(file, LIS3MDL_ADDRESS);
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
         printf("Failed to write to i2c mag\n");
@@ -29,6 +37,7 @@ void writeMagReg(u_int8_t reg, u_int8_t value) {
 }
 
 void writeAccReg(u_int8_t reg, u_int8_t value) {
+    selectDevice(file, LSM6DSL_ADDRESS);
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
         printf("Failed to write to i2c acc\n");
@@ -36,7 +45,13 @@ void writeAccReg(u_int8_t reg, u_int8_t value) {
     }
 }
 
-void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
+void readBlock(u_int8_t command, u_int8_t size, char device, u_int8_t *data) {
+    if (device = 'a') {
+        selectDevice(file, LSM6DSL_ADDRESS);
+    } else if (device = 'm') {
+        selectDevice(file, LIS3MDL_ADDRESS);
+    }
+
     int result = i2c_smbus_read_i2c_block_data(file, command, size, data);
     if (result != size) {
        printf("Failed to read block from I2C.\n");
@@ -46,7 +61,8 @@ void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
 
 void readAcc(int *a) {
     u_int8_t block[6];
-    readBlock(0x80 | LSM6DSL_OUTX_L_XL, sizeof(block), block);
+    selectDevice(file, LSM6DSL_ADDRESS);
+    readBlock(0x80 | LSM6DSL_OUTX_L_XL, sizeof(block), 'a',block);
     *a = (u_int8_t)(block[0] | block[1] << 8);
     *(a+1) = (int16_t)(block[2] | block[3] << 8);
     *(a+2) = (int16_t)(block[4] | block[5] << 8);
@@ -54,7 +70,8 @@ void readAcc(int *a) {
 
 void readMag(int *m) {
     u_int8_t block[6];
-    readBlock(0x80 | LIS3MDL_OUT_X_L, sizeof(block), block);
+    selectDevice(file, LIS3MDL_ADDRESS);
+    readBlock(0x80 | LIS3MDL_OUT_X_L, sizeof(block), 'm',block);
     *m = (int16_t)(block[0] | block[1] << 8);
     *(m+1) = (int16_t)(block[2] | block[3] << 8);
     *(m+2) = (int16_t)(block[4] | block[5] << 8);
