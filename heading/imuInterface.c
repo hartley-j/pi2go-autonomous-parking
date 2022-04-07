@@ -7,6 +7,13 @@
 #include "LIS3MDL.h"
 #include "LSM6DSL.h"
 
+#define mxMax 1378
+#define myMax 1211
+#define mzMax 1560
+#define mxMin -1846
+#define myMin -1782
+#define mzMin -1770
+
 int file;
 
 
@@ -125,7 +132,16 @@ void main() {
     {
         readMag(magRaw);
         readAcc(accRaw);
-        heading = calcHeading(magRaw, accRaw);
+
+        magRaw[0] -= (mxMin + mxMax) /2 ;
+        magRaw[1] -= (myMin + myMax) /2 ;
+        magRaw[2] -= (mzMmin + mzMax) /2 ;
+
+        scaledMag[0]  = (float)(magRaw[0] - mxMin) / (mxMax - mxMin) * 2 - 1;
+        scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
+        scaledMag[2]  = (float)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
+
+        heading = calcHeading(scaledMag, accRaw);
 
         printf("current heading: %i\n", heading);
         usleep(250000);
