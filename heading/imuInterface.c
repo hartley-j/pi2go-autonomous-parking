@@ -14,6 +14,7 @@
 #define myMin -1782
 #define mzMin -1770
 
+float declination = 0.58327;
 int file;
 
 
@@ -113,9 +114,13 @@ float calcHeading(int mRaw[3], int aRaw[3]) {
     myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
 
     heading = 180 * atan2(myComp, mxComp)/M_PI;
+
+    heading -= declination;
+
     if (heading < 0) {
         heading += 360;
     }
+
     return heading;
 }
 
