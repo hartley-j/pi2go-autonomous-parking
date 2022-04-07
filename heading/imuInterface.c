@@ -5,19 +5,8 @@
 #include <math.h>
 #include "i2c-dev.h"
 
-char filename[20];
-sprintf(filename, "/dev/i2c-%d", 1);
-file = open(filename, O_RDWR);
-if (file<0) {
-    printf("Unable to open i2c bus!");
-    exit(1);
-}
 
-if (ioctl(file, I2C_SLAVE, MAG_ADDRESS) < 0) {
-        printf("Error: Could not select magnetometer\n");
-}
-
-void writeMagReg(uint8_t reg, uint8_t value) {
+void writeMagReg(u_int8_t reg, u_int8_t value) {
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
         printf("Failed to write to i2c mag");
@@ -25,14 +14,14 @@ void writeMagReg(uint8_t reg, uint8_t value) {
     }
 }
 
-void accMagReg(uint8_t reg, uint8_t value) {
+void accMagReg(u_int8_t reg, u_int8_t value) {
     int result = i2c_smbus_write_byte_data(file, reg, value);
     if (result  == -1) {
         printf("Failed to write to i2c acc");
         exit(1);
 }
 
-void readBlock(uint8_t command, uint8_t size, uint8_t *data) {
+void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
     int result = i2c_smbus_read_i2c_block_data(file, command, size, data);
     if (result != size) {
        printf("Failed to read block from I2C.");
