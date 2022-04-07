@@ -128,6 +128,7 @@ void main() {
     int magRaw[3];
     int accRaw[3];
     float heading;
+    int scaledMag[3];
     while(1)
     {
         readMag(magRaw);
