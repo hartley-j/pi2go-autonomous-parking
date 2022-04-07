@@ -149,7 +149,7 @@ void main() {
 
         heading = calcHeading(scaledMag, accRaw);
 
-        printf("current heading: %i\n", heading);
+        printf("current heading: %d\n", heading);
         usleep(250000);
     }
 }
