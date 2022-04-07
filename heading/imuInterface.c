@@ -25,7 +25,6 @@ void selectDevice(int file, int addr)
 	if (ioctl(file, I2C_SLAVE, addr) < 0) {
 		 printf("Failed to select I2C device.\n");
 	}
-	printf("Device %i has been selected\n", addr);
 }
 
 void writeMagReg(u_int8_t reg, u_int8_t value) {
