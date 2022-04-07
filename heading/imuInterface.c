@@ -61,7 +61,7 @@ void readMag(int *m) {
 }
 
 void enableAcc() {
-    writeAccReg(LSM6DSL_CTRL1_XL,0b10011111);
+    writeAccReg(LSM6DSL_CTRL1_XL,0b0011);
 	writeAccReg(LSM6DSL_CTRL8_XL,0b11001000);
 	writeAccReg(LSM6DSL_CTRL3_C,0b01000100);
 }
