@@ -95,6 +95,20 @@ void enableMag() {
 	printf("Continuous-conversion mode\n");
 }
 
+void calcHeading(int rawMag, int rawAcc, float *heading) {
+    accXnorm = rawAcc[0]/sqrt(rawAcc[0]* rawAcc[0] + rawAcc[1] * rawAcc[1] + rawAcc[2] * rawAcc[2]);
+    accYnorm = rawAcc[1]/sqrt(accRaw[0] *accRaw[0] + accRaw[1] * accRaw[1] + accRaw[2] * accRaw[2]);
+    pitch = asin(accYnorm);
+    roll = -asin(accYnorm/cos(pitch));
+    magXcomp = *mag_raw*cos(pitch)+*(mag_raw+2)*sin(pitch);
+    magYcomp = *mag_raw*sin(roll)*sin(pitch)+*(mag_raw+1)*cos(roll)-*(mag_raw+2)*sin(roll)*cos(pitch);
+
+    *heading = 180*atan2(magYcomp,magXcomp)/M_PI;
+    if (*heading < 0) {
+        *heading += 360;
+    }
+}
+
 void main() {
     openBus();
 
@@ -102,10 +116,15 @@ void main() {
     enableMag();
 
     int magRaw[3];
+    int accRaw[3];
+    float heading;
     while(1)
     {
         readMag(magRaw);
-        printf("magRaw X %i \tmagRaw Y %i \tmagRaw Z %i \n", magRaw[0],magRaw[1],magRaw[2]);
+        readAcc(accRaw);
+        calcHeading(magRaw, accRaw, heading);
+
+        printf("current heading: %i", heading);
         usleep(25000);
     }
 }
