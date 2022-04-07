@@ -87,10 +87,10 @@ void enableAcc() {
 }
 
 void enableMag() {
-    writeMagReg(LIS3MDL_CTRL_REG1, 0b11011100);
+    writeMagReg(LIS3MDL_CTRL_REG1, 0b11111000);
     printf("Temp sesnor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Selft test disabled.\n");
-	writeMagReg(LIS3MDL_CTRL_REG2, 0b00100000);
-	printf("+/- 8 gauss\n");
+	writeMagReg(LIS3MDL_CTRL_REG2, 0b01000000);
+	printf("+/- 12 gauss\n");
 	writeMagReg(LIS3MDL_CTRL_REG3, 0b00000000);
 	printf("Continuous-conversion mode\n");
 }
