@@ -127,7 +127,7 @@ void main() {
         readAcc(accRaw);
         heading = calcHeading(magRaw, accRaw);
 
-        printf("current heading: %i", heading);
+        printf("current heading: %i\n", heading);
         usleep(25000);
     }
 }
