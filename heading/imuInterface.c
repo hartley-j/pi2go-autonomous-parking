@@ -33,6 +33,7 @@ void writeAccReg(u_int8_t reg, u_int8_t value) {
     if (result  == -1) {
         printf("Failed to write to i2c acc");
         exit(1);
+    }
 }
 
 void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
