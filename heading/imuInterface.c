@@ -128,6 +128,6 @@ void main() {
         heading = calcHeading(magRaw, accRaw);
 
         printf("current heading: %i\n", heading);
-        usleep(25000);
+        usleep(250000);
     }
 }
