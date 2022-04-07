@@ -43,20 +43,20 @@ void readBlock(u_int8_t command, u_int8_t size, u_int8_t *data) {
     }
 }
 
-void readMag(int *m) {
-    u_int8_t block[6];
-    readBlock(0x80 | LSM6DSL_OUT_X_L, sizeof(block), block);
-    *m = (u_int8_t)(block[0] | block[1] << 8);
-    *(m+1) = (int16_t)(block[2] | block[3] << 8);
-    *(m+2) = (int16_t)(block[4] | block[5] << 8);
-}
-
 void readAcc(int *a) {
     u_int8_t block[6];
-    readBlock(0x80 | LIS3MDL_OUT_X_L, sizeof(block), block);
-    *a = (int16_t)(block[0] | block[1] << 8);
+    readBlock(0x80 | LSM6DSL_OUTX_L_XL, sizeof(block), block);
+    *a = (u_int8_t)(block[0] | block[1] << 8);
     *(a+1) = (int16_t)(block[2] | block[3] << 8);
     *(a+2) = (int16_t)(block[4] | block[5] << 8);
+}
+
+void readMag(int *m) {
+    u_int8_t block[6];
+    readBlock(0x80 | LIS3MDL_OUT_X_L, sizeof(block), block);
+    *m = (int16_t)(block[0] | block[1] << 8);
+    *(m+1) = (int16_t)(block[2] | block[3] << 8);
+    *(m+2) = (int16_t)(block[4] | block[5] << 8);
 }
 
 void enableAcc() {
