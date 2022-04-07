@@ -136,7 +136,7 @@ void main() {
 
         magRaw[0] -= (mxMin + mxMax) /2 ;
         magRaw[1] -= (myMin + myMax) /2 ;
-        magRaw[2] -= (mzMmin + mzMax) /2 ;
+        magRaw[2] -= (mzMin + mzMax) /2 ;
 
         scaledMag[0]  = (float)(magRaw[0] - mxMin) / (mxMax - mxMin) * 2 - 1;
         scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
