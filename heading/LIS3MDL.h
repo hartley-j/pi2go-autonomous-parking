@@ -1,4 +1,4 @@
-#define LIS3MDL_ADDRESS      0x6A
+#define LIS3MDL_ADDRESS      0x1C
 
 #define LIS3MDL_WHO_AM_I     0x0F
 
