@@ -7,12 +7,13 @@
 #include "LIS3MDL.h"
 #include "LSM6DSL.h"
 
-#define mxMax 1378
-#define myMax 1211
-#define mzMax 1560
-#define mxMin -1846
-#define myMin -1782
-#define mzMin -1770
+#define mxMax 2847
+#define myMax 1526
+#define mzMax -2
+#define mxMin -804
+#define myMin -1793
+#define mzMin -3329
+
 
 float declination = 0.58327;
 int file;
