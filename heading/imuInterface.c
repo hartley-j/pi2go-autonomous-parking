@@ -130,8 +130,8 @@ void main() {
     enableAcc();
     enableMag();
 
-    int magRaw[3];
-    int accRaw[3];
+    float magRaw[3];
+    float accRaw[3];
     double heading;
     int scaledMag[3];
     while(1)
