@@ -149,8 +149,8 @@ void main() {
 
         heading = calcHeading(scaledMag, accRaw);
 
-        printf("Mag X: %d\tMag Y: %d\tMag Z: %d\n", scaledMag[0], scaledMag[1],scaledMag[2]);
-        printf("current heading: %d\n", heading);
+        printf("Mag X: %i\tMag Y: %i\tMag Z: %i\n", magRaw[0], magRaw[1], magRaw[2]);
+        printf("current heading: %f\n", heading);
         usleep(250000);
     }
 }
