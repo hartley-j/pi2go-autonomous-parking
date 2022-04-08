@@ -103,7 +103,7 @@ void enableMag() {
 	printf("Continuous-conversion mode\n");
 }
 
-float calcHeading(int mRaw[3], int aRaw[3]) {
+double calcHeading(int mRaw[3], int aRaw[3]) {
     double axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
     axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
@@ -149,6 +149,7 @@ void main() {
 
         heading = calcHeading(scaledMag, accRaw);
 
+        printf("Mag X: %d\tMag Y: %d\tMag Z: %d", scaledMag[0], scaledMag[1],scaledMag[2]);
         printf("current heading: %d\n", heading);
         usleep(250000);
     }
