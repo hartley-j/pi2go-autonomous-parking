@@ -107,6 +107,9 @@ void enableMag() {
 void calcHeading(int mRaw[3], int aRaw[3], float *deg) {
     float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
+    aRaw[0] = -aRaw[0];
+	aRaw[1] = -aRaw[1];
+
     axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
     ayNorm = aRaw[1]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
     pitch = asin(ayNorm);
@@ -122,8 +125,8 @@ void calcHeading(int mRaw[3], int aRaw[3], float *deg) {
         heading += 360;
     }
 
-    *deg = pitch;
-    *(deg + 1) = roll;
+    *deg = 180 * pitch/M_PI;
+    *(deg + 1) = 180 * roll/M_PI;
     *(deg + 2) = heading;
 }
 
