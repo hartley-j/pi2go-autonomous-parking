@@ -147,7 +147,7 @@ void main() {
         scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
         scaledMag[2]  = (float)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
 
-        heading = calcHeading(scaledMag, accRaw);
+        heading = calcHeading(magRaw, accRaw);
 
         printf("Mag X: %i\tMag Y: %i\tMag Z: %i\n", magRaw[0], magRaw[1], magRaw[2]);
         printf("current heading: %f\n", heading);
