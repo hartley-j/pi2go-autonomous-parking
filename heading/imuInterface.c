@@ -120,7 +120,7 @@ void enableMag() {
     mxComp = mRaw[0] * cos(pitch) + mRaw[2] * sin(pitch);
     myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
 */
-    heading = 180 * atan2(mRaw[1], mRaw[0])/M_PI;
+    float heading = 180 * atan2(mRaw[1], mRaw[0])/M_PI;
 
     heading -= declination;
 
