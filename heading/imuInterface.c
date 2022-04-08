@@ -14,6 +14,9 @@
 #define myMin -1793
 #define mzMin -3329
 
+#define MAG_LPF_FACTOR  0.4
+#define ACC_LPF_FACTOR  0.1
+
 
 float declination = 0.58327;
 int file;
@@ -117,7 +120,7 @@ void calcHeading(int mRaw[3], int aRaw[3], float *deg) {
     mxComp = mRaw[0] * cos(pitch) + mRaw[2] * sin(pitch);
     myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
 
-    heading = 180 * atan2f(myComp, mxComp)/M_PI;
+    heading = 180 * atan2(myComp, mxComp)/M_PI;
 
     heading -= declination;
 
@@ -140,15 +143,39 @@ void main() {
     int accRaw[3];
     float angles[3];
     int scaledMag[3];
+	int oldXMagRawValue = 0;
+	int oldYMagRawValue = 0;
+	int oldZMagRawValue = 0;
+	int oldXAccRawValue = 0;
+	int oldYAccRawValue = 0;
+	int oldZAccRawValue = 0;
+
     while(1)
     {
         readMag(magRaw);
         readAcc(accRaw);
 
+        // Low pass filtering:
+        magRaw[0] =  magRaw[0]  * MAG_LPF_FACTOR + oldXMagRawValue*(1 - MAG_LPF_FACTOR);
+		magRaw[1] =  magRaw[1]  * MAG_LPF_FACTOR + oldYMagRawValue*(1 - MAG_LPF_FACTOR);
+		magRaw[2] =  magRaw[2]  * MAG_LPF_FACTOR + oldZMagRawValue*(1 - MAG_LPF_FACTOR);
+		accRaw[0] =  accRaw[0]  * ACC_LPF_FACTOR + oldXAccRawValue*(1 - ACC_LPF_FACTOR);
+		accRaw[1] =  accRaw[1]  * ACC_LPF_FACTOR + oldYAccRawValue*(1 - ACC_LPF_FACTOR);
+		accRaw[2] =  accRaw[2]  * ACC_LPF_FACTOR + oldZAccRawValue*(1 - ACC_LPF_FACTOR);
+
+		oldXMagRawValue = magRaw[0];
+		oldYMagRawValue = magRaw[1];
+		oldZMagRawValue = magRaw[2];
+		oldXAccRawValue = accRaw[0];
+		oldYAccRawValue = accRaw[1];
+		oldZAccRawValue = accRaw[2];
+
+        // Hard iron calibration
         magRaw[0] -= (mxMin + mxMax) /2 ;
         magRaw[1] -= (myMin + myMax) /2 ;
         magRaw[2] -= (mzMin + mzMax) /2 ;
 
+        // Soft iron calibration
         scaledMag[0]  = (float)(magRaw[0] - mxMin) / (mxMax - mxMin) * 2 - 1;
         scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
         scaledMag[2]  = (float)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
