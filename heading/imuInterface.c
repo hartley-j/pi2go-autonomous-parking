@@ -106,6 +106,7 @@ void enableMag() {
 
 float calcHeading(int mRaw[3], int aRaw[3]) {
     float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
+    float angles[3];
 
     axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
     ayNorm = aRaw[1]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
@@ -122,7 +123,10 @@ float calcHeading(int mRaw[3], int aRaw[3]) {
         heading += 360;
     }
 
-    return heading;
+    angles[0] = pitch;
+    angles[1] = roll;
+    angles[2] = heading;
+    return angles;
 }
 
 void main() {
@@ -133,7 +137,7 @@ void main() {
 
     int magRaw[3];
     int accRaw[3];
-    float heading;
+    float angles[3];
     int scaledMag[3];
     while(1)
     {
@@ -148,10 +152,9 @@ void main() {
         scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
         scaledMag[2]  = (float)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
 
-        heading = calcHeading(magRaw, accRaw);
+        angles = calcHeading(scaledMag, accRaw);
 
-        printf("Mag X: %i\tMag Y: %i\tMag Z: %i\n", magRaw[0], magRaw[1], magRaw[2]);
-        printf("current heading: %f\n", heading);
+        printf("pitch: %f\troll: %f\theading: %f\n", angles[0], angles[1], angles[2]);
         usleep(250000);
     }
 }
