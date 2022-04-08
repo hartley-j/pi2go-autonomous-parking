@@ -144,7 +144,7 @@ void main() {
     int magRaw[3];
     int accRaw[3];
     double heading;
-    int scaledMag[3];
+    double scaledMag[3];
 	int oldXMagRawValue = 0;
 	int oldYMagRawValue = 0;
 	int oldZMagRawValue = 0;
