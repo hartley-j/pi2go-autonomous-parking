@@ -107,7 +107,7 @@ void enableMag() {
 	printf("Continuous-conversion mode\n");
 }
 
-/*void*/ float calcHeading(int mRaw[3], int aRaw[3]/*, float *deg*/) {
+/*void*/ double calcHeading(double mRaw[3], double aRaw[3]/*, float *deg*/) {
     /*float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
     aRaw[0] = -aRaw[0];
