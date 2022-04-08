@@ -184,7 +184,7 @@ void main() {
 
         double heading = calcHeading(scaledMag, accRaw);
 
-        printf("heading: %d\n", heading);
+        printf("heading: %f\n", heading);
         usleep(250000);
     }
 }
