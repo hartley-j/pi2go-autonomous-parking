@@ -107,8 +107,8 @@ void enableMag() {
 	printf("Continuous-conversion mode\n");
 }
 
-void calcHeading(int mRaw[3], int aRaw[3], float *deg) {
-    float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
+/*void*/ float calcHeading(int mRaw[3], int aRaw[3]/*, float *deg*/) {
+    /*float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
     aRaw[0] = -aRaw[0];
 	aRaw[1] = -aRaw[1];
@@ -119,18 +119,20 @@ void calcHeading(int mRaw[3], int aRaw[3], float *deg) {
     roll = -asin(ayNorm/cos(pitch));
     mxComp = mRaw[0] * cos(pitch) + mRaw[2] * sin(pitch);
     myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
-
-    heading = 180 * atan2(myComp, mxComp)/M_PI;
+*/
+    heading = 180 * atan2(mRaw[1], mRaw[0])/M_PI;
 
     heading -= declination;
 
     if (heading < 0) {
         heading += 360;
     }
-
+/*
     *deg = 180 * pitch/M_PI;
     *(deg + 1) = 180 * roll/M_PI;
     *(deg + 2) = heading;
+*/
+    return heading;
 }
 
 void main() {
@@ -141,7 +143,7 @@ void main() {
 
     int magRaw[3];
     int accRaw[3];
-    float angles[3];
+    float heading;
     int scaledMag[3];
 	int oldXMagRawValue = 0;
 	int oldYMagRawValue = 0;
@@ -180,9 +182,9 @@ void main() {
         scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
         scaledMag[2]  = (float)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
 
-        calcHeading(scaledMag, accRaw, angles);
+        heading = calcHeading(scaledMag, accRaw);
 
-        printf("pitch: %f\troll: %f\theading: %f\n", angles[0], angles[1], angles[2]);
+        printf("heading: %f\n", heading);
         usleep(250000);
     }
 }
