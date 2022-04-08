@@ -149,7 +149,7 @@ void main() {
 
         heading = calcHeading(scaledMag, accRaw);
 
-        printf("Mag X: %d\tMag Y: %d\tMag Z: %d", scaledMag[0], scaledMag[1],scaledMag[2]);
+        printf("Mag X: %d\tMag Y: %d\tMag Z: %d\n", scaledMag[0], scaledMag[1],scaledMag[2]);
         printf("current heading: %d\n", heading);
         usleep(250000);
     }
