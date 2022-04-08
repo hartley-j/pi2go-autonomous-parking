@@ -120,7 +120,7 @@ void enableMag() {
     mxComp = mRaw[0] * cos(pitch) + mRaw[2] * sin(pitch);
     myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
 */
-    float heading = 180 * atan2(mRaw[1], mRaw[0])/M_PI;
+    double heading = 180 * atan2(mRaw[1], mRaw[0])/M_PI;
 
     heading -= declination;
 
@@ -143,7 +143,7 @@ void main() {
 
     int magRaw[3];
     int accRaw[3];
-    float heading;
+    double heading;
     int scaledMag[3];
 	int oldXMagRawValue = 0;
 	int oldYMagRawValue = 0;
@@ -158,12 +158,12 @@ void main() {
         readAcc(accRaw);
 
         // Low pass filtering:
-        magRaw[0] =  magRaw[0]  * MAG_LPF_FACTOR + oldXMagRawValue*(1 - MAG_LPF_FACTOR);
-		magRaw[1] =  magRaw[1]  * MAG_LPF_FACTOR + oldYMagRawValue*(1 - MAG_LPF_FACTOR);
-		magRaw[2] =  magRaw[2]  * MAG_LPF_FACTOR + oldZMagRawValue*(1 - MAG_LPF_FACTOR);
-		accRaw[0] =  accRaw[0]  * ACC_LPF_FACTOR + oldXAccRawValue*(1 - ACC_LPF_FACTOR);
-		accRaw[1] =  accRaw[1]  * ACC_LPF_FACTOR + oldYAccRawValue*(1 - ACC_LPF_FACTOR);
-		accRaw[2] =  accRaw[2]  * ACC_LPF_FACTOR + oldZAccRawValue*(1 - ACC_LPF_FACTOR);
+        magRaw[0] =  (double)magRaw[0]  * MAG_LPF_FACTOR + oldXMagRawValue*(1 - MAG_LPF_FACTOR);
+		magRaw[1] =  (double)magRaw[1]  * MAG_LPF_FACTOR + oldYMagRawValue*(1 - MAG_LPF_FACTOR);
+		magRaw[2] =  (double)magRaw[2]  * MAG_LPF_FACTOR + oldZMagRawValue*(1 - MAG_LPF_FACTOR);
+		accRaw[0] =  (double)accRaw[0]  * ACC_LPF_FACTOR + oldXAccRawValue*(1 - ACC_LPF_FACTOR);
+		accRaw[1] =  (double)accRaw[1]  * ACC_LPF_FACTOR + oldYAccRawValue*(1 - ACC_LPF_FACTOR);
+		accRaw[2] =  (double)accRaw[2]  * ACC_LPF_FACTOR + oldZAccRawValue*(1 - ACC_LPF_FACTOR);
 
 		oldXMagRawValue = magRaw[0];
 		oldYMagRawValue = magRaw[1];
@@ -178,13 +178,13 @@ void main() {
         magRaw[2] -= (mzMin + mzMax) /2 ;
 
         // Soft iron calibration
-        scaledMag[0]  = (float)(magRaw[0] - mxMin) / (mxMax - mxMin) * 2 - 1;
-        scaledMag[1]  = (float)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
-        scaledMag[2]  = (float)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
+        scaledMag[0]  = (double)(magRaw[0] - mxMin) / (mxMax - mxMin) * 2 - 1;
+        scaledMag[1]  = (double)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
+        scaledMag[2]  = (double)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
 
-        heading = calcHeading(scaledMag, accRaw);
+        double heading = calcHeading(scaledMag, accRaw);
 
-        printf("heading: %f\n", heading);
+        printf("heading: %d\n", heading);
         usleep(250000);
     }
 }
