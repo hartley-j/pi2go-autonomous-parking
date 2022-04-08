@@ -104,7 +104,7 @@ void enableMag() {
 	printf("Continuous-conversion mode\n");
 }
 
-void calcHeading(int mRaw[3], int aRaw[3], int *deg) {
+void calcHeading(int mRaw[3], int aRaw[3], float *deg) {
     float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
     axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
