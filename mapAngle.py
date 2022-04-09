@@ -5,29 +5,32 @@
 # ****************************************************
 
 import pi2go
-import heading
+import headingICM20948
 import time
+from icm20948 import ICM209848
 
 pi2go.init()
-head = heading.CompassHeading()
+# head = headingICM20948.CompassHeading()
+imu = ICM209848()
 
 mag = []
-angles = []
+# angles = []
+n= 0
 
 try:
     pi2go.spinRight(25)
-    angles.append(head.getHeading())
-    mag.append(head.getMag())
+    mag.append(list(imu.read_magnetometer_data()))
+    # angles.append(head.getHeading())
+    # mag.append(head.getMag())
     while True:
-        angles.append(head.getHeading())
-        mag.append(head.getMag())
+        # angles.append(head.getHeading())
+        mag.append(list(imu.read_magnetometer_data()).append(n))
+        n += 1
         time.sleep(0.1)
 
 except KeyboardInterrupt:
     pi2go.go(0,0)
 
-    with open('test.csv','w') as f:
-        for i in range(len(angles)):
-            f.write("%s, %s, %s, %s\n" % (i, angles[i], mag[i][0], mag[i][1]))
-
-    del head
+    with open('test360Spin.csv','w') as f:
+        for i in mag:
+            f.write(f"{i[-1]}, {i[1]}, {i[2]}, {i[3]}")
