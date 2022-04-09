@@ -99,9 +99,9 @@ void enableAcc() {
 }
 
 void enableMag() {
-    writeMagReg(LIS3MDL_CTRL_REG1, 0b11111000);
-    printf("Temp sesnor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Selft test disabled.\n");
-	writeMagReg(LIS3MDL_CTRL_REG2, 0b01000000);
+    writeMagReg(LIS3MDL_CTRL_REG1, 0b10011000);
+    printf("Temp sensor enabled, High performance, ODR 80 Hz, FAST ODR disabled and Self test disabled.\n");
+	writeMagReg(LIS3MDL_CTRL_REG2, 0b01100000);
 	printf("+/- 12 gauss\n");
 	writeMagReg(LIS3MDL_CTRL_REG3, 0b00000000);
 	printf("Continuous-conversion mode\n");
@@ -150,6 +150,7 @@ void main() {
     double heading;
     double scaledMag[3];
     double axNorm, ayNorm, pitch, roll, myComp, mxComp;
+    int n = 0;
     /*
 	int oldXMagRawValue = 0;
 	int oldYMagRawValue = 0;
@@ -163,7 +164,8 @@ void main() {
         readMag(magRaw);
         readAcc(accRaw);
 
-        printf("%f, %f, %f, %f, %f, %f", magRaw[0], magRaw[1], magRaw[2], accRaw[0], accRaw[1], accRaw[2]);
+        printf("%i ,%f, %f, %f, %f, %f, %f\n", n, magRaw[0], magRaw[1], magRaw[2], accRaw[0], accRaw[1], accRaw[2]);
+        n += 1;
 
 /*
         magRaw[1] = -magRaw[1];
