@@ -89,8 +89,8 @@ class CompassHeading:
     def getHeading(self):
 
         mag = self.getMag()
-        headcalc = math.atan2(mag[self.axes[0]],
-                              mag[self.axes[1]])
+        headcalc = math.atan2(mag[self.axes[1]],
+                              mag[self.axes[0]])
 
         if headcalc < 0:
             headcalc += 2 * math.pi
