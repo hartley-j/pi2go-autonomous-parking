@@ -19,14 +19,15 @@ n= 0
 
 try:
     pi2go.spinRight(25)
-    mag.append(list(imu.read_magnetometer_data()))
+    mag.append(list(imu.read_magnetometer_data()).append(n))
     # angles.append(head.getHeading())
     # mag.append(head.getMag())
     while True:
         # angles.append(head.getHeading())
-        mag.append(list(imu.read_magnetometer_data()).append(n))
+        data = list(imu.read_magnetometer_data())
+        mag.append(data.append(n))
         n += 1
-        time.sleep(0.1)
+        time.sleep(0.01)
 
 except KeyboardInterrupt:
     pi2go.go(0,0)
