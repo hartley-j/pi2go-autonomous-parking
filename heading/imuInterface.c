@@ -163,6 +163,9 @@ void main() {
         readMag(magRaw);
         readAcc(accRaw);
 
+
+        magRaw[1] = -magRaw[1];
+
         heading = calcHeading(magRaw[1],magRaw[0]);
         printf("Heading from raw data: %f\n", heading);
 
