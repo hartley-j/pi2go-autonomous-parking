@@ -1,5 +1,5 @@
 # ****************************************************
-# Filename: heading.py
+# Filename: headingICM20948.py
 # Creater: Joe
 # Description: uses icm20948 sensor to find the heading that board is currently facing.
 #              Requres calibrate.txt to calibrate sensor readings

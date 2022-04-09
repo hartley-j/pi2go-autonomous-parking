@@ -73,7 +73,6 @@ void readBlock(u_int8_t command, u_int8_t size, char device, u_int8_t *data) {
 
 void readAcc(double *a) {
     u_int8_t block[6];
-    selectDevice(file, LSM6DSL_ADDRESS);
     readBlock(LSM6DSL_OUTX_L_XL, sizeof(block), 'a',block);
     *a = (u_int8_t)(block[0] | block[1] << 8);
     *(a+1) = (int16_t)(block[2] | block[3] << 8);
@@ -82,7 +81,6 @@ void readAcc(double *a) {
 
 void readMag(double *m) {
     u_int8_t block[6];
-    selectDevice(file, LIS3MDL_ADDRESS);
     readBlock(LIS3MDL_OUT_X_L, sizeof(block), 'm',block);
     *m = (int16_t)(block[0] | block[1] << 8);
     *(m+1) = (int16_t)(block[2] | block[3] << 8);
