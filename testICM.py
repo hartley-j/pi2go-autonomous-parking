@@ -19,7 +19,7 @@ def main():
 
     except KeyboardInterrupt:
         # df.to_csv('testICMNorth.csv')
-        with open("testICMNorth.csv", "w") as f:
+        with open("testICMSouth.csv", "w") as f:
             for line in magData:
                 f.write(line)
 
