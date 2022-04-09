@@ -21,6 +21,7 @@ try:
     pi2go.spinRight(80)
     init_data = list(imu.read_magnetometer_data())
     full_init_data = (init_data.append(n))
+    print(full_init_data)
     mag.append(full_init_data)
     # angles.append(head.getHeading())
     # mag.append(head.getMag())
