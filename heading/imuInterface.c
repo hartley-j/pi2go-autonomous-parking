@@ -163,7 +163,9 @@ void main() {
         readMag(magRaw);
         readAcc(accRaw);
 
+        printf("%f, %f, %f, %f, %f, %f", magRaw[0], magRaw[1], magRaw[2], accRaw[0], accRaw[1], accRaw[2]);
 
+/*
         magRaw[1] = -magRaw[1];
 
         heading = calcHeading(magRaw[1],magRaw[0]);
@@ -197,7 +199,7 @@ void main() {
 		oldXAccRawValue = accRaw[0];
 		oldYAccRawValue = accRaw[1];
 		oldZAccRawValue = accRaw[2];
-*/
+
         // Hard iron calibration
         magRaw[0] -= (mxMin + mxMax) /2 ;
         magRaw[1] -= (myMin + myMax) /2 ;
@@ -210,7 +212,7 @@ void main() {
 
         heading = calcHeading(scaledMag[1], scaledMag[0]);
         printf("Heading after scaling: %f\n", heading);
-
+*/
         usleep(250000);
     }
 }
