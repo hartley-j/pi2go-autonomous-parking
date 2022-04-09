@@ -18,7 +18,7 @@
 #define ACC_LPF_FACTOR  0.1
 
 
-float declination = 0.58327;
+double declination = 0.58327;
 int file;
 
 
@@ -107,7 +107,7 @@ void enableMag() {
 	printf("Continuous-conversion mode\n");
 }
 
-/*void*/ double calcHeading(double mRaw[3]/*, double aRaw[3], float *deg*/) {
+/*void*/ double calcHeading(double m[3]/*, double aRaw[3], float *deg*/) {
     /*float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
     aRaw[0] = -aRaw[0];
@@ -120,12 +120,16 @@ void enableMag() {
     mxComp = mRaw[0] * cos(pitch) + mRaw[2] * sin(pitch);
     myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
 */
-    double heading = 180 * atan2(mRaw[1], mRaw[0])/M_PI;
 
-    heading -= declination;
 
-    if (heading < 0) {
-        heading += 360;
+    double head = 180 * atan2(m[1], m[0])/M_PI;
+
+    head -= declination;
+
+    if (head < 0) {
+        head += 360;
+    } else if (heading > 360) {
+        head -= 360;
     }
 /*
     *deg = 180 * pitch/M_PI;
@@ -141,22 +145,37 @@ void main() {
     enableAcc();
     enableMag();
 
-    int magRaw[3];
-    int accRaw[3];
+    double magRaw[3];
+    double accRaw[3];
     double heading;
     double scaledMag[3];
+    /*
 	int oldXMagRawValue = 0;
 	int oldYMagRawValue = 0;
 	int oldZMagRawValue = 0;
 	int oldXAccRawValue = 0;
 	int oldYAccRawValue = 0;
 	int oldZAccRawValue = 0;
-
+    */
     while(1)
     {
         readMag(magRaw);
         readAcc(accRaw);
 
+        heading = calcHeading(magRaw[1], ,magRaw[0]);
+        printf("Heading from raw data: %f", heading);
+
+        axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
+        ayNorm = aRaw[1]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
+        pitch = asin(ayNorm);
+        roll = -asin(ayNorm/cos(pitch));
+        mxComp = mRaw[0] * cos(pitch) + mRaw[2] * sin(pitch);
+        myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
+
+        heading = calcHeading(myComp, mxComp);
+        printf("Heading after tilt calibration");
+
+/*
         // Low pass filtering:
         magRaw[0] =  (double)magRaw[0]  * MAG_LPF_FACTOR + oldXMagRawValue*(1 - MAG_LPF_FACTOR);
 		magRaw[1] =  (double)magRaw[1]  * MAG_LPF_FACTOR + oldYMagRawValue*(1 - MAG_LPF_FACTOR);
@@ -171,7 +190,7 @@ void main() {
 		oldXAccRawValue = accRaw[0];
 		oldYAccRawValue = accRaw[1];
 		oldZAccRawValue = accRaw[2];
-
+*/
         // Hard iron calibration
         magRaw[0] -= (mxMin + mxMax) /2 ;
         magRaw[1] -= (myMin + myMax) /2 ;
@@ -182,9 +201,9 @@ void main() {
         scaledMag[1]  = (double)(magRaw[1] - myMax) / (myMax - myMin) * 2 - 1;
         scaledMag[2]  = (double)(magRaw[2] - mzMin) / (mzMax - mzMin) * 2 - 1;
 
-        double heading = calcHeading(scaledMag/*, accRaw*/);
+        heading = calcHeading(scaledMag[1], scaledMag[0]);
+        printf("Heading after scaling: %f\n", heading);
 
-        printf("heading: %f\n", heading);
         usleep(250000);
     }
 }
