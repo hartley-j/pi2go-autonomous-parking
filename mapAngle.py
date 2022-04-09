@@ -7,11 +7,11 @@
 import pi2go
 import headingICM20948
 import time
-from icm20948 import ICM209848
+from icm20948 import ICM20948
 
 pi2go.init()
 # head = headingICM20948.CompassHeading()
-imu = ICM209848()
+imu = ICM20948()
 
 mag = []
 # angles = []
@@ -33,4 +33,4 @@ except KeyboardInterrupt:
 
     with open('test360Spin.csv','w') as f:
         for i in mag:
-            f.write(f"{i[3]}, {i[0]}, {i[1]}, {i[2]}")
+            f.write(f"{i[3]}, {i[0]}, {i[1]}, {i[2]}\n")
