@@ -71,7 +71,7 @@ void readBlock(u_int8_t command, u_int8_t size, char device, u_int8_t *data) {
     }
 }
 
-void readAcc(int *a) {
+void readAcc(double *a) {
     u_int8_t block[6];
     selectDevice(file, LSM6DSL_ADDRESS);
     readBlock(LSM6DSL_OUTX_L_XL, sizeof(block), 'a',block);
@@ -80,7 +80,7 @@ void readAcc(int *a) {
     *(a+2) = (int16_t)(block[4] | block[5] << 8);
 }
 
-void readMag(int *m) {
+void readMag(double *m) {
     u_int8_t block[6];
     selectDevice(file, LIS3MDL_ADDRESS);
     readBlock(LIS3MDL_OUT_X_L, sizeof(block), 'm',block);
@@ -107,7 +107,7 @@ void enableMag() {
 	printf("Continuous-conversion mode\n");
 }
 
-/*void*/ double calcHeading(double m[3]/*, double aRaw[3], float *deg*/) {
+/*void*/ double calcHeading(double y, double x/*, double aRaw[3], float *deg*/) {
     /*float axNorm, ayNorm, pitch, roll, myComp, mxComp, heading;
 
     aRaw[0] = -aRaw[0];
@@ -122,13 +122,13 @@ void enableMag() {
 */
 
 
-    double head = 180 * atan2(m[1], m[0])/M_PI;
+    double head = 180 * atan2(y, x)/M_PI;
 
     head -= declination;
 
     if (head < 0) {
         head += 360;
-    } else if (heading > 360) {
+    } else if (head > 360) {
         head -= 360;
     }
 /*
@@ -149,6 +149,7 @@ void main() {
     double accRaw[3];
     double heading;
     double scaledMag[3];
+    double axNorm, ayNorm, pitch, roll, myComp, mxComp
     /*
 	int oldXMagRawValue = 0;
 	int oldYMagRawValue = 0;
@@ -162,7 +163,7 @@ void main() {
         readMag(magRaw);
         readAcc(accRaw);
 
-        heading = calcHeading(magRaw[1], ,magRaw[0]);
+        heading = calcHeading(magRaw[1],magRaw[0]);
         printf("Heading from raw data: %f", heading);
 
         axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
