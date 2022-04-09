@@ -33,4 +33,4 @@ except KeyboardInterrupt:
 
     with open('test360Spin.csv','w') as f:
         for i in mag:
-            f.write(f"{i[-1]}, {i[1]}, {i[2]}, {i[3]}")
+            f.write(f"{i[3]}, {i[0]}, {i[1]}, {i[2]}")
