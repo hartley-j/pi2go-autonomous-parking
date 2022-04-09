@@ -136,7 +136,7 @@ void enableMag() {
     *(deg + 1) = 180 * roll/M_PI;
     *(deg + 2) = heading;
 */
-    return heading;
+    return head;
 }
 
 void main() {
@@ -149,7 +149,7 @@ void main() {
     double accRaw[3];
     double heading;
     double scaledMag[3];
-    double axNorm, ayNorm, pitch, roll, myComp, mxComp
+    double axNorm, ayNorm, pitch, roll, myComp, mxComp;
     /*
 	int oldXMagRawValue = 0;
 	int oldYMagRawValue = 0;
