@@ -166,12 +166,12 @@ void main() {
         heading = calcHeading(magRaw[1],magRaw[0]);
         printf("Heading from raw data: %f", heading);
 
-        axNorm = aRaw[0]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
-        ayNorm = aRaw[1]/sqrt(aRaw[0] * aRaw[0] + aRaw[1] * aRaw[1] + aRaw[2] * aRaw[2]);
+        axNorm = accRaw[0]/sqrt(accRaw[0] * accRaw[0] + accRaw[1] * accRaw[1] + accRaw[2] * accRaw[2]);
+        ayNorm = accRaw[1]/sqrt(accRaw[0] * accRaw[0] + accRaw[1] * accRaw[1] + accRaw[2] * accRaw[2]);
         pitch = asin(ayNorm);
         roll = -asin(ayNorm/cos(pitch));
-        mxComp = mRaw[0] * cos(pitch) + mRaw[2] * sin(pitch);
-        myComp = mRaw[0] * sin(roll) * sin(pitch) + mRaw[1] * cos(roll) - mRaw[2] * sin(roll) * cos(pitch);
+        mxComp = magRaw[0] * cos(pitch) + magRaw[2] * sin(pitch);
+        myComp = magRaw[0] * sin(roll) * sin(pitch) + magRaw[1] * cos(roll) - magRaw[2] * sin(roll) * cos(pitch);
 
         heading = calcHeading(myComp, mxComp);
         printf("Heading after tilt calibration");
