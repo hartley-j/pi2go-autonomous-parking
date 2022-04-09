@@ -15,21 +15,21 @@ imu = ICM20948()
 
 mag = []
 # angles = []
-n= 0
+n = 0
 
 try:
     pi2go.spinRight(80)
     init_data = list(imu.read_magnetometer_data())
     print(init_data)
-    full_init_data = (init_data.append(n))
-    print(full_init_data)
-    mag.append(full_init_data)
+    init_data.append(n)
+    mag.append(init_data)
     # angles.append(head.getHeading())
     # mag.append(head.getMag())
     while True:
         # angles.append(head.getHeading())
         data = list(imu.read_magnetometer_data())
-        mag.append(data.append(n))
+        data.append(n)
+        mag.append(data)
         n += 1
         time.sleep(0.01)
 
