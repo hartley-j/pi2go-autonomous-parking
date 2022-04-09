@@ -166,6 +166,9 @@ void main() {
         heading = calcHeading(magRaw[1],magRaw[0]);
         printf("Heading from raw data: %f\n", heading);
 
+        accRaw[0] = -accRaw[0];
+	    accRaw[1] = -accRaw[1];
+
         axNorm = accRaw[0]/sqrt(accRaw[0] * accRaw[0] + accRaw[1] * accRaw[1] + accRaw[2] * accRaw[2]);
         ayNorm = accRaw[1]/sqrt(accRaw[0] * accRaw[0] + accRaw[1] * accRaw[1] + accRaw[2] * accRaw[2]);
         pitch = asin(ayNorm);
