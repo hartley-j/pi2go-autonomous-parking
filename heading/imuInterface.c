@@ -164,6 +164,8 @@ void main() {
         readMag(magRaw);
         readAcc(accRaw);
 
+        magRaw[0] = -magRaw[0];
+
         printf("%i ,%f, %f, %f, %f, %f, %f\n", n, magRaw[0], magRaw[1], magRaw[2], accRaw[0], accRaw[1], accRaw[2]);
         n += 1;
 
