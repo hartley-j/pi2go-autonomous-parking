@@ -18,7 +18,7 @@ mag = []
 n= 0
 
 try:
-    pi2go.spinRight(25)
+    pi2go.spinRight(80)
     mag.append(list(imu.read_magnetometer_data()).append(n))
     # angles.append(head.getHeading())
     # mag.append(head.getMag())
