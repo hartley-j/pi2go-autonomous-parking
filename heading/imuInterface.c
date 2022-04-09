@@ -164,7 +164,7 @@ void main() {
         readAcc(accRaw);
 
         heading = calcHeading(magRaw[1],magRaw[0]);
-        printf("Heading from raw data: %f", heading);
+        printf("Heading from raw data: %f\n", heading);
 
         axNorm = accRaw[0]/sqrt(accRaw[0] * accRaw[0] + accRaw[1] * accRaw[1] + accRaw[2] * accRaw[2]);
         ayNorm = accRaw[1]/sqrt(accRaw[0] * accRaw[0] + accRaw[1] * accRaw[1] + accRaw[2] * accRaw[2]);
@@ -174,7 +174,7 @@ void main() {
         myComp = magRaw[0] * sin(roll) * sin(pitch) + magRaw[1] * cos(roll) - magRaw[2] * sin(roll) * cos(pitch);
 
         heading = calcHeading(myComp, mxComp);
-        printf("Heading after tilt calibration");
+        printf("Heading after tilt calibration: %f\n", heading);
 
 /*
         // Low pass filtering:
