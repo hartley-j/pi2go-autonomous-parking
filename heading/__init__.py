@@ -84,4 +84,5 @@ if __name__ == '__main__':
             sleep(0.25)
 
     except KeyboardInterrupt:
-        del heading
+        print(f"Max:{heading.axesMax}")
+        print(f"Min:{heading.axesMin}")
