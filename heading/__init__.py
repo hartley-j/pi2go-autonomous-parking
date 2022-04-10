@@ -8,6 +8,7 @@ import math
 from icm20948 import ICM20948
 import ast
 from time import sleep
+import pi2go
 
 class Compass:
     """
@@ -25,10 +26,28 @@ class Compass:
         self.X1, self.Y1, self.Z1 = 2, 1, 0
 
         # Max and min values for each axes
-        self.axesMax = [1000, 1000, 1000]
-        self.axesMin = [-1000, -1000, -1000]
+        self.axesMax = [0, 0, 0]
+        self.axesMin = [0, 0, 0]
+        self.maxMin()
 
         # TODO: add support for opening calibrate file and changing max and min vals
+
+    def maxMin(self):
+        pi2go.init()
+        pi2go.spinRight(80)
+        for i in range(50):
+            mag = list(self.imu.read_magnetometer_data())
+
+            for j in range(3):
+                v = mag[j]
+
+                if v > self.axesMax[j]:
+                    self.axesMax[j] = v
+                if v < self.axesMin[j]:
+                    self.axesMin[j] = v
+        pi2go.go(0,0)
+        pi2go.cleanup()
+
 
     def getMag(self):
         """" Gets magnetometer data and returns as [x, y, z]"""
