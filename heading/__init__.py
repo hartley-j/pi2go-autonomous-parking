@@ -25,8 +25,8 @@ class Compass:
         self.X1, self.Y1, self.Z1 = 2, 1, 0
 
         # Max and min values for each axes
-        self.axesMax = [16.5, 119.1, 35.7]
-        self.axesMin = [-131.4, -92.55, -62.849999999999994]
+        self.axesMax = [-45.75, 68.1, 49.8]
+        self.axesMin = [-58.2, 25.95, -2.4]
 
         # TODO: add support for opening calibrate file and changing max and min vals
 
