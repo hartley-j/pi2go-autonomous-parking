@@ -49,7 +49,7 @@ class Compass:
     def calibrate(self, raw):
         """ raw in form of measured [x, y, z] """
         # Uses list comprehension to multiply every value in list by -1
-        raw = [raw[i] * -1 for i in range(3)]
+        # raw = [raw[i] * -1 for i in range(3)]
 
         # Normalises every axes value with respective min and max values
         for i in range(3):
