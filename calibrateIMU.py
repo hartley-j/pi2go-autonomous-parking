@@ -13,7 +13,7 @@ import numpy as np
 
 def getCalibration(overwrite):
 
-    calfile = "heading/calibration.txt"
+    calfile = "calibration.txt"
 
     if (not os.path.isfile(calfile)) or overwrite:
         # Run calibration
@@ -55,12 +55,11 @@ def runCalibration():
     del imu
 
     cal = {'xmin': np.min(xlist), 'ymin': np.min(ylist), 'xmax': np.max(xlist), 'ymax': np.max(ylist)}
-    with open("heading/calibration.txt", "w") as file:
+    with open("calibration.txt", "w") as file:
         for key, val in cal.items():
             file.write(f"{key}:{val}\n")
 
     return cal
-
 
 
 if __name__ == '__main__':
