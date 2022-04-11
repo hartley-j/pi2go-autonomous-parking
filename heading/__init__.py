@@ -21,17 +21,17 @@ class Compass:
 
     def __init__(self):
         self.imu = ICM20948()
-
-        # Axes index
-        # Due to position of sensor, the Z and X axis will be 'swapped' for easier calculations
-        self.X1, self.Y1, self.Z1 = 2, 1, 0
+        calfile = 'calibration.txt'
 
         # Max and min values for each axes
-        with open('calibration.txt', 'r'):
+        # Load calibration file
+        self.cal = {}
+        with open(calfile, "r") as file:
+            lines = file.readlines()
+            for line in lines:
+                key, val = line.split(':')
+                self.cal[key] = float(val.strip('\n'))
 
-        self.axesMax = [0, 0, 0]
-        self.axesMin = [0, 0, 0]
-        # self.maxMin()
 
         # TODO: add support for opening calibrate file and changing max and min vals
 
@@ -60,7 +60,7 @@ class Compass:
         #       Z1, Y1, X1
         Z1, Y1, X1 = list(self.imu.read_magnetometer_data())
 
-        return {Z1, Y1, X1}
+        return {'x':X1, 'y':Y1, 'z':Z1}
 
 
     def calibrate(self, raw):
@@ -69,38 +69,45 @@ class Compass:
         # raw = [raw[i] * -1 for i in range(3)]
 
         # Normalises every axes value with respective min and max values
-        for i in range(3):
-            raw[i] -= self.axesMin[i]
-            raw[i] /= (self.axesMax[i] - self.axesMin[i])
-            raw[i] -= 0.5
+        for k, val in raw.items():
+            raw[k] -= self.cal[f"{k}min"]
+            raw[k] /= (self.cal[f"{k}max"] - self.cal[f"{k}min"])
+            raw[k] -= 0.5
 
         return raw
 
 
     def headingCalc(self, coord):
-        """ coord in tuple form as (x1, y1) """
-        heading = math.degrees(math.atan2(coord[1], coord[0]))
         # We want the heading, which is the angle from North which, in our case, lies on the Y axis.
         # Atan2 takes the arguments atan2(y, x) to find the angle from the X axis.
         # However, we want the angle from the Y axis so we switch it around.
+        heading = math.degrees(math.atan2(coord['x'], coord['y']))
 
         return heading
+
 
     def getHeading(self):
+        '''
+        Gets data from the magnetometre, calibrates it, and calculates the heading
+        '''
         magData = self.getMag()
         magData = self.calibrate(magData)
-
-        heading = self.headingCalc(coord=(magData[self.X1], magData[self.Y1]))
+        heading = self.headingCalc(coord=magData)
 
         return heading
+
 
 if __name__ == '__main__':
     try:
         heading = Compass()
+        pi2go.init()
+        pi2go.spinRight(50)
         while True:
             print(heading.getHeading())
             sleep(0.25)
 
     except KeyboardInterrupt:
-        print(f"Max:{heading.axesMax}")
-        print(f"Min:{heading.axesMin}")
+        pi2go.go(0, 0)
+        pi2go.cleanup()
+        # print(f"Max:{heading.axesMax}")
+        # print(f"Min:{heading.axesMin}")
