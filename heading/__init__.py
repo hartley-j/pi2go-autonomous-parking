@@ -31,7 +31,7 @@ class Compass:
 
         self.axesMax = [0, 0, 0]
         self.axesMin = [0, 0, 0]
-        self.maxMin()
+        # self.maxMin()
 
         # TODO: add support for opening calibrate file and changing max and min vals
 
@@ -60,7 +60,7 @@ class Compass:
         #       Z1, Y1, X1
         Z1, Y1, X1 = list(self.imu.read_magnetometer_data())
 
-        return Z1, Y1, X1
+        return {Z1, Y1, X1}
 
 
     def calibrate(self, raw):
