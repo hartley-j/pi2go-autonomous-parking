@@ -66,5 +66,9 @@ def runCalibration():
 if __name__ == '__main__':
 
     overwrite = True
-    cal = getCalibration(overwrite)
+    try:
+        cal = getCalibration(overwrite)
+    finally:
+        pi2go.cleanup()
+
     print(cal)
