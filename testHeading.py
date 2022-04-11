@@ -30,16 +30,18 @@ def faceNorth():
     pi2go.init()
     heading = Compass()
 
-    if heading.getHeading():
-        isNotNorth = True
-        pi2go.spinRight(30)
+    if heading.getHeading() != 0:
+        isNorth = False
+        pi2go.spinRight(50)
     else:
-        isNotNorth = False
+        isNorth = True
 
-    while isNotNorth:
+    while not isNorth:
         currentHead = heading.getHeading()
+        print(currentHead)
         if -10 < currentHead < 10:
             break
+        sleep(0.01)
 
     pi2go.go(0,0)
 
