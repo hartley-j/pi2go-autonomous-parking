@@ -26,6 +26,22 @@ def currentHeading():
     except:
         del heading
 
+def faceNorth():
+    pi2go.init()
+    heading = Compass()
+
+    if heading.getHeading():
+        isNotNorth = True
+        pi2go.spinRight(30)
+    else:
+        isNotNorth = False
+
+    while isNotNorth:
+        currentHead = heading.getHeading()
+        if -10 < currentHead < 10:
+            break
+
+    pi2go.go(0,0)
 
 if __name__ == "__main__":
-    currentHeading()
+    faceNorth()
