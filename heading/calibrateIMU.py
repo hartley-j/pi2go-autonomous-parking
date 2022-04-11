@@ -11,16 +11,17 @@ import os
 import numpy as np
 
 
-def getCalibration():
+def getCalibration(overwrite):
 
-    txtfile = "heading/calibration.txt"
+    calfile = "heading/calibration.txt"
 
-    if not os.path.isfile(txtfile):
+    if (not os.path.isfile(calfile)) or overwrite:
         # Run calibration
         cal = runCalibration()
     else:
+        # Load calibration file
         cal = {}
-        with open(txtfile, "r") as file:
+        with open(calfile, "r") as file:
             lines = file.readlines()
             for line in lines:
                 key, val = line.split(':')
@@ -64,4 +65,6 @@ def runCalibration():
 
 if __name__ == '__main__':
 
-    getCalibration()
+    overwrite = True
+    cal = getCalibration(overwrite)
+    print(cal)
