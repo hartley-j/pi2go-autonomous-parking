@@ -10,6 +10,7 @@ import ast
 from time import sleep
 import pi2go
 
+
 class Compass:
     """
     Takes data from icm20948 and calculates the current heading from north
@@ -26,44 +27,41 @@ class Compass:
         self.X1, self.Y1, self.Z1 = 2, 1, 0
 
         # Max and min values for each axes
+        with open('calibration.txt', 'r'):
+
         self.axesMax = [0, 0, 0]
         self.axesMin = [0, 0, 0]
         self.maxMin()
 
         # TODO: add support for opening calibrate file and changing max and min vals
 
-    def maxMin(self):
-        pi2go.init()
-        pi2go.spinRight(80)
-        for i in range(50):
-            mag = list(self.imu.read_magnetometer_data())
-
-            for j in range(3):
-                v = mag[j]
-
-                if v > self.axesMax[j]:
-                    self.axesMax[j] = v
-                if v < self.axesMin[j]:
-                    self.axesMin[j] = v
-        pi2go.go(0,0)
-        pi2go.cleanup()
+    # def maxMin(self):
+    #     pi2go.init()
+    #     pi2go.spinRight(80)
+    #     for i in range(50):
+    #         mag = list(self.imu.read_magnetometer_data())
+    #
+    #         for j in range(3):
+    #             v = mag[j]
+    #
+    #             if v > self.axesMax[j]:
+    #                 self.axesMax[j] = v
+    #             if v < self.axesMin[j]:
+    #                 self.axesMin[j] = v
+    #     pi2go.go(0,0)
+    #     pi2go.cleanup()
 
 
     def getMag(self):
         """" Gets magnetometer data and returns as [x, y, z]"""
         # Get mag values in form: [X, Y, Z]
-        mag = list(self.imu.read_magnetometer_data())
+        # Raw output (from the sensor) is: X, Y, Z
+        # But, because of the orientation of the sensor, these values are ACTUALLY:
+        #       Z1, Y1, X1
+        Z1, Y1, X1 = list(self.imu.read_magnetometer_data())
 
-        # Iterates through list and checks against min and max values
-        # for i in range(3):
-        #     v = mag[i]
-        #
-        #     if v > self.axesMax[i]:
-        #         self.axesMax[i] = v
-        #     if v < self.axesMin[i]:
-        #         self.axesMin[i] = v
+        return Z1, Y1, X1
 
-        return mag
 
     def calibrate(self, raw):
         """ raw in form of measured [x, y, z] """
@@ -77,6 +75,7 @@ class Compass:
             raw[i] -= 0.5
 
         return raw
+
 
     def headingCalc(self, coord):
         """ coord in tuple form as (x1, y1) """

@@ -54,7 +54,13 @@ def runCalibration():
     pi2go.cleanup()
     del imu
 
-    cal = {'xmin': np.min(xlist), 'ymin': np.min(ylist), 'xmax': np.max(xlist), 'ymax': np.max(ylist)}
+    cal = {'xmin': np.min(xlist),
+           'ymin': np.min(ylist),
+           'zmin': np.min(zlist),
+           'xmax': np.max(xlist),
+           'ymax': np.max(ylist),
+           'zmax': np.max(zlist)}
+
     with open("calibration.txt", "w") as file:
         for key, val in cal.items():
             file.write(f"{key}:{val}\n")
