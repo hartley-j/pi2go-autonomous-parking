@@ -55,11 +55,15 @@ def calibrateData(df):
     df["y1"] /= (ymax - ymin)
     df["y1"] -= 0.5
 
+    minmax = [xmin, ymin, xmax, ymax]
+    print(minmax)
+
     return df
+
 
 # Calculates heading from dataframe
 def headingCalc(df):
-    df["heading"] = [math.degrees(math.atan2(df["y1"].to_numpy()[i], df["x1"].to_numpy()[i])) for i in np.arange(len(df["x1"]))]
+    df["heading"] = [math.degrees(math.atan2(df["x1"].to_numpy()[i], df["y1"].to_numpy()[i])) for i in np.arange(len(df["x1"]))]
     # We want the heading, which is the angle from North which, in our case, lies on the Y axis.
     # Atan2 takes the arguments atan2(y, x) to find the angle from the X axis. However, we want the angle from the Y axis so we switch it around.
 
@@ -77,7 +81,7 @@ def main():
     df["y1"] = df['y']
     plotCircleScatter(df, title="Scatter plot Uncalibrated Data", filename="uncalibratedDataSctter.png")
     df = calibrateData(df)
-    plotCircleScatter(df,title="Scatter plot Calibrated Data",filename="calibratedDataSctter.png")
+    plotCircleScatter(df, title="Scatter plot Calibrated Data", filename="calibratedDataSctter.png")
 
     df = headingCalc(df)
     plotCircleScatter(df, hue="heading", title="Scatter plot Calibrated Data with Heading", filename="calibratedDataSctterHeading.png")

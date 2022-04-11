@@ -55,13 +55,13 @@ class Compass:
         mag = list(self.imu.read_magnetometer_data())
 
         # Iterates through list and checks against min and max values
-        for i in range(3):
-            v = mag[i]
-
-            if v > self.axesMax[i]:
-                self.axesMax[i] = v
-            if v < self.axesMin[i]:
-                self.axesMin[i] = v
+        # for i in range(3):
+        #     v = mag[i]
+        #
+        #     if v > self.axesMax[i]:
+        #         self.axesMax[i] = v
+        #     if v < self.axesMin[i]:
+        #         self.axesMin[i] = v
 
         return mag
 
