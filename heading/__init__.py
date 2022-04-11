@@ -8,7 +8,6 @@ import math
 from icm20948 import ICM20948
 import ast
 from time import sleep
-import pi2go
 
 
 class Compass:
@@ -95,19 +94,3 @@ class Compass:
         heading = self.headingCalc(coord=magData)
 
         return heading
-
-
-if __name__ == '__main__':
-    try:
-        heading = Compass()
-        pi2go.init()
-        pi2go.spinRight(50)
-        while True:
-            print(heading.getHeading())
-            sleep(0.25)
-
-    except KeyboardInterrupt:
-        pi2go.go(0, 0)
-        pi2go.cleanup()
-        # print(f"Max:{heading.axesMax}")
-        # print(f"Min:{heading.axesMin}")
