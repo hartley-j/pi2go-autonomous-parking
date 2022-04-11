@@ -41,7 +41,7 @@ def faceNorth():
         print(currentHead)
         if -10 < currentHead < 10:
             break
-        sleep(0.01)
+        sleep(0.001)
 
     pi2go.go(0,0)
 
