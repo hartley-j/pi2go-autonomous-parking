@@ -69,7 +69,6 @@ class Compass:
 
         # Normalises every axes value with respective min and max values
         for k, val in raw.items():
-            raw[k] = raw[k] * -1
             raw[k] -= self.cal[f"{k}min"]
             raw[k] /= (self.cal[f"{k}max"] - self.cal[f"{k}min"])
             raw[k] -= 0.5
