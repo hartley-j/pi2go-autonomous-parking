@@ -32,7 +32,7 @@ def faceNorth():
 
     if heading.getHeading() != 0:
         isNorth = False
-        pi2go.spinRight(50)
+        pi2go.spinRight(35)
     else:
         isNorth = True
 
@@ -41,7 +41,6 @@ def faceNorth():
         print(currentHead)
         if -10 < currentHead < 10:
             break
-        sleep(0.001)
 
     pi2go.go(0,0)
 
