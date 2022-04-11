@@ -34,7 +34,7 @@ def runCalibration():
 
     imu = ICM20948()
     pi2go.init()
-    nmax = 300
+    nmax = 2000
 
     pi2go.spinRight(50)
     n = 0
