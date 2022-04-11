@@ -40,6 +40,6 @@ except KeyboardInterrupt:
     pi2go.go(0,0)
 
     # Write raw data to csv in format: n, x, y, z
-    with open('test360Spin.csv','w') as f:
+    with open('../data/test360Spin.csv', 'w') as f:
         for i in mag:
             f.write(f"{i[3]}, {i[0]}, {i[1]}, {i[2]}\n")

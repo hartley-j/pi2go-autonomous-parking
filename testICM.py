@@ -5,12 +5,12 @@ import os
 
 def getCalibration():
 
-    file = 'calibration.txt'
+    file = 'heading/calibration.txt'
     if not os.path.isfile():
         # Run calibration
     else:
         cal = {}
-        with open("calibration.txt", "r") as file:
+        with open("heading/calibration.txt", "r") as file:
             lines = file.readlines()
             for line in lines:
                 key, val = line.split(':')

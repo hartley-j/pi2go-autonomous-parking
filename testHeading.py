@@ -16,6 +16,16 @@ def main():
         pi2go.go(0, 0)
         pi2go.cleanup()
 
+def currentHeading():
+    try:
+        heading = Compass()
+
+        while True:
+            print(heading.getHeading())
+            sleep(0.01)
+    except:
+        del heading
+
 
 if __name__ == "__main__":
-    main()
+    currentHeading()

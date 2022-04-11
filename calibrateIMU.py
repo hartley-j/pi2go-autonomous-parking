@@ -61,7 +61,7 @@ def runCalibration():
            'ymax': np.max(ylist),
            'zmax': np.max(zlist)}
 
-    with open("calibration.txt", "w") as file:
+    with open("heading/calibration.txt", "w") as file:
         for key, val in cal.items():
             file.write(f"{key}:{val}\n")
 
