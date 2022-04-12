@@ -15,6 +15,7 @@ def main():
     initHeading = head.meanAngle([head.getHeading() for i in np.arange(10)])
     endHeading = head.normaliseHeading(initHeading + 45)
     currentHeading = initHeading
+    print((endHeading, currentHeading))
 
     n = 1
     incr = 10 # in degrees
