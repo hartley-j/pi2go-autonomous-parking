@@ -29,7 +29,7 @@ def collectData(filename=None):
     while n < 100:
         pi2go.spinRight(40)
         currentHeading = head.meanAngle([head.getHeading() for i in np.arange(10)])
-        distance = pi2go.getDistance()
+        distance = round(pi2go.getDistance())
         print(f"n = {n} Current heading = {currentHeading} Distance = {distance} | {endHeading}")
         angles.append((currentHeading, distance))
         n += 1
