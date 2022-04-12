@@ -93,7 +93,7 @@ class Robot:
                 pi2go.spinLeft(speed)
 
             sleep(0.001)
-            currenthead = self.heading.getHeading()
+            currenthead = round(self.heading.getHeading())
             print("current heading is:", currenthead)
 
         pi2go.go(0,0)
