@@ -24,7 +24,7 @@ def main():
     angles = []
 
 
-    while (n > 30) and (currentHeading >= endHeading):
+    while (n < 30) or (currentHeading >= endHeading):
         rob.rotateAngle(incr, tolerance=2)
         averageHeading = head.meanAngle([head.getHeading() for i in np.arange(10)])
         angles.append((averageHeading, pi2go.getDistance()))
