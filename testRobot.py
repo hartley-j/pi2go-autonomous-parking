@@ -16,7 +16,7 @@ def testFoward():
 
 def testTurn():
     rob = robot.Robot
-    rob.rotateAngle(90,speed=50)
+    rob.rotateAngle(deg=90, speed=50)
 
 if __name__ == '__main__':
     testTurn()
