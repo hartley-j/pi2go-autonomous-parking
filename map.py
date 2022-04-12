@@ -30,7 +30,7 @@ def collectData(filename=None):
         pi2go.spinRight(20)
         # currentHeading = round(head.meanAngle([head.getHeading() for i in np.arange(10)]),1)
         currentHeading = round(head.getHeading())
-        distance = round(pi2go.getDistance())
+        distance = round(pi2go.getDistance()) + 11
         print(f"n = {n} Current heading = {currentHeading} Distance = {distance} | {endHeading}")
         angles.append((currentHeading, distance))
         n += 1
@@ -62,16 +62,16 @@ def getCoordinates(angles, readfile='map.txt', writefile='coordinates.txt'):
             xCoord = distance * math.sin(theta)
         elif 90 < angle <= 180:  # In +x and -y quadrant
             theta = angle - 90
-            yCoord = -(distance * math.cos(theta))
-            xCoord = distance * math.sin(theta)
+            yCoord = -(distance * math.sin(theta))
+            xCoord = distance * math.cos(theta)
         elif 0 > angle >= -90:  # In the -x and +y quadrant
             theta = abs(angle)
             yCoord = distance * math.cos(theta)
             xCoord = -(distance * math.sin(theta))
         elif -90 > angle >= -180:  # In the -x and -y quadrant
             theta = abs(angle + 90)
-            yCoord = -(distance * math.cos(theta))
-            xCoord = -(distance * math.sin(theta))
+            yCoord = -(distance * math.sin(theta))
+            xCoord = -(distance * math.cos(theta))
 
         coordinates.append((xCoord, yCoord))
 
