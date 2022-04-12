@@ -36,7 +36,7 @@ def runCalibration():
     pi2go.init()
     nmax = 2000
 
-    pi2go.spinRight(50)
+    pi2go.go(50,0)
     n = 0
     xlist, ylist, zlist = [[], [], []]
 
@@ -51,6 +51,7 @@ def runCalibration():
         zlist.append(Z1)
         n += 1
 
+    pi2go.go(0,0)
     pi2go.cleanup()
     del imu
 
