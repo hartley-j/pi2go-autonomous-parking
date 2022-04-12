@@ -92,7 +92,7 @@ class Robot:
             if deg < 0:
                 pi2go.spinLeft(speed)
 
-            sleep(0.001)
+            sleep(0.0001)
             currenthead = round(self.heading.getHeading())
             print("current heading is:", currenthead)
 
