@@ -19,4 +19,4 @@ def testTurn():
     rob.rotateAngle(deg=90, speed=50)
 
 if __name__ == '__main__':
-    testTurn()
+    testFoward()
