@@ -78,9 +78,9 @@ class Robot:
     #         self.rotateAngle(degreestoturn, currenthead)
 
     def rotateAngle(self,deg,speed=20):
-        currenthead = self.heading.getHeading()
+        currenthead = round(self.heading.getHeading())
         print("Current heading=", currenthead)
-        targetHead = self.heading.normaliseHeading(currenthead + deg)
+        targetHead = round(self.heading.normaliseHeading(currenthead + deg))
         print("Pointing towards:", targetHead)
 
         lowerBound = targetHead - 5
