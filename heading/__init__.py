@@ -89,9 +89,9 @@ class Compass:
 
 
     def getHeading(self):
-        '''
-        Gets data from the magnetometre, calibrates it, and calculates the heading
-        '''
+        """
+        Gets data from the magnetometer, calibrates it, and calculates the heading
+        """
         magData = self.getMag()
         magData = self.calibrate(magData)
         heading = self.headingCalc(coord=magData)
