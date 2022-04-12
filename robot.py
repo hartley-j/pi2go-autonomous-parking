@@ -91,9 +91,9 @@ class Robot:
 
         while not(lowerBound <= currenthead <= upperBound):
             if deg > 0:
-                pi2go.spinRight(speed)
+                pi2go.go(0, speed)
             if deg < 0:
-                pi2go.spinLeft(speed)
+                pi2go.go(speed, 0)
 
             sleep(0.001)
             currenthead = self.heading.getHeading()
