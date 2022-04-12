@@ -8,6 +8,7 @@ import numpy as np
 import robot
 import heading
 import pi2go
+import ast
 
 def collectData(filename=None):
     rob = robot.Robot()
@@ -44,7 +45,7 @@ def getCoordinates(angles, readfile='map.txt', writefile='coordinates.txt'):
     if not angles:
         with open(readfile, 'r') as file:
             for line in file:
-                angles.append(line)
+                angles.append(ast.literal_eval(line))
 
     for i in angles:
         angle = float(i[0])
