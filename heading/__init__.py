@@ -96,3 +96,10 @@ class Compass:
         heading = self.headingCalc(coord=magData)
 
         return heading
+
+    def normaliseHeading(self, deg):
+        if deg > 180:
+            deg -= 360
+        if deg < -180:
+            deg += 360
+        return deg
