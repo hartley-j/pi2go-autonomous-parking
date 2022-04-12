@@ -35,6 +35,7 @@ class Robot:
             currentHeading = round(self.heading.getHeading())
             print(currentHeading)
             correction = pid(currentHeading)
+            print(correction)
             self.forwardUpdate(val=correction, speed=speed)
             currentDistance = pi2go.getDistance()
             sleep(0.1)
