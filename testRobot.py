@@ -9,7 +9,7 @@ import robot
 def main():
     try:
         rob = robot.Robot()
-        rob.forward(30, 20)
+        rob.forward(30, 50)
     except:
         rob.stop()
         del rob
