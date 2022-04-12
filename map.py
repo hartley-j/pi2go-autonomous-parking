@@ -78,5 +78,5 @@ def getCoordinates(angles, readfile='map.txt', writefile='coordinates.txt'):
 
 if __name__ == '__main__':
     # data = collectData("map.txt")
-    coords = getCoordinates(None)
+    coords = getCoordinates([])
 
