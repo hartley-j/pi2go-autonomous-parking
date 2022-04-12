@@ -24,7 +24,7 @@ def main():
     angles = []
 
 
-    while (n < 30) or (currentHeading >= endHeading):
+    while (n < 30) and (currentHeading >= endHeading):
         rob.rotateAngle(incr, tolerance=2)
         currentHeading = head.meanAngle([head.getHeading() for i in np.arange(10)])
         print(f"Average heading = {currentHeading} n = {n}")
