@@ -26,8 +26,9 @@ def main():
 
     while (n < 30) or (currentHeading >= endHeading):
         rob.rotateAngle(incr, tolerance=2)
-        averageHeading = head.meanAngle([head.getHeading() for i in np.arange(10)])
-        angles.append((averageHeading, pi2go.getDistance()))
+        currentHeading = head.meanAngle([head.getHeading() for i in np.arange(10)])
+        print(f"Average heading = {currentHeading} n = {n}")
+        angles.append((currentHeading, pi2go.getDistance()))
         n += 1
 
     with open("map.txt", "w") as file:
