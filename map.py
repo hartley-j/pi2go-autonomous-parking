@@ -26,7 +26,7 @@ def collectData(filename=None):
     angles = []
 
 
-    while n < 100:
+    while n < 400:
         pi2go.spinRight(20)
         # currentHeading = round(head.meanAngle([head.getHeading() for i in np.arange(10)]),1)
         currentHeading = round(head.getHeading())
@@ -34,7 +34,7 @@ def collectData(filename=None):
         print(f"n = {n} Current heading = {currentHeading} Distance = {distance} | {endHeading}")
         angles.append((currentHeading, distance))
         n += 1
-        sleep(0.001)
+        sleep(0.005)
 
     if filename:
         with open(filename, "w") as file:
