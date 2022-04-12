@@ -7,12 +7,12 @@
 import robot
 
 def main():
-    rob = robot.Robot()
-
-    rob.rotateAngle(90)
+    try:
+        rob = robot.Robot()
+        rob.forward(10, 10)
+    except:
+        rob.stop()
+        del rob
 
 if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        del robot
+    main()
