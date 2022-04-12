@@ -99,6 +99,7 @@ class Compass:
         return heading
 
     def normaliseHeading(self, deg):
+        # Used in map.py
         if deg > 180:
             deg -= 360
         if deg < -180:
