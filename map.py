@@ -12,8 +12,8 @@ import pi2go
 def main():
     rob = robot.Robot()
     head = heading.Compass()
-    n = 0
-    incr = 5 # in degrees
+    n = 1
+    incr = 10 # in degrees
     times = round(360/incr) + 5
 
     angles = []

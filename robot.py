@@ -80,13 +80,11 @@ class Robot:
     #         degreestoturn = deg - (nspin * 360)
     #         self.rotateAngle(degreestoturn, currenthead)
 
-    def rotateAngle(self,deg,speed=20, tolerance=5):
+    def rotateAngle(self,deg,speed=40, tolerance=5):
         # Rotates the robot a set number of degrees from -180 to 180
         # Used in map.py and ...
-        currenthead = round(self.heading.getHeading())
-        print("Current heading=", currenthead)
-        targetHead = round(self.heading.normaliseHeading(currenthead + deg))
-        print("Pointing towards:", targetHead)
+        currenthead = self.heading.getHeading()
+        targetHead = self.heading.normaliseHeading(currenthead + deg)
 
         lowerBound = targetHead - tolerance
         upperBound = targetHead + tolerance
@@ -98,8 +96,7 @@ class Robot:
                 pi2go.spinLeft(speed)
 
             sleep(0.001)
-            currenthead = round(self.heading.getHeading())
-            print("current heading is:", currenthead)
+            currenthead = self.heading.getHeading()
 
         pi2go.go(0,0)
 
