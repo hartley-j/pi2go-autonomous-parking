@@ -6,6 +6,7 @@
 
 import math
 from icm20948 import ICM20948
+from cmath import rect, phase
 import ast
 from time import sleep
 
@@ -103,3 +104,7 @@ class Compass:
         if deg < -180:
             deg += 360
         return deg
+
+    def meanAngle(self, deg):
+        # Finds an average from a list of degrees (cannot just be sum/len because of -179 and 179 will be 0, when it should be 180 or -180)
+        return math.degrees(phase(sum(rect(1, math.radians(d)) for d in deg)/len(deg)))

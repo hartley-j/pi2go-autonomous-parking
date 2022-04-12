@@ -22,6 +22,7 @@ class Robot:
         del self.heading
 
     def forward(self, speed, distance):
+        # Move the robot forward for a set distance
         head = round(self.heading.getHeading())
         currentDistance = pi2go.getDistance()
 
@@ -41,6 +42,8 @@ class Robot:
             sleep(0.1)
 
     def forwardUpdate(self, val, speed=80):
+        # Sets the speed of the robot with correction value created by forward function
+        # Returns heading after 100th second to show the affect of correction
         if val != 0:
             pi2go.go(speed, (speed + val))
 
@@ -77,14 +80,16 @@ class Robot:
     #         degreestoturn = deg - (nspin * 360)
     #         self.rotateAngle(degreestoturn, currenthead)
 
-    def rotateAngle(self,deg,speed=20):
+    def rotateAngle(self,deg,speed=20, tolerance=5):
+        # Rotates the robot a set number of degrees from -180 to 180
+        # Used in map.py and ...
         currenthead = round(self.heading.getHeading())
         print("Current heading=", currenthead)
         targetHead = round(self.heading.normaliseHeading(currenthead + deg))
         print("Pointing towards:", targetHead)
 
-        lowerBound = targetHead - 5
-        upperBound = targetHead + 5
+        lowerBound = targetHead - tolerance
+        upperBound = targetHead + tolerance
 
         while not(lowerBound <= currenthead <= upperBound):
             if deg > 0:
