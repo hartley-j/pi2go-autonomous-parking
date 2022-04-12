@@ -22,7 +22,7 @@ class Robot:
         del self.heading
 
     def forward(self, speed, distance):
-        head = self.heading.getHeading()
+        head = round(self.heading.getHeading())
         currentDistance = pi2go.getDistance()
 
         pid = PID(5, 0, 0, setpoint=head)
