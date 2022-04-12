@@ -6,7 +6,7 @@
 
 import robot
 
-def main():
+def testFoward():
     try:
         rob = robot.Robot()
         rob.forward(30, 50)
@@ -14,5 +14,9 @@ def main():
         rob.stop()
         del rob
 
+def testTurn():
+    rob = robot.Robot
+    rob.rotateAngle(90,speed=50)
+
 if __name__ == '__main__':
-    main()
+    testTurn()

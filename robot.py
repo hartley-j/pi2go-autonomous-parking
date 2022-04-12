@@ -44,9 +44,9 @@ class Robot:
         if val != 0:
             pi2go.go(speed, (speed + val))
 
-        sleep(0.1)
+        sleep(0.01)
 
-        return self.heading.getHeading()
+        return round(self.heading.getHeading())
 
     # def spin(self, deg, speed=50):
     #     currenthead = self.heading.getHeading()
