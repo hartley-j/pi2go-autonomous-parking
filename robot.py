@@ -26,15 +26,17 @@ class Robot:
         currentDistance = pi2go.getDistance()
 
         pid = PID(1, 0, 0, setpoint=head)
-        pid.output_limits = (0, 100)
+        pid.output_limits = (-(100 + speed), (100 - speed))
 
         changeDistance = currentDistance - distance
-        while currentDistance != changeDistance:
-            currentHeading = self.heading.getHeading()
-
+        lowerBound = changeDistance - 5
+        upperBound  = changeDistance + 5
+        while not(lowerBound <= currentDistance <= upperBound):
+            currentHeading = round(self.heading.getHeading())
             correction = pid(currentHeading)
             self.forwardUpdate(val=correction, speed=speed)
             currentDistance = pi2go.getDistance()
+            sleep(0.1)
 
     def forwardUpdate(self, val, speed=80):
         if val != 0:
