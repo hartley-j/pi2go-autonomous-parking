@@ -47,8 +47,8 @@ def getCoordinates(angles, readfile='map.txt', writefile='coordinates.txt'):
                 angles.append(line)
 
     for i in angles:
-        angle = i[0]
-        distance = i[1]
+        angle = float(i[0])
+        distance = float(i[1])
         xCoord, yCoord = 0, 0
 
         if 0 <= angle <= 90:  # In +x and +y quadrant
