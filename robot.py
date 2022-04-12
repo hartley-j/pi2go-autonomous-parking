@@ -83,8 +83,8 @@ class Robot:
         targetHead = self.heading.normaliseHeading(currenthead + deg)
         print("Pointing towards:", targetHead)
 
-        lowerBound = targetHead - 20
-        upperBound = targetHead + 20
+        lowerBound = targetHead - 5
+        upperBound = targetHead + 5
 
         while not(lowerBound <= currenthead <= upperBound):
             if currenthead > upperBound:
