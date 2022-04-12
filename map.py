@@ -8,6 +8,7 @@ import numpy as np
 import robot
 import heading
 import pi2go
+from time import sleep
 import ast
 
 def collectData(filename=None):
@@ -25,12 +26,14 @@ def collectData(filename=None):
     angles = []
 
 
-    while (n < 100) or (currentHeading <= endHeading):
-        rob.rotateAngle(incr, tolerance=5)
+    while n < 300:
+        pi2go.spinRight(50)
         currentHeading = head.meanAngle([head.getHeading() for i in np.arange(10)])
-        print(f"n = {n} Current heading = {currentHeading} | {endHeading}")
-        angles.append((currentHeading, pi2go.getDistance()))
+        distance = pi2go.getDistance()
+        print(f"n = {n} Current heading = {currentHeading} Distance = {distance} | {endHeading}")
+        angles.append((currentHeading, distance))
         n += 1
+        sleep(0.01)
 
     if filename:
         with open(filename, "w") as file:
@@ -54,20 +57,20 @@ def getCoordinates(angles, readfile='map.txt', writefile='coordinates.txt'):
 
         if 0 <= angle <= 90:  # In +x and +y quadrant
             theta = angle
-            yCoord = distance * math.sin(theta)
-            xCoord = distance * math.cos(theta)
+            yCoord = distance * math.cos(theta)
+            xCoord = distance * math.sin(theta)
         elif 90 < angle <= 180:  # In +x and -y quadrant
             theta = angle - 90
-            yCoord = -(distance * math.sin(theta))
-            xCoord = distance * math.cos(theta)
+            yCoord = -(distance * math.cos(theta))
+            xCoord = distance * math.sin(theta)
         elif 0 > angle >= -90:  # In the -x and +y quadrant
             theta = abs(angle)
-            yCoord = distance * math.sin(theta)
-            xCoord = -(distance * math.cos(theta))
+            yCoord = distance * math.cos(theta)
+            xCoord = -(distance * math.sin(theta))
         elif -90 > angle >= -180:  # In the -x and -y quadrant
             theta = abs(angle + 90)
-            yCoord = -(distance * math.sin(theta))
-            xCoord = -(distance * math.cos(theta))
+            yCoord = -(distance * math.cos(theta))
+            xCoord = -(distance * math.sin(theta))
 
         coordinates.append((xCoord, yCoord))
 
