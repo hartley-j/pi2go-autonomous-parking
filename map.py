@@ -73,11 +73,11 @@ def getCoordinates(angles, readfile='map.txt', writefile='coordinates.txt'):
 
     with open(writefile, 'w') as file:
         for coord in coordinates:
-            file.write(f"{coord}\n")
+            file.write(f"{coord[0]},{coord[1]}\n")
 
     return coordinates
 
 if __name__ == '__main__':
-    # data = collectData("map.txt")
-    coords = getCoordinates([])
+    data = collectData("map.txt")
+    # coords = getCoordinates([])
 
