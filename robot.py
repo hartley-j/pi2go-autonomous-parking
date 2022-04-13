@@ -53,7 +53,7 @@ class Robot:
 
         sleep(0.01)
 
-        return round(self.heading.getHeading())
+        return self.heading.getHeading()
 
     # def spin(self, deg, speed=50):
     #     currenthead = self.heading.getHeading()
