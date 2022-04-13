@@ -49,7 +49,7 @@ class Robot:
         # Sets the speed of the robot with correction value created by forward function
         # Returns heading after 100th second to show the affect of correction
 
-        pi2go.go(speed, (speed + val))
+        pi2go.go(speed+val,speed)
 
         sleep(0.01)
 
