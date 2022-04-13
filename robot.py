@@ -45,6 +45,7 @@ class Robot:
                 pi2go.go(speed + correction, speed)
             currentDistance = pi2go.getDistance()
             n += 1
+            sleep(0.01)
 
 
     # def spin(self, deg, speed=50):
