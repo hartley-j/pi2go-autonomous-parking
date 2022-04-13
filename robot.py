@@ -39,7 +39,8 @@ class Robot:
         while not(lowerBound <= currentDistance <= upperBound):
             currentHeading = self.heading.getHeading()
             print(currentHeading)
-            correction = pid(currentHeading - head)
+            error = currentHeading - head
+            correction = pid(error)
             print(correction)
             self.forwardUpdate(val=correction, speed=speed)
             currentDistance = pi2go.getDistance()
