@@ -30,7 +30,7 @@ class Robot:
         head = round(self.heading.getHeading())
         currentDistance = pi2go.getDistance()
 
-        pid = PID(0.3, 0.1, 0.1, setpoint=head)
+        pid = PID(0.3, 0.4, 0.1, setpoint=head)
         pid.output_limits = (-(100 + speed), (100 - speed))
 
         changeDistance = currentDistance - distance
