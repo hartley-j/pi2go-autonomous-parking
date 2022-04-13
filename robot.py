@@ -30,7 +30,7 @@ class Robot:
         head = self.heading.getHeading()
         currentDistance = pi2go.getDistance()
 
-        pid = PID(0.9, 0, 0, setpoint=0)
+        pid = PID(0.8, 0, 0, setpoint=0)
         pid.output_limits = (-(100 + speed)/2, (100 - speed)/2)
 
         changeDistance = currentDistance - distance
@@ -48,13 +48,7 @@ class Robot:
 
     def forwardUpdate(self, val, speed=80):
         # Sets the speed of the robot with correction value created by forward function
-        # Returns heading after 100th second to show the affect of correction
-
         pi2go.go(speed+val,speed)
-
-        sleep(0.01)
-
-        return self.heading.getHeading()
 
     # def spin(self, deg, speed=50):
     #     currenthead = self.heading.getHeading()
