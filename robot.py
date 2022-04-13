@@ -31,7 +31,7 @@ class Robot:
         currentHeading = initHead
         currentDistance = pi2go.getDistance()
 
-        pid = PID(1.95, 0, 0.1, setpoint=0)
+        pid = PID(1.95, 0, 0.075, setpoint=0)
         pid.output_limits = (-(100 + speed)/2, (100 - speed)/2)
         pid.sample_time = 0.01
 
