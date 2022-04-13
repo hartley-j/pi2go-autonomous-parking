@@ -39,21 +39,19 @@ class Robot:
         lowerBound = changeDistance - 5
         upperBound  = changeDistance + 5
         n = 0
+        oldCorrection = 0
         while not(lowerBound <= currentDistance <= upperBound):
 
             change = self.heading.normaliseHeading(currentHeading - initHead)
 
             correction = pid(change)
             print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
-            if correction > 0.5:
-                pi2go.go(speed + correction, speed)
-            elif correction < -0.5:
-                pi2go.go(speed + correction, speed)
-            elif n == 0:
-                pi2go.go(speed, speed)
+            if n == 0 or correction != oldCorrection:
+                pi2go.go(round(speed + correction), speed)
             currentDistance = pi2go.getDistance()
             currentHeading = self.heading.getHeading()
             n += 1
+            oldCorrection = correction
 
 
     # def spin(self, deg, speed=50):
