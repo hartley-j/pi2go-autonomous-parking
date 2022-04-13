@@ -25,7 +25,7 @@ class Robot:
         pi2go.cleanup()
         del self.heading
 
-    def forward(self,distance, speed=30):
+    def forward(self,distance, speed=40):
         # Move the robot forward for a set distance
         initHead = self.heading.getHeading()
         currentDistance = pi2go.getDistance()
