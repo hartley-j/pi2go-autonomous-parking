@@ -9,12 +9,12 @@ def main():
     Pointing at a long wall and taking distance data for small increments of degrees
     """
     rob = robot.Robot()
-    distances = [pi2go.getDistance()]
+    distances = [(0, pi2go.getDistance())]
 
     for i in range(10):
         rob.rotateAngle(5)
         sleep(1)
-        return 5 * (i+1), pi2go.getDistance()
+        distances.append(5 * (i+1), pi2go.getDistance())
 
     del rob
 
