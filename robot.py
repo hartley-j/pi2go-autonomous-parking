@@ -28,6 +28,7 @@ class Robot:
     def forward(self,distance, speed=40):
         # Move the robot forward for a set distance
         initHead = self.heading.getHeading()
+        currentHeading = initHead
         currentDistance = pi2go.getDistance()
 
         pid = PID(1.95, 0, 0, setpoint=0)
@@ -39,13 +40,13 @@ class Robot:
         upperBound  = changeDistance + 5
         n = 0
         while not(lowerBound <= currentDistance <= upperBound):
-            currentHeading = self.heading.getHeading()
             change = self.heading.normaliseHeading(initHead - currentHeading)
             correction = pid(change)
             print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
             if not(-0.5 < correction < 0.5) or n == 0:
                 pi2go.go(speed + correction, speed)
             currentDistance = pi2go.getDistance()
+            currentHeading = self.heading.getHeading()
             n += 1
 
 
