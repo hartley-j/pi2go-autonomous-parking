@@ -12,7 +12,7 @@ def main():
     distances = [pi2go.getDistance()]
 
     for i in range(10):
-        distances.append(angleDistance(5 * i, rob))
+        distances.append(angleDistance(5, rob))
 
     del rob
 
