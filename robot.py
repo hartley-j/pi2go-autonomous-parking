@@ -40,7 +40,7 @@ class Robot:
         upperBound  = changeDistance + 5
         n = 0
         while not(lowerBound <= currentDistance <= upperBound):
-            change = self.heading.normaliseHeading(initHead - currentHeading)
+            change = self.heading.normaliseHeading(currentHeading - initHead)
             correction = pid(change)
             print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
             if correction > 0.5:
