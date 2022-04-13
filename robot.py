@@ -32,6 +32,7 @@ class Robot:
 
         pid = PID(2, 0, 0.3, setpoint=0)
         pid.output_limits = (-(100 + speed)/2, (100 - speed)/2)
+        pid.sample_time = 0.01
 
         changeDistance = currentDistance - distance
         lowerBound = changeDistance - 5
