@@ -30,18 +30,21 @@ class Robot:
         initHead = self.heading.getHeading()
         currentDistance = pi2go.getDistance()
 
-        pid = PID(2, 0, 0.1, setpoint=0)
+        pid = PID(2, 0, 0, setpoint=0)
         pid.output_limits = (-(100 + speed)/2, (100 - speed)/2)
 
         changeDistance = currentDistance - distance
         lowerBound = changeDistance - 5
         upperBound  = changeDistance + 5
+        n = 0
         while not(lowerBound <= currentDistance <= upperBound):
             currentHeading = self.heading.getHeading()
             change = self.heading.normaliseHeading(initHead - currentHeading)
             correction = pid(change)
-            pi2go.go(speed + correction, speed)
+            if correction != 0 or n == 0:
+                pi2go.go(speed + correction, speed)
             currentDistance = pi2go.getDistance()
+            n += 1
 
 
     # def spin(self, deg, speed=50):
