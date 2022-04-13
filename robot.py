@@ -27,17 +27,17 @@ class Robot:
 
     def forward(self, speed, distance):
         # Move the robot forward for a set distance
-        head = round(self.heading.getHeading())
+        head = self.heading.getHeading()
         currentDistance = pi2go.getDistance()
 
-        pid = PID(0.6, 0, 0, setpoint=head)
+        pid = PID(0, 0, 0, setpoint=head)
         pid.output_limits = (-(100 + speed), (100 - speed))
 
         changeDistance = currentDistance - distance
         lowerBound = changeDistance - 5
         upperBound  = changeDistance + 5
         while not(lowerBound <= currentDistance <= upperBound):
-            currentHeading = round(self.heading.getHeading())
+            currentHeading = self.heading.getHeading()
             print(currentHeading)
             correction = pid(currentHeading)
             print(correction)
