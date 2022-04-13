@@ -42,13 +42,13 @@ class Robot:
             print(currentHeading)
             correction = pid(change)
             print(correction)
-            self.forwardUpdate(val=correction, speed=speed)
+            self.forwardUpdate(correction, speed)
             currentDistance = pi2go.getDistance()
             sleep(0.1)
 
-    def forwardUpdate(self, val, speed=80):
+    def forwardUpdate(self, val, speed):
         # Sets the speed of the robot with correction value created by forward function
-        pi2go.go(speed+val,speed)
+        pi2go.go(speed,speed+val)
 
     # def spin(self, deg, speed=50):
     #     currenthead = self.heading.getHeading()
