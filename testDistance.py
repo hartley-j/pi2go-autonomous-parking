@@ -12,16 +12,15 @@ def main():
     distances = [pi2go.getDistance()]
 
     for i in range(10):
-        distances.append(angleDistance(5, rob))
+        rob.rotateAngle(5)
+        sleep(1)
+        return 5 * (i+1), pi2go.getDistance()
 
     del rob
 
     return distances
 
-def angleDistance(degrees, rob):
-    rob.rotateAngle(degrees)
-    sleep(1)
-    return degrees, pi2go.getDistance()
+
 
 
 if __name__ == "__main__":
