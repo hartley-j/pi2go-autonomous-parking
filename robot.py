@@ -43,8 +43,10 @@ class Robot:
             change = self.heading.normaliseHeading(initHead - currentHeading)
             correction = pid(change)
             print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
-            if not(-0.5 < correction < 0.5) or n == 0:
+            if correction > 0.5:
                 pi2go.go(speed + correction, speed)
+            if correction < -0.5:
+                pi2go.go(speed, speed + correction)
             currentDistance = pi2go.getDistance()
             currentHeading = self.heading.getHeading()
             n += 1
