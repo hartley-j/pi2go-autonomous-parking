@@ -48,8 +48,8 @@ class Robot:
     def forwardUpdate(self, val, speed=80):
         # Sets the speed of the robot with correction value created by forward function
         # Returns heading after 100th second to show the affect of correction
-        if val != 0:
-            pi2go.go(speed, (speed + val))
+
+        pi2go.go(speed, (speed + val))
 
         sleep(0.01)
 
