@@ -43,9 +43,9 @@ class Robot:
             change = self.heading.normaliseHeading(initHead - currentHeading)
             correction = pid(change)
             print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
-            if correction > 1.5:
+            if correction > 0.5:
                 pi2go.go(speed + correction, speed)
-            elif correction < -1.5:
+            elif correction < -0.5:
                 pi2go.go(speed, speed + abs(correction))
             elif n == 0:
                 pi2go.go(speed, speed)
