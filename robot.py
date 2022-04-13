@@ -17,6 +17,10 @@ class Robot:
         self.heading = Compass()
         self.initHeading = self.heading.getHeading()
 
+        self.lengthtoback = 14.3 # Distance from ultrasonic sensors to the back of the robot
+        self.wheelDiameter = 6.5 # Diameter of wheels
+        self.coordinate = [0, 0]
+
     def __del__(self):
         pi2go.cleanup()
         del self.heading

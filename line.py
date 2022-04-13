@@ -23,3 +23,4 @@ class Line:
         b = 1/self.gradient
         c = -self.yIntercept/self.gradient
         return abs(a * coord[0] + b * coord[1] + c)/math.sqrt(a**2 + b**2)
+

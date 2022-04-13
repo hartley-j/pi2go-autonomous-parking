@@ -57,19 +57,19 @@ def getCoordinates(angles, readfile='map.txt', writefile='coordinates.txt'):
         xCoord, yCoord = 0, 0
 
         if 0 <= angle <= 90:  # In +x and +y quadrant
-            theta = angle
+            theta = math.radians(angle)
             yCoord = distance * math.cos(theta)
             xCoord = distance * math.sin(theta)
         elif 90 < angle <= 180:  # In +x and -y quadrant
-            theta = angle - 90
+            theta = math.radians(angle - 90)
             yCoord = -(distance * math.sin(theta))
             xCoord = distance * math.cos(theta)
         elif 0 > angle >= -90:  # In the -x and +y quadrant
-            theta = abs(angle)
+            theta = math.radians(abs(angle))
             yCoord = distance * math.cos(theta)
             xCoord = -(distance * math.sin(theta))
         elif -90 > angle >= -180:  # In the -x and -y quadrant
-            theta = abs(angle + 90)
+            theta = math.radians(abs(angle + 90))
             yCoord = -(distance * math.sin(theta))
             xCoord = -(distance * math.cos(theta))
 
