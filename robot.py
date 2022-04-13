@@ -27,7 +27,7 @@ class Robot:
 
     def forward(self, speed, distance):
         # Move the robot forward for a set distance
-        head = self.heading.getHeading()
+        initHead = self.heading.getHeading()
         currentDistance = pi2go.getDistance()
 
         pid = PID(1, 0, 0, setpoint=0)
@@ -38,17 +38,11 @@ class Robot:
         upperBound  = changeDistance + 5
         while not(lowerBound <= currentDistance <= upperBound):
             currentHeading = self.heading.getHeading()
-            change = self.heading.normaliseHeading(head - currentHeading)
-            print(currentHeading)
+            change = self.heading.normaliseHeading(initHead - currentHeading)
             correction = pid(change)
-            print(correction)
-            self.forwardUpdate(correction, speed)
+            pi2go.go(speed + correction, speed)
             currentDistance = pi2go.getDistance()
-            sleep(0.1)
 
-    def forwardUpdate(self, val, speed):
-        # Sets the speed of the robot with correction value created by forward function
-        pi2go.go(speed,speed+val)
 
     # def spin(self, deg, speed=50):
     #     currenthead = self.heading.getHeading()
