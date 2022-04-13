@@ -10,7 +10,7 @@ def main():
 
     initDistance = pi2go.getDistance() + lengthFrontToBack
     print(f"Init distance: {initDistance} \t")
-    rob.forward(40, initDistance/2)
+    rob.forward(30, initDistance/2)
     distance = pi2go.getDistance()
     print(f"Final distance: {distance} \n")
 
