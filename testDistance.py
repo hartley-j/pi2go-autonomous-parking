@@ -14,7 +14,7 @@ def main():
     for i in range(20):
         rob.rotateAngle(5, tolerance=1)
         sleep(1)
-        distances.append((5 * (i+1), pi2go.getDistance()))
+        distances.append((5 * (i+1), rob.heading.getHeading(),pi2go.getDistance()))
 
     # rob.rotateAngle(-50)
     #
