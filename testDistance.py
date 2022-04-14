@@ -12,16 +12,16 @@ def main():
     distances = [(0, pi2go.getDistance())]
 
     for i in range(10):
-        rob.rotateAngle(5, tolerance=2.5)
+        rob.rotateAngle(5, tolerance=1)
         sleep(1)
         distances.append((5 * (i+1), pi2go.getDistance()))
 
-    rob.rotateAngle(-50)
-
-    for i in range(10):
-        rob.rotateAngle(-5, tolerance=2.5)
-        sleep(1)
-        distances.append((-50 + 5 * (i+1), pi2go.getDistance()))
+    # rob.rotateAngle(-50)
+    #
+    # for i in range(10):
+    #     rob.rotateAngle(-5, tolerance=2.5)
+    #     sleep(1)
+    #     distances.append((-50 + 5 * (i+1), pi2go.getDistance()))
 
     del rob
 
