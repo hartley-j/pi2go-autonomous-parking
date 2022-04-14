@@ -11,8 +11,8 @@ def main():
     rob = robot.Robot()
     distances = [(0, pi2go.getDistance())]
 
-    for i in range(20):
-        rob.rotateAngle(5, tolerance=1)
+    for i in range(35):
+        rob.rotateAngle(2, tolerance=1)
         sleep(1)
         distances.append((5 * (i+1), rob.heading.getHeading(),pi2go.getDistance()))
 
