@@ -6,6 +6,7 @@ def main():
     start = time.time()
 
     pi2go.go(0, -20)
+    time.sleep(10)
 
     # time.sleep(0.005)
     #
