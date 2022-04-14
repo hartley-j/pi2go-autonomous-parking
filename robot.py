@@ -83,14 +83,17 @@ class Robot:
     #         degreestoturn = deg - (nspin * 360)
     #         self.rotateAngle(degreestoturn, currenthead)
 
-    def rotateAngle(self,deg,speed=40, tolerance=5):
+    def rotateAngle(self,deg,speed=10, tolerance=None):
         # Rotates the robot a set number of degrees from -180 to 180
         # Used in map.py and ...
         currenthead = self.heading.getHeading()
         targetHead = self.heading.normaliseHeading(currenthead + deg)
 
-        lowerBound = targetHead - tolerance
-        upperBound = targetHead + tolerance
+        if tolerance:
+            lowerBound = targetHead - tolerance
+            upperBound = targetHead + tolerance
+        else:
+
 
         while not(lowerBound <= currenthead <= upperBound):
             if deg > 0:
