@@ -4,7 +4,8 @@ import time
 def main():
     pi2go.init()
     start = time.time()
-    pi2go.go(20, 0)
+
+    pi2go.go(0, -20)
 
     time.sleep(0.0005)
 
