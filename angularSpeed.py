@@ -7,7 +7,7 @@ def main():
 
     pi2go.go(0, -20)
 
-    time.sleep(0.001)
+    time.sleep(0.005)
 
     while not pi2go.irCentre():
         pass
