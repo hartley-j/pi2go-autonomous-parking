@@ -7,15 +7,15 @@ def main():
 
     pi2go.go(0, -20)
 
-    time.sleep(0.005)
-
-    while not pi2go.irCentre():
-        pass
-    pi2go.go(0, 0)
-    print("Wall detected")
-
-    end = time.time()
-    print(f"Elapsed time: {end - start}")
+    # time.sleep(0.005)
+    #
+    # while not pi2go.irCentre():
+    #     pass
+    # pi2go.go(0, 0)
+    # print("Wall detected")
+    #
+    # end = time.time()
+    # print(f"Elapsed time: {end - start}")
 
     pi2go.cleanup()
 
