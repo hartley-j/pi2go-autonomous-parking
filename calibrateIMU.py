@@ -33,6 +33,24 @@ def getCalibration(overwrite):
     return cal
 
 
+def runManualCalibration():
+    '''
+    Manually position the pi2go facing N-NE-E-SE-S-SW-W-NW, and record the median x, y and z values
+    '''
+    imu = ICM20948()
+    pi2go.init()
+    nmax = 500
+
+    for obs in ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]:
+        input(f"Manually position the pi2go to face {obs}, then press Enter")
+        n = 0
+        while n < nmax:
+            Z1, Y1, X1 = list(imu.read_magnetometer_data())
+            with open("calibration_manual.txt", "w") as file:
+                file.write(f"{n},{X1},{Y1},{Z1},{obs}\n")
+            n += 1
+
+
 def runCalibration():
     '''
     Rotate the pi2go in a clockwise direction, until we have nmax values for x, y and z
@@ -41,7 +59,7 @@ def runCalibration():
     pi2go.init()
     nmax = 2000
 
-    pi2go.go(50,0)
+    pi2go.go(50, 0)
     n = 0
     xlist, ylist, zlist = [[], [], []]
 

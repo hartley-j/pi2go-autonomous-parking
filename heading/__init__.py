@@ -69,6 +69,7 @@ class Compass:
         '''
 
         heading = math.degrees(math.atan2(coord['x'], coord['y']))
+        # TODO: Flip the heading (Currently, heading=0 is south, whereas it should be north and vice-versa)
 
         return heading
 
@@ -83,13 +84,13 @@ class Compass:
 
         return heading
 
-    def getMedianHeading(self, sample=50):
+    def getMedianHeading(self, nmax=50):
         '''
-        Get a median angle from a sample
+        Get a median angle from a sample of nmax
         '''
         n = 0
         xlist, ylist = [[], []]
-        for x in range(sample):
+        while n < nmax:
             magData = self.getMag()
             magData = self.calibrate(magData)
             xlist.append(magData['x'])

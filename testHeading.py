@@ -54,7 +54,7 @@ def captureHeadingUncertainty():
     input('Manually put the pi2go pointing to magnetic north, and press Enter')
     pi2go.init()
     heading = Compass()
-
+    heading.getMedianHeading()
 
 
 
