@@ -20,6 +20,8 @@ class Robot:
 
         self.lengthtoback = 14.3 # Distance from ultrasonic sensors to the back of the robot
         self.wheelDiameter = 6.5 # Diameter of wheels
+        self.width = 13.6
+        self.widthOfWheels = 2.6
         self.coordinate = [0, 0]
 
     def __del__(self):

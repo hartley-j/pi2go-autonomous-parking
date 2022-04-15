@@ -85,7 +85,7 @@ class Map:
     def sampleFLRData(self):
         """
         Rotates samples coordinate data of front, left and right (FLR) of robot
-        :return: list of (x, y) coordinates
+        :return: list of lists of (x, y) coordinates for f, l and r
         """
         self.robot.rotateAngle(deg=90)
         data = self.sampleDistanceAngles(5, 25)
@@ -111,6 +111,28 @@ class Map:
         self.robot.rotateAngle(deg=-30)
 
         return self.getCoordinates(data)
+
+    def findBackWall(self, angleDistances):
+        """
+        Finds the start and end coordinates of the back wall of the parking space (named D)
+        :param angleDistances: list of tuples of angles against distances
+        :return: equation of back wall as Line object
+        """
+
+        startIndex = 0
+        endIndex = 0
+        tolerance = 1.5
+
+        for i in range(len(angleDistances) - 1):
+            if angleDistances[i + 1][2] > angleDistances[i][2] + tolerance:
+                startIndex = i + 1
+            elif angleDistances[i + 1][2] < angleDistances[i][2] - tolerance:
+                endIndex = i + 1
+
+        startCoord = self.getCoordinates(angleDistances[startIndex])
+        endCoord = self.getCoordinates(angleDistances[endIndex])
+
+        return Line(startCoord, endCoord)
 
     @staticmethod # Since this function does not need any instances of the class, it is static
     def getEquations(coords):

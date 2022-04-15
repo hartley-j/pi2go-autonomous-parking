@@ -31,6 +31,15 @@ class Line:
         """
         return (y - self.yIntercept)/self.gradient
 
+    def length(self):
+        """
+        Calculates length of line
+        :return: length of line as tuple
+        """
+        dx = self.startCoord[0] - self.endCoord[0]
+        dy = self.startCoord[1] - self.endCoord[1]
+        return math.sqrt(dx**2 + dy**2)
+
     def distanceToPoint(self, coord):
         """
         Finds the perpendicular distance a point is from the line
