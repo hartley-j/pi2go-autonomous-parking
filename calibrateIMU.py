@@ -69,7 +69,7 @@ def runManualCalibration():
         for key, val in cal.items():
             file.write(f"{key}:{val}\n")
 
-    return data_list
+    return cal
 
 def runCalibration():
     '''

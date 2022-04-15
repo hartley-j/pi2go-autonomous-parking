@@ -51,10 +51,8 @@ def captureHeadingUncertainty():
     - Is median or mean the best measure?
     '''
 
-    input('Manually put the pi2go pointing to magnetic north, and press Enter')
-    pi2go.init()
-    heading = Compass()
-    heading.getMedianHeading()
+    # On the pi2go, run the following code:
+    # python calibrateIMU.py
 
 
 
