@@ -3,6 +3,11 @@ import math
 
 class Line:
     def __init__(self, start, end):
+        """
+        Initialises the line object and defines parameters needed for calc
+        :param start: start coordinate in form of tuple (x, y)
+        :param end: end coordinate in form of tuple (x, y)
+        """
         self.startCoord = start
         self.endCoord = end
 
@@ -11,14 +16,27 @@ class Line:
         self.xIntercept = (-(start[1])+(self.gradient * start[0]))/self.gradient
 
     def getY(self, x):
-        # Returns the y value at x
+        """
+        Returns the Y value of line at X
+        :param x: X value
+        :return: Y value
+        """
         return (self.gradient * x) + self.yIntercept
 
     def getX(self, y):
-        # Returns the x value at y
+        """
+        Returns the X value at Y
+        :param y: Y value
+        :return: X value
+        """
         return (y - self.yIntercept)/self.gradient
 
     def distanceToPoint(self, coord):
+        """
+        Finds the perpendicular distance a point is from the line
+        :param coord: tuple of coordinate (x, y)
+        :return: perpendicular distance
+        """
         a = -1
         b = 1/self.gradient
         c = -self.yIntercept/self.gradient
