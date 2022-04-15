@@ -40,16 +40,19 @@ def runManualCalibration():
     imu = ICM20948()
     pi2go.init()
     nmax = 500
+    data_list = []
 
     for obs in ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]:
         input(f"Manually position the pi2go to face {obs}, then press Enter")
         n = 0
         while n < nmax:
             Z1, Y1, X1 = list(imu.read_magnetometer_data())
+            data_list.append([n, X1, Y1, Z1, obs])
             with open("calibration_manual.txt", "w") as file:
                 file.write(f"{n},{X1},{Y1},{Z1},{obs}\n")
             n += 1
 
+    return data_list
 
 def runCalibration():
     '''
