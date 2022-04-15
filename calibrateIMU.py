@@ -9,6 +9,7 @@ import pi2go
 from icm20948 import ICM20948
 import os
 import numpy as np
+from heading import Compass
 
 
 def getCalibration(overwrite):
@@ -38,19 +39,34 @@ def runManualCalibration():
     Manually position the pi2go facing N-NE-E-SE-S-SW-W-NW, and record the median x, y and z values
     '''
     imu = ICM20948()
+    heading = Compass()
     pi2go.init()
     nmax = 500
     data_list = []
+    calfile = "calibration_manual.txt"
+    if os.path.isfile(calfile):
+        os.remove(calfile)
 
     for obs in ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]:
         input(f"Manually position the pi2go to face {obs}, then press Enter")
         n = 0
         while n < nmax:
-            Z1, Y1, X1 = list(imu.read_magnetometer_data())
-            data_list.append([n, X1, Y1, Z1, obs])
-            with open("calibration_manual.txt", "w") as file:
-                file.write(f"{n},{X1},{Y1},{Z1},{obs}\n")
+            magData = heading.getMag()
+            data_list.append([n, magData['x'], magData['y'], magData['z'], obs])
+            with open(calfile, "a") as file:
+                file.write(f"{n},{magData['x']},{magData['y']},{magData['z']},{obs}\n")
             n += 1
+
+    cal = {'xmin': np.median([i[1] for i in data_list if i[4] == 'W']),
+           'ymin': np.median([i[2] for i in data_list if i[4] == 'S']),
+           'zmin': np.min([i[3] for i in data_list]),
+           'xmax': np.median([i[1] for i in data_list if i[4] == 'E']),
+           'ymax': np.median([i[2] for i in data_list if i[4] == 'N']),
+           'zmax': np.max([i[3] for i in data_list])}
+
+    with open("calibration.txt", "w") as file:
+        for key, val in cal.items():
+            file.write(f"{key}:{val}\n")
 
     return data_list
 

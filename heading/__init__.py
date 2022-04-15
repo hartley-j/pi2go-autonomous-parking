@@ -42,8 +42,9 @@ class Compass:
               Z1, Y1, X1
         '''
         Z1, Y1, X1 = list(self.imu.read_magnetometer_data())
-
-        return {'x':X1, 'y':Y1, 'z':Z1}
+        X1 -= 1
+        Y1 -= 1
+        return {'x': X1, 'y': Y1, 'z': Z1}
 
 
     def calibrate(self, raw):
@@ -53,10 +54,13 @@ class Compass:
 
         # Normalises every axes value with respective min and max values
         for k, val in raw.items():
-            # if k == 'y':
-            #     raw[k] = raw[k] * -1
+            # Correct for the direction of the axes due to the position of the sensor on the pi2go
+            raw[k] = raw[k] * -1
+            # Remove the minimum value, so all values are positive
             raw[k] -= self.cal[f"{k}min"]
+            # Divide by the range so that all values are scaled to between 0 and 1
             raw[k] /= (self.cal[f"{k}max"] - self.cal[f"{k}min"])
+            # Subtract 0.5 so that all values are between -0.5 and 0.5
             raw[k] -= 0.5
 
         return raw
