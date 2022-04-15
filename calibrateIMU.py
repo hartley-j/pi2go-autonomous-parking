@@ -21,7 +21,8 @@ def getCalibration(overwrite):
 
     if (not os.path.isfile(calfile)) or overwrite:
         # Run calibration
-        cal = runCalibration()
+        # cal = runCalibration()
+        cal = runManualCalibration()
     else:
         # Load calibration file
         cal = {}
