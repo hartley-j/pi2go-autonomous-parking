@@ -11,7 +11,7 @@ class Map:
 
     def __call__(self, *args, **kwargs):
         pass
-        # When the main program wants to map, Map will be called and the procedure in this function will be run
+        # When the main program wants to map, Map will be called and the procedures in this function will be run
 
     def takeDistanceAngle(self):
         data = (self.robot.heading.getHeading(), pi2go.getDistance())
@@ -21,26 +21,12 @@ class Map:
         coordinates = []
 
         for i in angles:
-            angle = float(i[0])
+            angle = math.radians(float(i[0]))
             distance = float(i[1])
             xCoord, yCoord = 0, 0
 
-            if 0 <= angle <= 90:  # In +x and +y quadrant
-                theta = math.radians(angle)
-                yCoord = distance * math.cos(theta)
-                xCoord = distance * math.sin(theta)
-            elif 90 < angle <= 180:  # In +x and -y quadrant
-                theta = math.radians(angle - 90)
-                yCoord = -(distance * math.sin(theta))
-                xCoord = distance * math.cos(theta)
-            elif 0 > angle >= -90:  # In the -x and +y quadrant
-                theta = math.radians(abs(angle))
-                yCoord = distance * math.cos(theta)
-                xCoord = -(distance * math.sin(theta))
-            elif -90 > angle >= -180:  # In the -x and -y quadrant
-                theta = math.radians(abs(angle + 90))
-                yCoord = -(distance * math.sin(theta))
-                xCoord = -(distance * math.cos(theta))
+            xCoord = self.robot.coordinate[0] + distance * math.sin(angle)
+            yCoord = self.robot.coordinate[1] + distance * math.cos(angle)
 
             coordinates.append((xCoord, yCoord))
 

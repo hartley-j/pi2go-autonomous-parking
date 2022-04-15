@@ -3,6 +3,7 @@
 # Creater: Joe
 # Description: contains declaration of robot object.
 # ****************************************************
+import math
 
 import pi2go
 from heading import Compass
@@ -25,7 +26,10 @@ class Robot:
         pi2go.cleanup()
         del self.heading
 
-    def updateCoordinate(self, bearing, ):
+    def updateCoordinate(self, bearing, distance):
+        rads = math.radians(bearing)
+        self.coordinate[0] = self.coordinate[0] + distance * math.sin(rads)
+        self.coordinate[1] = self.coordinate[1] + distance * math.cos(rads)
 
     def forward(self,distance, speed=40):
         # Move the robot forward for a set distance
