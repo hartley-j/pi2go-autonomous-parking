@@ -44,5 +44,19 @@ def faceNorth():
 
     pi2go.go(0,0)
 
+def captureHeadingUncertainty():
+    '''
+    Capture data by manually pointing the pi2go in N-E-S-W directions, and capturing x number of heading observations
+    - How many observations of heading do we need in order to have a stable heading value?
+    - Is median or mean the best measure?
+    '''
+
+    input('Manually put the pi2go pointing to magnetic north, and press Enter')
+    pi2go.init()
+    heading = Compass()
+
+
+
+
 if __name__ == "__main__":
     faceNorth()

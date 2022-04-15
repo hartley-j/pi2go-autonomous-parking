@@ -12,6 +12,9 @@ import numpy as np
 
 
 def getCalibration(overwrite):
+    '''
+    Looks for a calibration file, and if it doesn't exist, run the calibration
+    '''
 
     calfile = "calibration.txt"
 
@@ -31,7 +34,9 @@ def getCalibration(overwrite):
 
 
 def runCalibration():
-
+    '''
+    Rotate the pi2go in a clockwise direction, until we have nmax values for x, y and z
+    '''
     imu = ICM20948()
     pi2go.init()
     nmax = 2000
@@ -51,7 +56,7 @@ def runCalibration():
         zlist.append(Z1)
         n += 1
 
-    pi2go.go(0,0)
+    pi2go.go(0, 0)
     pi2go.cleanup()
     del imu
 
