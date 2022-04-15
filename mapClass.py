@@ -7,16 +7,41 @@ from line import Line
 class Map:
     def __init__(self):
         self.robot = robot.Robot()
+        self.initHeading = self.robot.heading.getHeading()
 
     def __del__(self):
         del self.robot
 
-    def __call__(self, *args, **kwargs):
-        pass
-        # When the main program wants to map, Map will be called and the procedures in this function will be run
+    def __call__(self, *args, **kwargs): # When the main program wants to map, Map will be called and the procedures in this function will be run
+        """
+        Moves forward, takes FLR data, moves forward again, takes more data, and repeats
+        Maps area to return coordinate of Dm
+        :param args:
+        :param kwargs:
+        :return:
+        """
+        initDistance = pi2go.getDistance() + self.robot.lengthtoback
+        self.robot.forward(initDistance/4)
+
+        coordinateMap = list(self.sampleFLRData())
+
+        for i in range(2):
+            self.robot.forward(initDistance/4)
+            sample = list(self.sampleFLRData())
+            [coordinateMap[i].extend(sample[i]) for i in range(3)]
+
+        self.robot.rotateAngle(-180)
+        self.robot.forward(initDistance/4)
+        self.robot.rotateAngle(-90)
+
+        observedWalls = []
+        for i in range(len(coordinateMap)):
+            wall = self.getEquations(coordinateMap[i])
+            observedWalls.append(wall)
 
     def takeDistanceAngle(self):
         """
+        Measures the heading and distance from IMU and ultrasonic
         :return: tuple of (heading, distance) measured by imu and ultrasonic
         """
         data = (self.robot.heading.getHeading(), pi2go.getDistance())
@@ -64,17 +89,17 @@ class Map:
         """
         self.robot.rotateAngle(deg=90)
         data = self.sampleDistanceAngles(5, 25)
-        coordinates = self.getCoordinates(data)
+        coordinatesR = self.getCoordinates(data)
 
         self.robot.rotateAngle(deg=-180)
         data = self.sampleDistanceAngles(5, 25)
-        coordinates.extend(self.getCoordinates(data))
+        coordinatesL = (self.getCoordinates(data))
 
         self.robot.rotateAngle(deg=90)
         data = self.sampleDistanceAngles(5, 25)
-        coordinates.extend(self.getCoordinates(data))
+        coordinatesF = (self.getCoordinates(data))
 
-        return coordinates
+        return coordinatesR, coordinatesL, coordinatesF
 
     def sampleFrontData(self):
         """
@@ -87,7 +112,7 @@ class Map:
 
         return self.getCoordinates(data)
 
-    @staticmethod
+    @staticmethod # Since this function does not need any instances of the class, it is static
     def getEquations(coords):
         """
         Gets the equations of all walls 'seen' by robot
