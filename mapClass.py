@@ -41,20 +41,20 @@ class Map:
 
         return coordinates
 
-    def sampleDistanceAngles(self, nSamples, degRange):
+    def sampleDistanceAngles(self, nsamples, degrange):
         """
-        :param nSamples: number of samples that will be taken
-        :param degRange: the angle range of the samples (e.g. x samples over 30 degrees)
+        :param nsamples: number of samples that will be taken
+        :param degrange: the angle range of the samples (e.g. x samples over 30 degrees)
         :return: list of (angles, distances) for each sample
         """
         angleDistance = []
-        angle = degRange / nSamples
-        for i in range(nSamples):
+        angle = degrange / nsamples
+        for i in range(nsamples):
             self.robot.rotateAngle(angle, tolerance=1)
             time.sleep(0.5)
             angleDistance.append(self.takeDistanceAngle())
 
-        self.robot.rotateAngle(-degRange)
+        self.robot.rotateAngle(-degrange)
         return angleDistance
 
     def sampleFLRData(self):
@@ -87,7 +87,8 @@ class Map:
 
         return self.getCoordinates(data)
 
-    def getEquations(self, coords):
+    @staticmethod
+    def getEquations(coords):
         """
         Gets the equations of all walls 'seen' by robot
         :param coords: list of ordered (x, y) coordinates
