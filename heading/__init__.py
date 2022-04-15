@@ -42,8 +42,8 @@ class Compass:
               Z1, Y1, X1
         '''
         Z1, Y1, X1 = list(self.imu.read_magnetometer_data())
-        X1 -= 1
-        Y1 -= 1
+        X1 *= -1
+        Y1 *= -1
         return {'x': X1, 'y': Y1, 'z': Z1}
 
 

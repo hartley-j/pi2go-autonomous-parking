@@ -12,6 +12,12 @@ import numpy as np
 from heading import Compass
 
 
+def wheelTurn():
+    heading = Compass()
+    pi2go.init()
+    pi2go.
+
+
 def getCalibration(overwrite):
     '''
     Looks for a calibration file, and if it doesn't exist, run the calibration
