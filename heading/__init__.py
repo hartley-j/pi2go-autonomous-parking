@@ -83,6 +83,25 @@ class Compass:
 
         return heading
 
+    def getMedianHeading(self, sample=50):
+        '''
+        Get a median angle from a sample
+        '''
+        n = 0
+        xlist, ylist = [[], []]
+        for x in range(sample):
+            magData = self.getMag()
+            magData = self.calibrate(magData)
+            xlist.append(magData['x'])
+            ylist.append(magData['y'])
+            n += 1
+
+        xmedian = np.median(xlist)
+        ymedian = np.median(ylist)
+        heading_median = self.headingCalc({'x': xmedian, 'y': ymedian})
+
+        return heading_median
+
     def normaliseHeading(self, deg):
         # Used in map.py and robot.py
         if deg > 180:
@@ -97,10 +116,3 @@ class Compass:
         deg: list of degrees ranging from -180 to 180
         '''
         return math.degrees(phase(sum(rect(1, math.radians(d)) for d in deg)/len(deg)))
-
-    def medianAngle(self, deg):
-        '''
-        Finds median value from a list of degrees (cannot just be sum/len because of -179 and 179 will be 0, when it should be 180 or -180)
-        deg: list of degrees ranging from -180 to 180
-        '''
-        return math.degrees(phase(np.median([rect(1, math.radians(d)) for d in deg])))
