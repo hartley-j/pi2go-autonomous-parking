@@ -63,8 +63,8 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
 
 def wheelTurn():
 
-    turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10)
-    turnOneWheel(clockwise=False, wheel="Left", speed=20, duration=10)
+    turnOneWheel(clockwise=False, wheel="Right", speed=40, duration=10)
+    turnOneWheel(clockwise=False, wheel="Left", speed=40, duration=10)
 
 
 def getCalibration(overwrite):
