@@ -23,21 +23,26 @@ class Map:
         initDistance = pi2go.getDistance() + self.robot.lengthtoback
         self.robot.forward(initDistance/4)
 
-        coordinateMap = list(self.sampleFLRData())
+        distanceData = list(self.sampleFLRData())
 
         for i in range(2):
             self.robot.forward(initDistance/4)
             sample = list(self.sampleFLRData())
-            [coordinateMap[i].extend(sample[i]) for i in range(3)]
+            [distanceData[i].extend(sample[i]) for i in range(3)]
 
         self.robot.rotateAngle(-180)
         self.robot.forward(initDistance/4)
         self.robot.rotateAngle(-90)
 
-        observedWalls = []
-        for i in range(len(coordinateMap)):
-            wall = self.getEquations(coordinateMap[i])
-            observedWalls.append(wall)
+        for i in range(len(distanceData)):
+            backWall = self.findBackWall(distanceData[i])
+            if backWall:
+                return backWall.midpoint()
+
+        # observedWalls = []
+        # for i in range(len(coordinateMap)):
+        #     wall = self.getEquations(coordinateMap[i])
+        #     observedWalls.append(wall)
 
     def takeDistanceAngle(self):
         """
@@ -85,21 +90,18 @@ class Map:
     def sampleFLRData(self):
         """
         Rotates samples coordinate data of front, left and right (FLR) of robot
-        :return: list of lists of (x, y) coordinates for f, l and r
+        :return: list of lists of (angle, distance) points for r, l, f
         """
         self.robot.rotateAngle(deg=90)
-        data = self.sampleDistanceAngles(5, 25)
-        coordinatesR = self.getCoordinates(data)
+        dataR = self.sampleDistanceAngles(5, 25)
 
         self.robot.rotateAngle(deg=-180)
-        data = self.sampleDistanceAngles(5, 25)
-        coordinatesL = (self.getCoordinates(data))
+        dataL = self.sampleDistanceAngles(5, 25)
 
         self.robot.rotateAngle(deg=90)
-        data = self.sampleDistanceAngles(5, 25)
-        coordinatesF = (self.getCoordinates(data))
+        dataF = self.sampleDistanceAngles(5, 25)
 
-        return coordinatesR, coordinatesL, coordinatesF
+        return dataR, dataL, dataF
 
     def sampleFrontData(self):
         """
@@ -129,10 +131,13 @@ class Map:
             elif angleDistances[i + 1][2] < angleDistances[i][2] - tolerance:
                 endIndex = i + 1
 
-        startCoord = self.getCoordinates(angleDistances[startIndex])
-        endCoord = self.getCoordinates(angleDistances[endIndex])
+        if not startIndex:
+            startCoord = self.getCoordinates(angleDistances[startIndex])
+            endCoord = self.getCoordinates(angleDistances[endIndex])
 
-        return Line(startCoord, endCoord)
+            return Line(startCoord, endCoord)
+        else:
+            return None
 
     @staticmethod # Since this function does not need any instances of the class, it is static
     def getEquations(coords):
