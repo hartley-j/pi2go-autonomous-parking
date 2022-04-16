@@ -13,12 +13,14 @@ import sys
 import numpy as np
 from heading import Compass
 
+pi2go.init()
+
 def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     heading = Compass()
-    try:
-        pi2go.init()
-    except:
-        pass
+    # try:
+    #     pi2go.init()
+    # except:
+    #     pass
 
     start = heading.getMedianHeading()
     if clockwise and (wheel == "Right"):
@@ -64,6 +66,7 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
 def wheelTurn():
 
     turnOneWheel(clockwise=False, wheel="Right", speed=40, duration=10)
+    turnOneWheel(clockwise=True, wheel="Right", speed=40, duration=10)
     turnOneWheel(clockwise=False, wheel="Left", speed=40, duration=10)
 
 
