@@ -7,13 +7,20 @@
 from time import sleep
 import pi2go
 from icm20948 import ICM20948
+import RPi.GPIO
 import os
+import sys
 import numpy as np
 from heading import Compass
 
+pi2go.init()
+
 def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     heading = Compass()
-    pi2go.init()
+    # try:
+    #     pi2go.init()
+    # except:
+    #     pass
 
     start = heading.getMedianHeading()
     if clockwise and (wheel == "Right"):
@@ -58,8 +65,9 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
 
 def wheelTurn():
 
-    turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10)
-    turnOneWheel(clockwise=False, wheel="Left", speed=20, duration=10)
+    turnOneWheel(clockwise=False, wheel="Right", speed=40, duration=10)
+    turnOneWheel(clockwise=True, wheel="Right", speed=40, duration=10)
+    turnOneWheel(clockwise=False, wheel="Left", speed=40, duration=10)
 
 
 def getCalibration(overwrite):
@@ -164,10 +172,19 @@ def runCalibration():
 
 if __name__ == '__main__':
 
-    overwrite = True
-    try:
-        cal = getCalibration(overwrite)
-    finally:
-        pi2go.cleanup()
+    test = sys.argv[1]
 
-    print(cal)
+    if test == 'getCalibration':
+        overwrite = True
+        try:
+            cal = getCalibration(overwrite)
+        finally:
+            pi2go.cleanup()
+
+        print(cal)
+
+    elif test == 'turnWheels':
+        wheelTurn()
+
+    else:
+        print("Argument not recognised")
