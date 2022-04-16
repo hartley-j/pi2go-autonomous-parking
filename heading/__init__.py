@@ -128,6 +128,7 @@ class Compass:
         """
         Finds an average from a list of degrees (cannot just be sum/len because of -179 and 179 will be 0, when it should be 180 or -180)
         deg: list of degrees ranging from -180 to 180
+        :param deg: list of measured headings
         :returns: the mean heading
         """
         return math.degrees(phase(sum(rect(1, math.radians(d)) for d in deg)/len(deg)))

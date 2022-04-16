@@ -4,7 +4,7 @@
 # Description: contains declaration of robot object.
 # ****************************************************
 import math
-
+from line import Line
 import pi2go
 from heading import Compass
 from time import sleep
@@ -72,6 +72,28 @@ class Robot:
 
         self.updateCoordinate(initHead, distance)
 
+    def moveToCoordinate(self, coord):
+        """
+        Rotates and moves towards a coordinate
+        :param coord: the coordinate as (x, y) tuple
+        """
+        lineToCoord = Line(self.coordinate, coord)
+        distance = lineToCoord.length()
+
+        self.rotateToCoordinate(coord)
+        self.forward(distance)
+
+    def rotateToCoordinate(self, coord):
+        """
+        Rotates towards a given coordinate
+        :param coord: coordinate as (x, y) coordinate
+        """
+        lineToCoord = Line(self.coordinate, coord)
+        heading = lineToCoord.heading()
+        currentHeading = self.heading.getMedianHeading()
+
+        angle = self.heading.normaliseHeading(heading - currentHeading)
+        self.rotateAngle(angle)
 
     def rotateAngle(self,deg,speed=10, tolerance=None):
         """Rotates the robot a set number of degrees from -180 to 180. Used in map.py and ...
