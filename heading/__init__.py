@@ -42,8 +42,9 @@ class Compass:
               Z1, Y1, X1
         '''
         Z1, Y1, X1 = list(self.imu.read_magnetometer_data())
-
-        return {'x':X1, 'y':Y1, 'z':Z1}
+        X1 *= -1
+        Y1 *= -1
+        return {'x': X1, 'y': Y1, 'z': Z1}
 
 
     def calibrate(self, raw):
@@ -53,10 +54,13 @@ class Compass:
 
         # Normalises every axes value with respective min and max values
         for k, val in raw.items():
-            # if k == 'y':
-            #     raw[k] = raw[k] * -1
+            # Correct for the direction of the axes due to the position of the sensor on the pi2go
+            raw[k] = raw[k] * -1
+            # Remove the minimum value, so all values are positive
             raw[k] -= self.cal[f"{k}min"]
+            # Divide by the range so that all values are scaled to between 0 and 1
             raw[k] /= (self.cal[f"{k}max"] - self.cal[f"{k}min"])
+            # Subtract 0.5 so that all values are between -0.5 and 0.5
             raw[k] -= 0.5
 
         return raw
@@ -69,6 +73,7 @@ class Compass:
         '''
 
         heading = math.degrees(math.atan2(coord['x'], coord['y']))
+        # TODO: Flip the heading (Currently, heading=0 is south, whereas it should be north and vice-versa)
 
         return heading
 
@@ -82,6 +87,25 @@ class Compass:
         heading = self.headingCalc(coord=magData)
 
         return heading
+
+    def getMedianHeading(self, nmax=50):
+        '''
+        Get a median angle from a sample of nmax
+        '''
+        n = 0
+        xlist, ylist = [[], []]
+        while n < nmax:
+            magData = self.getMag()
+            magData = self.calibrate(magData)
+            xlist.append(magData['x'])
+            ylist.append(magData['y'])
+            n += 1
+
+        xmedian = np.median(xlist)
+        ymedian = np.median(ylist)
+        heading_median = self.headingCalc({'x': xmedian, 'y': ymedian})
+
+        return heading_median
 
     def normaliseHeading(self, deg):
         # Used in map.py and robot.py
@@ -97,10 +121,3 @@ class Compass:
         deg: list of degrees ranging from -180 to 180
         '''
         return math.degrees(phase(sum(rect(1, math.radians(d)) for d in deg)/len(deg)))
-
-    def medianAngle(self, deg):
-        '''
-        Finds median value from a list of degrees (cannot just be sum/len because of -179 and 179 will be 0, when it should be 180 or -180)
-        deg: list of degrees ranging from -180 to 180
-        '''
-        return math.degrees(phase(np.median([rect(1, math.radians(d)) for d in deg])))

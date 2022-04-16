@@ -9,6 +9,55 @@ import pi2go
 from icm20948 import ICM20948
 import os
 import numpy as np
+from heading import Compass
+
+def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
+    heading = Compass()
+    pi2go.init()
+
+    start = heading.getMedianHeading()
+    if clockwise and (wheel=="Right"):
+        # Right wheel reverses
+        print(f"Moving {wheel} wheel at speed {-1 * speed}")
+        left, right = (0, -1 * speed)
+    elif clockwise and (wheel == "Left"):
+        # Left wheel forward
+        print(f"Moving {wheel} wheel at speed {speed}")
+        left, right = (speed, 0)
+    elif not clockwise and (wheel == "Right"):
+        print(f"Moving {wheel} wheel at speed {speed}")
+        left, right = (0, speed)
+    elif not clockwise and (wheel == "Left"):
+        print(f"Moving {wheel} wheel at speed {-1 * speed}")
+        left, right = (-1 * speed, 0)
+    else:
+        left, right = (speed, 0)
+
+    pi2go.go(left, right)
+    sleep(duration)
+    pi2go.go(0, 0)
+    end = heading.getMedianHeading()
+
+    # Difference between angles
+    # Spinning in a anti-clockwise direction
+    if not clockwise and (end > start):
+        # Then, we have passed South (from -180 to +179)
+        end -= 360
+    elif clockwise and (end < start):
+        end += 360
+    else:
+        pass
+
+    diff = start - end
+    print(f"Start: {start}, End: {end}, Diff:{diff}")
+
+    return start, end, diff
+
+
+def wheelTurn():
+
+    turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10)
+    turnOneWheel(clockwise=False, wheel="Left", speed=20, duration=10)
 
 
 def getCalibration(overwrite):
@@ -20,7 +69,8 @@ def getCalibration(overwrite):
 
     if (not os.path.isfile(calfile)) or overwrite:
         # Run calibration
-        cal = runCalibration()
+        # cal = runCalibration()
+        cal = runManualCalibration()
     else:
         # Load calibration file
         cal = {}
@@ -33,6 +83,42 @@ def getCalibration(overwrite):
     return cal
 
 
+def runManualCalibration():
+    '''
+    Manually position the pi2go facing N-NE-E-SE-S-SW-W-NW, and record the median x, y and z values
+    '''
+    imu = ICM20948()
+    heading = Compass()
+    pi2go.init()
+    nmax = 500
+    data_list = []
+    calfile = "calibration_manual.txt"
+    if os.path.isfile(calfile):
+        os.remove(calfile)
+
+    for obs in ["N", "NE", "E", "SE", "S", "SW", "W", "NW"]:
+        input(f"Manually position the pi2go to face {obs}, then press Enter")
+        n = 0
+        while n < nmax:
+            magData = heading.getMag()
+            data_list.append([n, magData['x'], magData['y'], magData['z'], obs])
+            with open(calfile, "a") as file:
+                file.write(f"{n},{magData['x']},{magData['y']},{magData['z']},{obs}\n")
+            n += 1
+
+    cal = {'xmin': np.median([i[1] for i in data_list if i[4] == 'W']),
+           'ymin': np.median([i[2] for i in data_list if i[4] == 'S']),
+           'zmin': np.min([i[3] for i in data_list]),
+           'xmax': np.median([i[1] for i in data_list if i[4] == 'E']),
+           'ymax': np.median([i[2] for i in data_list if i[4] == 'N']),
+           'zmax': np.max([i[3] for i in data_list])}
+
+    with open("calibration.txt", "w") as file:
+        for key, val in cal.items():
+            file.write(f"{key}:{val}\n")
+
+    return cal
+
 def runCalibration():
     '''
     Rotate the pi2go in a clockwise direction, until we have nmax values for x, y and z
@@ -41,7 +127,7 @@ def runCalibration():
     pi2go.init()
     nmax = 2000
 
-    pi2go.go(50,0)
+    pi2go.go(50, 0)
     n = 0
     xlist, ylist, zlist = [[], [], []]
 
