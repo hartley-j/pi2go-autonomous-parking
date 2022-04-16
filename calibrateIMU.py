@@ -7,7 +7,7 @@
 from time import sleep
 import pi2go
 from icm20948 import ICM20948
-import RPi.gpio
+import RPi.GPIO
 import os
 import sys
 import numpy as np
