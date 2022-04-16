@@ -16,7 +16,7 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     pi2go.init()
 
     start = heading.getMedianHeading()
-    if clockwise and (wheel=="Right"):
+    if clockwise and (wheel == "Right"):
         # Right wheel reverses
         print(f"Moving {wheel} wheel at speed {-1 * speed}")
         left, right = (0, -1 * speed)
@@ -38,9 +38,11 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     pi2go.go(0, 0)
     end = heading.getMedianHeading()
 
+    pi2go.cleanup()
+
     # Difference between angles
     # Spinning in a anti-clockwise direction
-    if not clockwise and (end > start):
+    if (not clockwise) and (end > start):
         # Then, we have passed South (from -180 to +179)
         end -= 360
     elif clockwise and (end < start):
