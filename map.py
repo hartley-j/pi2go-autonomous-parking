@@ -37,7 +37,7 @@ class Map:
         for i in range(len(distanceData)):
             backWall = self.findBackWall(distanceData[i])
             if backWall:
-                return backWall.midpoint()
+                return backWall, self.robot
 
         # observedWalls = []
         # for i in range(len(coordinateMap)):
