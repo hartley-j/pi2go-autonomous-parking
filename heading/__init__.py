@@ -55,9 +55,10 @@ class Compass:
         """
 
         # Normalises every axes value with respective min and max values
+        out = {}
         for k, val in raw.items():
-            # Correct for the direction of the axes due to the position of the sensor on the pi2go
-            raw[k] = raw[k] * -1
+            # # Correct for the direction of the axes due to the position of the sensor on the pi2go
+            # raw[k] = raw[k] * -1
             # Remove the minimum value, so all values are positive
             raw[k] -= self.cal[f"{k}min"]
             # Divide by the range so that all values are scaled to between 0 and 1
