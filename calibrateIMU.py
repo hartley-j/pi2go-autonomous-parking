@@ -7,7 +7,9 @@
 from time import sleep
 import pi2go
 from icm20948 import ICM20948
+import RPi.gpio
 import os
+import sys
 import numpy as np
 from heading import Compass
 
@@ -164,10 +166,19 @@ def runCalibration():
 
 if __name__ == '__main__':
 
-    overwrite = True
-    try:
-        cal = getCalibration(overwrite)
-    finally:
-        pi2go.cleanup()
+    test = sys.argv[1]
 
-    print(cal)
+    if test == 'getCalibration':
+        overwrite = True
+        try:
+            cal = getCalibration(overwrite)
+        finally:
+            pi2go.cleanup()
+
+        print(cal)
+
+    elif test == 'turnWheels':
+        wheelTurn()
+
+    else:
+        print("Argument not recognised")
