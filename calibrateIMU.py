@@ -15,7 +15,10 @@ from heading import Compass
 
 def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     heading = Compass()
-    pi2go.init()
+    try:
+        pi2go.init()
+    except:
+        pass
 
     start = heading.getMedianHeading()
     if clockwise and (wheel == "Right"):
