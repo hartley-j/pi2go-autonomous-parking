@@ -64,7 +64,7 @@ class Robot:
 
     def rotateAngle(self,deg,speed=10, tolerance=None):
         # Rotates the robot a set number of degrees from -180 to 180
-        # Used in map.py and ...
+        # Used in oldMap.py and ...
         currenthead = self.heading.getHeading()
         targetHead = self.heading.normaliseHeading(currenthead + deg)
 

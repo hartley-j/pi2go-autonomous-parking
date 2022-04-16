@@ -108,7 +108,7 @@ class Compass:
         return heading_median
 
     def normaliseHeading(self, deg):
-        # Used in map.py and robot.py
+        # Used in oldMap.py and robot.py
         if deg > 180:
             deg -= 360
         if deg < -180:
