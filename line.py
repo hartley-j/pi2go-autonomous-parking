@@ -40,6 +40,15 @@ class Line:
         dy = self.startCoord[1] - self.endCoord[1]
         return math.sqrt(dx**2 + dy**2)
 
+    def midpoint(self):
+        """
+        Calculates midpoint of line
+        :return: coordinate as tuple (x, y)
+        """
+        x = (self.startCoord[0] + self.startCoord[0])/2
+        y = (self.startCoord[1] + self.startCoord[1])/2
+        return x, y
+
     def distanceToPoint(self, coord):
         """
         Finds the perpendicular distance a point is from the line
