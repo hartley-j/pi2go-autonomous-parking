@@ -63,10 +63,10 @@ def wheelTurn():
 
     pi2go.init()
     turnOneWheel(clockwise=False, wheel="Right", speed=40, duration=5)
-    pi2go.cleanup()
-    GPIO.cleanup()
-
-    pi2go.init()
+    # pi2go.cleanup()
+    # GPIO.cleanup()
+    #
+    # pi2go.init()
     turnOneWheel(clockwise=True, wheel="Right", speed=40, duration=10)
     pi2go.cleanup()
     GPIO.cleanup()
