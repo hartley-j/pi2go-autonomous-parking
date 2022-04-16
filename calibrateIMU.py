@@ -45,9 +45,6 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     pi2go.go(0, 0)
     end = heading.getMedianHeading()
 
-    pi2go.cleanup()
-    GPIO.cleanup()
-
     # Difference between angles
     # Spinning in a anti-clockwise direction
     if (not clockwise) and (end > start):
@@ -66,7 +63,10 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
 
 def wheelTurn():
 
-    turnOneWheel(clockwise=False, wheel="Right", speed=40, duration=10)
+    turnOneWheel(clockwise=False, wheel="Right", speed=40, duration=5)
+    pi2go.cleanup()
+    GPIO.cleanup()
+
     turnOneWheel(clockwise=True, wheel="Right", speed=40, duration=10)
     turnOneWheel(clockwise=False, wheel="Left", speed=40, duration=10)
 
