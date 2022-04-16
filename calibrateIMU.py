@@ -7,7 +7,7 @@
 from time import sleep
 import pi2go
 from icm20948 import ICM20948
-import RPi.GPIO
+import RPi.GPIO as GPIO
 import os
 import sys
 import numpy as np
@@ -46,6 +46,7 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     end = heading.getMedianHeading()
 
     pi2go.cleanup()
+    GPIO.cleanup()
 
     # Difference between angles
     # Spinning in a anti-clockwise direction
