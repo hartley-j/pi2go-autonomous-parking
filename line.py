@@ -60,3 +60,10 @@ class Line:
         c = -self.yIntercept/self.gradient
         return abs(a * coord[0] + b * coord[1] + c)/math.sqrt(a**2 + b**2)
 
+    def heading(self):
+        """
+        Returns the heading of the line with the equation: 1/m = tan(heading)
+        :return: heading as float
+        """
+        return math.atan(1/self.gradient)
+

@@ -29,12 +29,21 @@ class Robot:
         del self.heading
 
     def updateCoordinate(self, bearing, distance):
+        """
+        Updates the instance coordinates of the robot. Used inside instance
+        :param bearing: the heading that the robot has moved along
+        :param distance: distance the robot has travelled
+        """
         rads = math.radians(bearing)
         self.coordinate[0] = self.coordinate[0] + distance * math.sin(rads)
         self.coordinate[1] = self.coordinate[1] + distance * math.cos(rads)
 
     def forward(self,distance, speed=40):
-        # Move the robot forward for a set distance
+        """
+        Moves robot forward for certain distance. Used in map.py and park.py.
+        :param distance: distance to travel
+        :param speed: speed from 0 to 100 of motors
+        """
         initHead = self.heading.getHeading()
         currentHeading = initHead
         currentDistance = pi2go.getDistance()
@@ -61,10 +70,15 @@ class Robot:
             n += 1
             oldCorrection = correction
 
+        self.updateCoordinate(initHead, distance)
+
 
     def rotateAngle(self,deg,speed=10, tolerance=None):
-        # Rotates the robot a set number of degrees from -180 to 180
-        # Used in oldMap.py and ...
+        """Rotates the robot a set number of degrees from -180 to 180. Used in map.py and ...
+        :param deg: number of degrees to rotate
+        :param speed: the relative speed of the motors from 0 to 100
+        :param tolerance: the tolerance of the angle of rotation
+        """
         currenthead = self.heading.getHeading()
         targetHead = self.heading.normaliseHeading(currenthead + deg)
 
@@ -83,4 +97,5 @@ class Robot:
         pi2go.go(0,0)
 
     def stop(self):
+        """Stops the robot"""
         pi2go.go(0,0)
