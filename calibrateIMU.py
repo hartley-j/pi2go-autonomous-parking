@@ -11,11 +11,53 @@ import os
 import numpy as np
 from heading import Compass
 
-
-def wheelTurn():
+def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     heading = Compass()
     pi2go.init()
-    pi2go.
+
+    start = heading.getMedianHeading()
+    if clockwise and (wheel=="Right"):
+        # Right wheel reverses
+        print(f"Moving {wheel} wheel at speed {-1 * speed}")
+        left, right = (0, -1 * speed)
+    elif clockwise and (wheel == "Left"):
+        # Left wheel forward
+        print(f"Moving {wheel} wheel at speed {speed}")
+        left, right = (speed, 0)
+    elif not clockwise and (wheel == "Right"):
+        print(f"Moving {wheel} wheel at speed {speed}")
+        left, right = (0, speed)
+    elif not clockwise and (wheel == "Left"):
+        print(f"Moving {wheel} wheel at speed {-1 * speed}")
+        left, right = (-1 * speed, 0)
+    else:
+        left, right = (speed, 0)
+
+    pi2go.go(left, right)
+    sleep(duration)
+    pi2go.go(0, 0)
+    end = heading.getMedianHeading()
+
+    # Difference between angles
+    # Spinning in a anti-clockwise direction
+    if not clockwise and (end > start):
+        # Then, we have passed South (from -180 to +179)
+        end -= 360
+    elif clockwise and (end < start):
+        end += 360
+    else:
+        pass
+
+    diff = start - end
+    print(f"Start: {start}, End: {end}, Diff:{diff}")
+
+    return start, end, diff
+
+
+def wheelTurn():
+
+    turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10)
+    turnOneWheel(clockwise=False, wheel="Left", speed=20, duration=10)
 
 
 def getCalibration(overwrite):
