@@ -101,7 +101,7 @@ class Robot:
         :param speed: the relative speed of the motors from 0 to 100
         :param tolerance: the tolerance of the angle of rotation
         """
-        currenthead = self.heading.getHeading()
+        currenthead = self.heading.getMedianHeading()
         targetHead = self.heading.normaliseHeading(currenthead + deg)
 
         lowerBound = targetHead - tolerance
@@ -114,7 +114,7 @@ class Robot:
                 pi2go.go(-speed, 0)
 
             sleep(0.001)
-            currenthead = self.heading.getHeading()
+            currenthead = self.heading.getMedianHeading(nmax=10)
 
         pi2go.go(0,0)
 
