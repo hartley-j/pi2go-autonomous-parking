@@ -113,9 +113,9 @@ class Robot:
             if deg < 0:
                 pi2go.go(-speed, 0)
 
-            sleep(0.001)
-            currenthead = self.heading.getMedianHeading(nmax=10)
 
+            currenthead = self.heading.getMedianHeading(nmax=10)
+            sleep(0.5)
         pi2go.go(0,0)
 
     def stop(self):
