@@ -115,7 +115,7 @@ class Robot:
 
 
             currenthead = self.heading.getMedianHeading(nmax=10)
-            sleep(0.5)
+            sleep(0.1)
         pi2go.go(0,0)
 
     def stop(self):
