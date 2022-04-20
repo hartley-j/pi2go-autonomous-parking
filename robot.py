@@ -62,7 +62,7 @@ class Robot:
             correction = pid(change)
             # print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
             pi2go.go(round(speed + correction), speed)
-            sleep(1.5)
+            sleep(0.5)
             pi2go.go(0,0)
             currentDistance = pi2go.getDistance()
             currentHeading = self.heading.getMedianHeading(nmax=10)
