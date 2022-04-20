@@ -6,6 +6,7 @@
 
 import robot
 from time import sleep
+from map import Map
 
 def testFoward():
     try:
@@ -71,6 +72,12 @@ def test8():
     rob.forward(-10)
     del rob
 
+def test10():
+    m = Map()
+    # Map the space:
+    outputs = m()
+    # Print the coordinate of midpoint of the back wall:
+    print(outputs[0].midpoint())
 
 if __name__ == '__main__':
     testFoward()
