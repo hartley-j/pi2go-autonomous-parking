@@ -101,6 +101,9 @@ class Robot:
         :param speed: the relative speed of the motors from 0 to 100
         :param tolerance: the tolerance of the angle of rotation
         """
+        if deg > 180 or deg < -180:
+            return
+
         currenthead = self.heading.getMedianHeading()
         targetHead = self.heading.normaliseHeading(currenthead + deg)
 
