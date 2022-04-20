@@ -30,9 +30,9 @@ class Map:
             sample = list(self.sampleFLRData())
             [distanceData[i].extend(sample[i]) for i in range(3)]
 
-        self.robot.rotateAngle(-180)
+        self.robot.rotateAngle(-180, tolerance=10)
         self.robot.forward(initDistance/4)
-        self.robot.rotateAngle(-90)
+        self.robot.rotateAngle(-90, tolerance=10)
 
         for i in range(len(distanceData)):
             backWall = self.findBackWall(distanceData[i])
@@ -84,7 +84,7 @@ class Map:
             time.sleep(0.5)
             angleDistance.append(self.takeDistanceAngle())
 
-        self.robot.rotateAngle(-degrange)
+        self.robot.rotateAngle(-degrange, tolerance=10)
         return angleDistance
 
     def sampleFLRData(self):
@@ -92,13 +92,13 @@ class Map:
         Rotates samples coordinate data of front, left and right (FLR) of robot
         :return: list of lists of (angle, distance) points for r, l, f
         """
-        self.robot.rotateAngle(deg=90)
+        self.robot.rotateAngle(deg=90, tolerance=10)
         dataR = self.sampleDistanceAngles(5, 25)
 
-        self.robot.rotateAngle(deg=-180)
+        self.robot.rotateAngle(deg=-180, tolerance=10)
         dataL = self.sampleDistanceAngles(5, 25)
 
-        self.robot.rotateAngle(deg=90)
+        self.robot.rotateAngle(deg=90, tolerance=10)
         dataF = self.sampleDistanceAngles(5, 25)
 
         return dataR, dataL, dataF
@@ -108,9 +108,9 @@ class Map:
         Samples the front of robot between -30 to 30 degrees from normal to wall
         :return: list of (x, y) coordinates
         """
-        self.robot.rotateAngle(deg=-30)
+        self.robot.rotateAngle(deg=-30, tolerance=10)
         data = self.sampleDistanceAngles(30, 60)
-        self.robot.rotateAngle(deg=-30)
+        self.robot.rotateAngle(deg=-30, tolerance=10)
 
         return self.getCoordinates(data)
 
