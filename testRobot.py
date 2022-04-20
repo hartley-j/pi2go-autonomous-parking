@@ -59,5 +59,11 @@ def test6():
     rob.forward(10)
     del rob
 
+def test7():
+    rob = robot.Robot()
+    # Move forward 10cm:
+    rob.forward(0)
+    del rob
+
 if __name__ == '__main__':
     testFoward()
