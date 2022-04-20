@@ -53,5 +53,11 @@ def test5():
     rob.rotateAngle(-300, speed=30,tolerance=10)
     del rob
 
+def test6():
+    rob = robot.Robot()
+    # Move forward 10cm:
+    rob.forward(10)
+    del rob
+
 if __name__ == '__main__':
     testFoward()

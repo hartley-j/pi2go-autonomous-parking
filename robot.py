@@ -44,7 +44,7 @@ class Robot:
         :param distance: distance to travel
         :param speed: speed from 0 to 100 of motors
         """
-        initHead = self.heading.getHeading()
+        initHead = self.heading.getMedianHeading()
         currentHeading = initHead
         currentDistance = pi2go.getDistance()
 
@@ -55,20 +55,17 @@ class Robot:
         changeDistance = currentDistance - distance
         lowerBound = changeDistance - 5
         upperBound  = changeDistance + 5
-        n = 0
-        oldCorrection = 0
         while not(lowerBound <= currentDistance <= upperBound):
 
             change = self.heading.normaliseHeading(currentHeading - initHead)
 
             correction = pid(change)
-            print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
-            if n == 0 or correction != oldCorrection:
-                pi2go.go(round(speed + correction), speed)
+            # print(f"Current heading: {currentHeading}\tChange: {change}\tCorrection: {correction}\n")
+            pi2go.go(round(speed + correction), speed)
+            sleep(1.5)
+            pi2go.go(0,0)
             currentDistance = pi2go.getDistance()
-            currentHeading = self.heading.getHeading()
-            n += 1
-            oldCorrection = correction
+            currentHeading = self.heading.getMedianHeading(nmax=10)
 
         self.updateCoordinate(initHead, distance)
 
