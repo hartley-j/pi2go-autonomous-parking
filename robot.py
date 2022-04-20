@@ -68,6 +68,7 @@ class Robot:
             currentHeading = self.heading.getMedianHeading(nmax=10)
 
         self.updateCoordinate(initHead, distance)
+        return
 
     def moveToCoordinate(self, coord):
         """
