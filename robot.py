@@ -26,7 +26,6 @@ class Robot:
 
     def __del__(self):
         pi2go.cleanup()
-        del self.heading
 
     def updateCoordinate(self, bearing, distance):
         """
