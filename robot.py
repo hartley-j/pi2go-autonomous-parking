@@ -104,8 +104,8 @@ class Robot:
         currenthead = self.heading.getMedianHeading()
         targetHead = self.heading.normaliseHeading(currenthead + deg)
 
-        lowerBound = targetHead - tolerance
-        upperBound = targetHead + tolerance
+        lowerBound = self.heading.normaliseHeading(targetHead - tolerance)
+        upperBound = self.heading.normaliseHeading(targetHead + tolerance)
 
         while not(lowerBound <= currenthead <= upperBound):
             if deg > 0:
