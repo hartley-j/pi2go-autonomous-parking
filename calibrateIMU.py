@@ -43,8 +43,8 @@ def turnOneWheel(clockwise=False, wheel="Right", speed=20, duration=10):
     pi2go.go(0, 0)
     end = heading.getMedianHeading()
 
-    # Difference between angles
-    # Spinning in a anti-clockwise direction
+    # Difference between angles
+    # Spinning in an anti-clockwise direction
     if (not clockwise) and (end > start):
         # Then, we have passed South (from -180 to +179)
         end -= 360
