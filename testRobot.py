@@ -7,6 +7,7 @@
 import robot
 from time import sleep
 from map import Map
+import park
 
 def testFoward():
     try:
@@ -78,6 +79,10 @@ def test9():
     outputs = m()
     # Print the coordinate of midpoint of the back wall:
     print(outputs[0].midpoint())
+
+def test11():
+    # Call park.main:
+    park.main()
 
 if __name__ == '__main__':
     testFoward()
