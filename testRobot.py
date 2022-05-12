@@ -72,7 +72,7 @@ def test8():
     rob.forward(-10)
     del rob
 
-def test10():
+def test9():
     m = Map()
     # Map the space:
     outputs = m()
