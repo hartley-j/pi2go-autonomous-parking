@@ -37,9 +37,9 @@ def test2():
 def test3():
     rob = robot.Robot()
     # Rotate 90 degrees clockwise:
-    rob.rotateAngle(90, speed=20,tolerance=20)
+    rob.rotateAngle(90, speed=30,tolerance=10)
     # Rotate 90 degrees anti-clockwise:
-    rob.rotateAngle(-90, speed=20, tolerance=20)
+    rob.rotateAngle(-90, speed=30, tolerance=10)
     del rob
 
 def test4():
